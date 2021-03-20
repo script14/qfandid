@@ -1,0 +1,3 @@
+All credit goes to the original project from https://github.com/woltapp/blurhash/tree/master/C
+
+The C portable decoder used here is exactly the same as the one in the source repo. No modifications have been made.
