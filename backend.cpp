@@ -1176,7 +1176,7 @@ void BackEnd::checkAppVersion(QString appVersion)
 void BackEnd::receivedUpdateCheck(QNetworkReply *reply)
 {
     QString latestVersion = reply->readAll();
-    if (reply->property("appVersion").toString().compare(latestVersion) != 0)
+    if (!latestVersion.isEmpty() && reply->property("appVersion").toString().compare(latestVersion) != 0)
         makeMessageNotification(latestVersion + " update", "Update to version " + latestVersion + " is available. Download it from https://fandid.app");
 }
 
