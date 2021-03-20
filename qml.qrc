@@ -45,7 +45,7 @@
         <file>MySwitch.qml</file>
         <file>InfoPage.qml</file>
         <file>Assets/Images/Qt.svg</file>
-        <file>Assets/Strings/COPYING</file>
         <file>Assets/Images/gpl-v3-logo.svg</file>
+        <file>COPYING</file>
     </qresource>
 </RCC>
