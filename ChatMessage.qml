@@ -62,7 +62,7 @@ Item {
             anchors.top: parent.top
             anchors.leftMargin: 10
             anchors.topMargin: 5
-            visible: !ownMessage
+            visible: !ownMessage || messageMedia.source != ""
             Layout.alignment: Qt.AlignTop | Qt.AlignLeft
             implicitWidth: comboBoxIcon.contentWidth
             currentIndex: -1
@@ -77,7 +77,7 @@ Item {
 
             model: ListModel {
                 id: comboBoxItems
-                ListElement { text: "Report" }
+                //ListElement { text: "Report" }
             }
 
             contentItem: Text {
@@ -139,6 +139,9 @@ Item {
                 //Add options dynamically depending on power level and ownership
                 if (messageMedia.source != "")
                     comboBoxItems.append({"text": "Save image"})
+
+                if (!ownMessage)
+                    comboBoxItems.append({"text": "Report"})
             }
         }
 
