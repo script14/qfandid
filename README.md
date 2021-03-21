@@ -41,7 +41,7 @@ You will now have qFandid installed in `/opt/qFandid/bin`. Alternatively you can
 17. Go to the folder `C:\Qt\Tools\OpenSSL\Win_x64\bin` and copy the following files to the same folder as the exe
 - `libcrypto-1_1-x64.dll`
 - `libssl-1_1-x64.dll`
-- Install Microsoft Visual C++ Redistributable Package (x64) version 2010 at least, e.g. from https://www.microsoft.com/en-us/download/details.aspx?id=13523
+18. Install Microsoft Visual C++ Redistributable Package (x64) version 2010 from https://www.microsoft.com/en-us/download/details.aspx?id=13523 because openssl depends on it
 
 You will now have a usable qFandid Windows 10 64-bit version. Start `Fandid.exe` to launch it.
 
