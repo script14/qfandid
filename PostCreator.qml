@@ -277,7 +277,7 @@ Item {
             text: qsTr("NSFW")
             font.pointSize: 15
             anchors.verticalCenter: parent.verticalCenter
-            rightPadding: platformIsMobile ? charLimit.contentWidth * 1.2 : undefined
+            rightPadding: platformIsMobile ? charLimit.contentWidth * 1.5 : undefined
             anchors.horizontalCenter: parent.horizontalCenter
             visible: userInfo["riskLevel"] > 0
         }
