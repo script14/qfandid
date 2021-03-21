@@ -52,7 +52,17 @@ Item {
         id: roomInsideBackend
     }
 
-    Component.onDestruction: focusWindow.focus = true
+    Component.onCompleted:
+    {
+        checkDirectMessageInfo()
+        messageNotificationTimer.running = false
+    }
+
+    Component.onDestruction:
+    {
+        focusWindow.focus = true
+        messageNotificationTimer.running = true
+    }
 
     Connections {
         target: globalBackend
@@ -425,6 +435,4 @@ Item {
 
         onRejected: removeImage()
     }
-
-    Component.onCompleted: checkDirectMessageInfo()
 }
