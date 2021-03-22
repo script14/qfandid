@@ -36,7 +36,7 @@ You will now have qFandid installed in `/opt/qFandid/bin`. Alternatively you can
 14. In the `Build Steps` section, click on the `Details` button on the `qmake` step to reveal extra options. In the `Additional arguments:` field, paste the following `-spec win32-clang-msvc`.
 15. Click the hammer button on the bottom left to build the program and wait for it to finish. You can then close Qt Creator
 16. Open the build directory, go to the `release` folder and delete everything from there **except** the `Fandid.exe` file
-17. Open a command prompt and execute `"C:\Qt\5.15.2\msvc2019_64\bin\windeployqt.exe" --no-translations --qmldir "path\to\folder\containing\the\source\code" "path\to\build\directory\release\Fandid.exe"`
+17. Open a command prompt and execute `"C:\Qt\5.15.2\msvc2019_64\bin\windeployqt.exe" --release --no-translations --qmldir "path\to\folder\containing\the\source\code" "path\to\build\directory\release\Fandid.exe"`
 18. Now because `windeployqt.exe` is a bit unreliable some manual intervention is needed. Go to the build folder and create a new directory called `plugins`. Then move the `webview` folder inside `plugins`.
 19. Go to the folder `C:\Qt\Tools\OpenSSL\Win_x64\bin` and copy the following files to the same folder as the exe
 - `libcrypto-1_1-x64.dll`
