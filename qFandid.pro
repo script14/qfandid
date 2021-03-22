@@ -1,4 +1,4 @@
-QT += quick quickcontrols2 svg widgets gui
+QT += quick quickcontrols2 svg widgets gui webview
 
 CONFIG += c++11 qmltypes
 

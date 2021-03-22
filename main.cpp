@@ -102,6 +102,8 @@ int main(int argc, char *argv[])
     //Bite: unnecessary if android:theme="@android:style/Theme.NoTitleBar"
     //QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::Round);
 
+    //It is required to initialize the webview before creating the application
+    QtWebView::initialize();
     QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;

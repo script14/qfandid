@@ -47,5 +47,6 @@
         <file>Assets/Images/Qt.svg</file>
         <file>Assets/Images/gpl-v3-logo.svg</file>
         <file>COPYING</file>
+        <file>RegisterPage.qml</file>
     </qresource>
 </RCC>

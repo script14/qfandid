@@ -24,7 +24,6 @@ Item {
     property string title: ""
     property int textSize: 15
     property string textContent: ""
-    property int format: Text.MarkdownText
 
     Rectangle {
         id: settingsPageTopBar
@@ -108,7 +107,7 @@ Item {
             rightPadding: 10
             font.pointSize: textSize
             color: globalTextColor
-            textFormat: format
+            textFormat: Text.MarkdownText
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             text: textContent
             onLinkActivated: Qt.openUrlExternally(link)

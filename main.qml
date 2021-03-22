@@ -43,6 +43,7 @@ ApplicationWindow {
     //Links
     property string linkRules: "https://fandid.app/rules.html"
     property string linkWebsite: "https://fandid.app"
+    property string recaptchaLink: "https://fandid.app/captcha.html"
 
     //Colors
     property color fandidYellow: "#FFC20B"
@@ -139,6 +140,7 @@ ApplicationWindow {
         id: focusWindow
         visible: false
         focus: true
+        enabled: !platformIsMobile
         signal preloadPostCreator(int groupId, string groupName, string text, bool nsfw)
 
         Keys.onEscapePressed: if (mainStackView.depth > 1)

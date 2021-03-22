@@ -58,6 +58,7 @@ Item {
     property color loveColor: "#fe4543"
     property color hateColor: "#a343fe"
     property int iconSize: commentTextSize + 7 //20
+    property int replySize: commentTextSize + 2 //15
     property int nameSize: commentTextSize + 1 //platformIsMobile ? 14 : 13
     property int avatarSize: commentTextSize + 12 //25
     property int commentTextSize: userSettings["commentFontSize"]
@@ -520,7 +521,7 @@ Item {
                 id: replyText
                 color: globalTextColor
                 text: qsTr("Reply")
-                font.pointSize: 15
+                font.pointSize: replySize
 
                 MouseArea {
                     anchors.fill: parent

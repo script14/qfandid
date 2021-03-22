@@ -124,6 +124,9 @@
 //For applying Material style
 #include <QQuickStyle>
 
+//For registration through a web view
+#include <QtWebView>
+
 class BackEnd : public QObject
 {
     Q_OBJECT
@@ -198,6 +201,7 @@ public:
     Q_INVOKABLE void resetSkipId();
     Q_INVOKABLE void checkAppVersion(QString appVersion);
     Q_INVOKABLE QString readText(QString path);
+    Q_INVOKABLE QString registerAccount(QString username, QString password, QString token, bool rememberMe);
 
     enum RequestType
    {
@@ -358,6 +362,8 @@ private:
 
     const QString host = "https://api.fandid.app/";
     const QString versionSource = "https://fandid.app/qt/version";
+    const QString registerType = "v0";
+
     const QMap<int, QString> feedType
     {
         {RequestType::NEW, "post/getnewposts/"},

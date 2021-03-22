@@ -508,7 +508,7 @@ Item {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
-                onClicked: mainStackView.push("InfoPage.qml", {"imageSource": "Assets/Images/gpl-v3-logo.svg", "title": "GPL license", "textContent": globalBackend.readText(":/COPYING"), "format": Text.PlainText})
+                onClicked: mainStackView.push("InfoPage.qml", {"imageSource": "Assets/Images/gpl-v3-logo.svg", "title": "GPL license", "textContent": globalBackend.readText(":/COPYING")})
 
                 background: Rectangle {
                     implicitWidth: window.width / 3 - parent.parent.anchors.leftMargin - parent.parent.anchors.rightMargin

@@ -227,16 +227,24 @@ Item {
                     if (userToken.length != 0)
                     {
                         mainStackView.pop()
-                        loginPage.active = false;
+                        loginPage.active = false
                         launchMainView()
                     }
                     else
-                        messageDialogLoginFailure.visible = true
+                    {
+                        messageDialog.text = "Login failed"
+                        messageDialog.detailedText = "The username or password is incorrect"
+                        messageDialog.icon = StandardIcon.Critical
+                        messageDialog.visible = true
+                    }
                 }
 
                 else
                 {
-                    messageDialogRequirements.visible = true
+                    messageDialog.text = "Please fill in your username and password and agree to our rules."
+                    messageDialog.detailedText = ""
+                    messageDialog.icon = StandardIcon.Warning
+                    messageDialog.visible = true
                 }
             }
 
@@ -256,22 +264,30 @@ Item {
 //                color: parent.down ? globalTextColorDarker : globalTextColor
 //            }
         }
+
+        RoundButton {
+            id: registerButton
+            width: implicitContentWidth + 50
+            height: implicitContentHeight + 20
+            text: qsTr("Create a new account")
+            anchors.top: button.bottom
+            font.pointSize: buttonSize
+            font.bold: true
+            font.capitalization: Font.MixedCase
+            display: AbstractButton.TextOnly
+            anchors.topMargin: 30
+            anchors.horizontalCenter: parent.horizontalCenter
+            Material.background: fandidYellowDarker
+
+            onClicked: mainStackView.replace("RegisterPage.qml")
+        }
     }
 
     MessageDialog {
-        id: messageDialogRequirements
-        title: "Warning"
-        text: "Please fill in your username and password and agree to our rules."
+        id: messageDialog
+        title: "Error"
+        text: ""
         icon: StandardIcon.Warning
-        visible: false
-    }
-
-    MessageDialog {
-        id: messageDialogLoginFailure
-        title: "Failure"
-        text: "Login failed"
-        detailedText: "The username or password is incorrect"
-        icon: StandardIcon.Critical
         visible: false
     }
 

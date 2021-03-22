@@ -1,4 +1,4 @@
-var appVersion = `0.8 open beta`
+var appVersion = `0.8.1 open beta`
 
 var aboutQt = `About Qt\n
 This program uses Qt version 5.15.2.\n
@@ -30,9 +30,15 @@ Thanks to:
 - Ragan Clack: For creating the image loading GIF.
 - Dictator Jibril: For creating a banner for our Patreon page.
 - Bread: For creating a banner for our Facebook page.
+
+Third-party libraries used:
+- Blurhash: for generating blurred images before the real image is downloaded. Source code: https://github.com/woltapp/blurhash
 `
 
 var changelog = `Changelog:
 ` + appVersion + `
-- First release
+- Added new account creation
+- Added some fixed avatars
+- Fixed receiving notifications from a DM while being in it
+- Added a combobox to your own DMs to be able to download your own images
 `

@@ -1207,3 +1207,44 @@ QString BackEnd::readText(QString path)
     else
         return QString();
 }
+
+QString BackEnd::registerAccount(QString username, QString password, QString token, bool rememberMe)
+{
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request;
+    request.setUrl(QUrl(host + (username.isEmpty() || password.isEmpty() ? "user/skip" : "user/create")));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QJsonObject groupData;
+    groupData["username"] = username;
+    groupData["password"] = password;
+    groupData["token"] = token;
+    groupData["agree"] = "agree";
+    groupData["type"] = registerType;
+
+    QJsonDocument doc(groupData);
+    QByteArray body = doc.toJson();
+
+    QNetworkReply *reply = manager->post(request, body);
+
+    QEventLoop eventLoop;
+    connect(reply, SIGNAL(finished()), &eventLoop, SLOT(quit()));
+
+    eventLoop.exec();
+
+    QString response = reply->readAll();
+    if (reply->error() != QNetworkReply::NoError || response.isEmpty())
+        return QString();
+    else
+    {
+        if (rememberMe)
+        {
+            QSettings settings(QSettings::IniFormat, QSettings::UserScope, "qFandid", "qFandid");
+            settings.beginGroup("Authentication");
+            settings.setValue("userToken", response);
+            settings.endGroup();
+        }
+
+        return response;
+    }
+}
