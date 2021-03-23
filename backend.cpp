@@ -900,8 +900,7 @@ void BackEnd::checkNotificationsBackground(QString userToken)
     request.setUrl(QUrl(host + "user/info"));
     request.setRawHeader("token", userToken.toUtf8());
     connect(manager, &QNetworkAccessManager::finished, this, &BackEnd::finishedCheckingNotificationsBackground);
-    QNetworkReply *reply = manager->get(request);
-    reply->setProperty("userToken", userToken);
+    manager->get(request);
 }
 
 void BackEnd::finishedCheckingNotificationsBackground(QNetworkReply *reply)
@@ -916,7 +915,7 @@ void BackEnd::finishedCheckingNotificationsBackground(QNetworkReply *reply)
         QNetworkAccessManager *managerDms = new QNetworkAccessManager(this);
         QNetworkRequest requestDms;
         requestDms.setUrl(QUrl(host + "chat/rooms/0"));
-        requestDms.setRawHeader("token", reply->property("userToken").toString().toUtf8());
+        requestDms.setRawHeader("token", userToken.toUtf8());
         connect(managerDms, &QNetworkAccessManager::finished, this, &BackEnd::finishedCheckingDirectMessageNotificationsBackground);
         managerDms->get(requestDms);
     }
