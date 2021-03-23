@@ -100,19 +100,19 @@ Item {
         function onAddChatMessage(newMessage, id, time, senderId, model, content, media, imageHash, imageType, imageWidth, imageHeight)
         {
             chatMessageModel.insert(newMessage ? 0 : chatMessageListView.count,
-                                {
-                                    "id": id,
-                                    "time": time,
-                                    "senderId": senderId,
-                                    "model": model,
-                                    "content": content,
-                                    "media": media,
-                                    "imageHash": imageHash,
-                                    "imageType": imageType,
-                                    "imageWidth": imageWidth,
-                                    "imageHeight": imageHeight
-                                }
-                                    )
+                {
+                    "id": id,
+                    "time": time,
+                    "senderId": senderId,
+                    "model": model,
+                    "content": content,
+                    "media": media,
+                    "imageHash": imageHash,
+                    "imageType": imageType,
+                    "imageWidth": imageWidth,
+                    "imageHeight": imageHeight
+                }
+                    )
         }
 
         function onUnlockPostFeed()

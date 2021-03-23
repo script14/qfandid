@@ -39,7 +39,7 @@ Item {
         width: window.width / 2
         anchors.left: parent.left
         anchors.right: parent.right
-        height: button.height + border.width// * 2.5
+        height: button.height + border.width
         color: "transparent"
         border.color: "#414141"
         border.width: 6
@@ -57,13 +57,6 @@ Item {
             Material.background: globalBackgroundDarker
             background.anchors.fill: this
             leftPadding: 5
-
-//            background: Rectangle {
-//                id: buttonBackground
-//                implicitWidth: postToGroupEntry.width - rectangle.border.width
-//                implicitHeight: postButtonText.contentHeight
-//                color: globalBackgroundDarker
-//            }
 
             contentItem: Text {
                 id: postButtonText

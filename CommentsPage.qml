@@ -292,23 +292,6 @@ Item {
                 font.capitalization: Font.MixedCase
                 Material.background: fandidYellowDarker
 
-//                background: Rectangle {
-//                    id: sendButtonBackground
-//                    implicitWidth: sendButtonText.contentWidth
-//                    implicitHeight: sendButtonText.contentHeight
-//                    color: parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker
-//                    radius: 20
-//                }
-
-//                contentItem: Text {
-//                    id: sendButtonText
-//                    text: parent.text
-//                    font: parent.font
-//                    horizontalAlignment: Text.AlignHCenter
-//                    verticalAlignment: Text.AlignVCenter
-//                    color: parent.down ? Qt.darker(globalTextColor, 1.2) : globalTextColor
-//                }
-
                 onPressed: sendComment()
 
                 MyBusyIndicator {
@@ -343,8 +326,6 @@ Item {
                 sendButton.text = progress + "%"
             else
             {
-//                sendButtonText.color = globalBackgroundDarker
-//                sendButtonBackground.color = globalBackgroundDarker
                 myBusyIndicator.visible = true
                 sendButton.text = "Send"
             }
@@ -356,7 +337,6 @@ Item {
             sendButton.enabled = true
             sendButton.text = "Send"
             sendButton.color = globalTextColor
-            //sendButtonBackground.color = fandidYellowDarker
             myBusyIndicator.visible = false
             globalBackend.makeNotification("Comment failed", "Failed to submit comment. Maybe you are commenting too quickly")
         }

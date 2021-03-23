@@ -83,7 +83,6 @@ ApplicationWindow {
     Component.onCompleted:
     {
         globalBackend.storeQmlInstance()
-        //console.debug(test["test"])
         globalBackend.checkAppVersion(MyStrings.appVersion)
     }
 
@@ -153,12 +152,8 @@ ApplicationWindow {
 
     function launchMainView()
     {
-        if (Qt.platform.os == "android")
-            ;//globalBackend.registerJavaCallbacks()
-        else
-        {
+        if (!platformIsMobile)
             globalBackend.startSystemTrayIcon()
-        }
 
         globalBackend.checkNotificationsBackground(userToken)
 

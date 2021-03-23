@@ -20,41 +20,4 @@ import QtQuick.Layouts 1.0
 
 Item {
 
-    Text {
-        id: groupName
-        width: window.width / 2
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.rightMargin: 10
-        anchors.topMargin: 15
-        color: postBody.color
-        text: qsTr("Fandid")
-        font.pointSize: nameSize
-        renderType: Text.NativeRendering
-        horizontalAlignment: Text.AlignRight
-        font.weight: Font.Bold
-        font.capitalization: Font.MixedCase
-        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        maximumLineCount: 1
-        elide: Text.ElideRight
-
-        Rectangle {
-            id: groupBackground
-            width: groupName.contentWidth + 10
-            height: groupName.contentHeight + 5
-            color: globalTextColor
-            radius: 20
-            anchors.verticalCenter: parent.verticalCenter
-            z: -1
-
-            MouseArea {
-                id: groupMouseArea
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                enabled: type !== RequestType.GROUPPOSTS
-                onClicked: mainStackView.push("GroupView.qml", {"groupId": postGroupId, "groupName": groupName.text})
-            }
-        }
-    }
-
 }

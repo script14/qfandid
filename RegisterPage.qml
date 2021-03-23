@@ -72,6 +72,7 @@ Item {
             font.pointSize: 13
             renderType: Text.NativeRendering
             placeholderText: qsTr("Username")
+            rightPadding: nameCharLimit.contentWidth + 20
             Material.accent: fandidYellowDarker
 
             Label {
@@ -106,6 +107,7 @@ Item {
             font.pointSize: usernameTextField.font.pointSize
             renderType: Text.NativeRendering
             placeholderText: qsTr("Password")
+            rightPadding: passwordCharLimit.contentWidth + 20
             Material.accent: fandidYellowDarker
 
             Label {
@@ -140,6 +142,7 @@ Item {
             font.pointSize: usernameTextField.font.pointSize
             renderType: Text.NativeRendering
             placeholderText: qsTr("Confirm password")
+            rightPadding: confirmPasswordCharLimit.contentWidth + 20
             Material.accent: fandidYellowDarker
 
             Label {
@@ -163,8 +166,7 @@ Item {
 
         Text {
             id: rulesLink
-            text: "<a href='" + linkRules + "'>Read our rules</a>"
-            linkColor: fandidYellow
+            text: "Read our rules"
             anchors.top: confirmPasswordTextField.bottom
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -174,7 +176,13 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: usernameTextField.font.pointSize
             font.underline: true
-            onLinkActivated: Qt.openUrlExternally(link)
+            color: fandidYellow
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: Qt.openUrlExternally(linkRules)
+            }
         }
 
         CheckBox {
@@ -258,7 +266,6 @@ Item {
                 {
                     messageDialog.text = "Please agree to our rules."
                     messageDialog.visible = true
-                    return
                 }
                 else
                     webView.runJavaScript("grecaptcha.getResponse()", recaptchaResult)

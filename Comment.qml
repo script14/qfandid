@@ -349,7 +349,6 @@ Item {
                     Component.onCompleted:
                     {
                         //Add options dynamically depending on power level and ownership
-                        //comboBoxItems.append({"text": "OPTION"})
                         if (commentMedia.source != "")
                             comboBoxItems.append({"text": "Save image"})
 

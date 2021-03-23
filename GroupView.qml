@@ -91,23 +91,6 @@ Item {
             Material.background: fandidYellowDarker
             radius: 20
 
-//            background: Rectangle {
-//                id: postButtonBackground
-//                implicitWidth: postButtonText.contentWidth + 50
-//                implicitHeight: postButtonText.contentHeight
-//                color: parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker
-//                radius: 20
-//            }
-
-//            contentItem: Text {
-//                id: postButtonText
-//                text: parent.text
-//                font: parent.font
-//                horizontalAlignment: Text.AlignHCenter
-//                verticalAlignment: Text.AlignVCenter
-//                color: parent.down ? globalTextColorDarker : globalTextColor
-//            }
-
             onClicked:
             {
                 mainStackView.push("PostCreator.qml")
@@ -128,14 +111,6 @@ Item {
         placeholderText: qsTr("Search...")
         font.pointSize: 15
         Material.accent: fandidYellowDarker
-
-//        background: Rectangle {
-//            id: searchTextBackground
-//            implicitWidth: window.width - 10
-//            implicitHeight: platformIsMobile ? 10 : 20
-//            color: globalBackgroundDarker
-//            radius: 20
-//        }
 
         onAccepted:
         {

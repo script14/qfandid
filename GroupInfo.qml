@@ -52,20 +52,6 @@ Item {
         color: globalBackgroundDarker
         radius: 20
 
-//        Rectangle {
-//            id: groupNameBackground
-//            width: groupNameLabel.contentWidth + 20
-//            height: groupNameLabel.contentHeight + 10
-//            color: "transparent"
-//            radius: 100
-//            border.color: "transparent"//globalTextColor
-//            border.width: 3
-//            anchors.left: horizontalInstance ? undefined : parent.left
-//            anchors.top: parent.top
-//            anchors.leftMargin: horizontalInstance ? undefined : 20
-//            anchors.topMargin: horizontalInstance ? 50 : 20
-//            anchors.horizontalCenter: horizontalInstance ? parent.horizontalCenter : undefined
-
         Label {
             id: groupNameLabel
             width: horizontalInstance ? groupInfoBody.width - 10 : groupInfoBody.width / 2 - 30
@@ -83,7 +69,6 @@ Item {
             renderType: Text.NativeRendering
             font.bold: true
         }
-        //}
 
         Rectangle {
             id: nsfwBackground
@@ -213,22 +198,6 @@ Item {
             anchors.horizontalCenter: horizontalInstance ? parent.horizontalCenter : undefined
             Material.background: joined ? Qt.lighter(globalBackground, 1.3) : fandidYellowDarker
             radius: 20
-
-//            background: Rectangle {
-//                implicitWidth: postButtonText.contentWidth + 50
-//                implicitHeight: postButtonText.contentHeight
-//                color: joined ? (parent.down ? Qt.lighter(globalBackground, 1.3) : Qt.lighter(globalBackground, 1.7)) : (parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker)
-//                radius: 20
-//            }
-
-//            contentItem: Text {
-//                id: postButtonText
-//                text: parent.text
-//                font: parent.font
-//                color: parent.color
-//                horizontalAlignment: Text.AlignHCenter
-//                verticalAlignment: Text.AlignVCenter
-//            }
 
             onClicked:
             {

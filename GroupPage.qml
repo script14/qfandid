@@ -41,7 +41,6 @@ Item {
             placeholderText: qsTr("Type 3 characters")
             font.pointSize: 15
             Material.accent: fandidYellowDarker
-            //leftPadding: textFieldImage.width + 30
 
             onAccepted:
             {
@@ -65,32 +64,6 @@ Item {
                 textField.focus = false
                 focusWindow.focus = true
             }
-
-//            background: Rectangle {
-//                id: textFieldBackground
-//                implicitWidth: 200
-//                implicitHeight: platformIsMobile ? 20 : 40
-//                color: globalBackgroundDarker
-//                radius: 20
-//            }
-
-//            Image {
-//                id: textFieldImage
-//                source: "Assets/Vectors/ic_magnifying_glass.svg"
-//                anchors.left: parent.left
-//                anchors.leftMargin: 10
-//                anchors.verticalCenter: parent.verticalCenter
-//                sourceSize.height: textFieldBackground.implicitHeight / 1.1
-//                sourceSize.width: height
-//                height: sourceSize.height
-//                width: sourceSize.width
-
-//                MouseArea {
-//                    anchors.fill: parent
-//                    cursorShape: Qt.PointingHandCursor
-//                    onClicked: textField.accepted()
-//                }
-//            }
         }
 
         RoundButton {
@@ -104,22 +77,6 @@ Item {
             font.bold: true
             Material.background: fandidYellowDarker
             onClicked: mainStackView.push("GroupCreator.qml")
-
-//            background: Rectangle {
-//                implicitWidth: buttonText.contentWidth + 50
-//                implicitHeight: buttonText.contentHeight
-//                color: parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker
-//                radius: 20
-//            }
-
-//            contentItem: Text {
-//                id: buttonText
-//                text: parent.text
-//                font: parent.font
-//                horizontalAlignment: Text.AlignHCenter
-//                verticalAlignment: Text.AlignVCenter
-//                color: parent.down ? Qt.darker(globalTextColor, 1.2) : globalTextColor
-//            }
         }
     }
 

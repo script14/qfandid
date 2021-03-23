@@ -94,20 +94,11 @@ Item {
             renderType: Text.NativeRendering
             placeholderText: qsTr("Password")
             Material.accent: fandidYellowDarker
-
-//            background: Rectangle {
-//                id: passwordTextFieldBackground
-//                implicitWidth: window.width - 10
-//                implicitHeight: platformIsMobile ? 20 : 40
-//                color: globalBackgroundDarker
-//                radius: 20
-//            }
         }
 
         Text {
             id: rulesLink
-            text: "<a href='" + linkRules + "'>Read our rules</a>"
-            linkColor: fandidYellow
+            text: "Read our rules"
             anchors.top: passwordTextField.bottom
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -117,7 +108,13 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: usernameTextField.font.pointSize
             font.underline: true
-            onLinkActivated: Qt.openUrlExternally(link)
+            color: fandidYellow
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: Qt.openUrlExternally(linkRules)
+            }
         }
 
         CheckBox {
@@ -129,37 +126,6 @@ Item {
             anchors.topMargin: 30
             font.pointSize: usernameTextField.font.pointSize
             Material.accent: fandidYellowDarker
-
-//            indicator: Rectangle {
-//                id: outer1
-//                implicitWidth: 26
-//                implicitHeight: 26
-//                x: parent.leftPadding
-//                y: parent.height / 2 - height / 2
-//                radius: 3
-//                border.color: parent.down ? fandidYellowDarker : fandidYellow
-
-//                Rectangle {
-//                    width: 14
-//                    height: 14
-//                    x: 6
-//                    y: 6
-//                    radius: 2
-//                    color: parent.border.color
-//                    visible: parent.parent.checked
-//                }
-//            }
-
-//            contentItem: Text {
-//                anchors.left: outer1.right
-//                anchors.leftMargin: 10
-//                text: parent.text
-//                font: parent.font
-//                opacity: enabled ? 1.0 : 0.3
-//                color: parent.down ? globalTextColorDarker : globalTextColor
-//                verticalAlignment: Text.AlignVCenter
-//                horizontalAlignment: Text.horizontalAlignment
-//            }
         }
 
         CheckBox {
@@ -171,37 +137,6 @@ Item {
             anchors.topMargin: 30
             font.pointSize: usernameTextField.font.pointSize
             Material.accent: fandidYellowDarker
-
-//            indicator: Rectangle {
-//                id: outer2
-//                implicitWidth: 26
-//                implicitHeight: 26
-//                x: parent.leftPadding
-//                y: parent.height / 2 - height / 2
-//                radius: 3
-//                border.color: parent.down ? fandidYellowDarker : fandidYellow
-
-//                Rectangle {
-//                    width: 14
-//                    height: 14
-//                    x: 6
-//                    y: 6
-//                    radius: 2
-//                    color: parent.border.color
-//                    visible: parent.parent.checked
-//                }
-//            }
-
-//            contentItem: Text {
-//                anchors.left: outer2.right
-//                anchors.leftMargin: 10
-//                text: parent.text
-//                font: parent.font
-//                opacity: enabled ? 1.0 : 0.3
-//                color: parent.down ? globalTextColorDarker : globalTextColor
-//                verticalAlignment: Text.AlignVCenter
-//                horizontalAlignment: Text.horizontalAlignment
-//            }
         }
 
         RoundButton {
@@ -247,22 +182,6 @@ Item {
                     messageDialog.visible = true
                 }
             }
-
-//            background: Rectangle {
-//                implicitWidth: loginButtonText.contentWidth + 50
-//                implicitHeight: loginButtonText.contentHeight
-//                color: parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker
-//                radius: 20
-//            }
-
-//            contentItem: Text {
-//                id: loginButtonText
-//                text: parent.text
-//                font: parent.font
-//                horizontalAlignment: Text.AlignHCenter
-//                verticalAlignment: Text.AlignVCenter
-//                color: parent.down ? globalTextColorDarker : globalTextColor
-//            }
         }
 
         RoundButton {
@@ -292,9 +211,3 @@ Item {
     }
 
 }
-
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:1.1}
-}
-##^##*/

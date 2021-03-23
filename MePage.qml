@@ -216,13 +216,6 @@ Item {
                 background.anchors.fill: this
                 padding: 0
 
-//                background: Rectangle {
-//                    id: settingsButtonBackground
-//                    implicitWidth: settingsButtonText.contentWidth
-//                    implicitHeight: settingsButtonText.contentHeight
-//                    color: "transparent"
-//                }
-
                 contentItem: Text {
                     id: settingsButtonText
                     text: parent.text
@@ -236,21 +229,6 @@ Item {
 
                 onClicked: mainStackView.push("SettingsPage.qml")
             }
-
-//                Label {
-//                    id: settingsLabel
-//                    text: "Settings"
-//                    anchors.top: settingsButton.bottom
-//                    anchors.left: parent.left
-//                    anchors.right: parent.right
-//                    anchors.topMargin: -15
-//                    font.bold: true
-//                    horizontalAlignment: Text.AlignHCenter
-//                    verticalAlignment: Text.AlignVCenter
-//                    renderType: Text.NativeRendering
-//                    color: fandidYellow
-//                    font.pointSize: bottomIndicatorSize
-//                }
         }
 
         MePageTopIndicator {

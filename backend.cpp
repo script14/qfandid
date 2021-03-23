@@ -1215,14 +1215,14 @@ QString BackEnd::registerAccount(QString username, QString password, QString tok
     request.setUrl(QUrl(host + (username.isEmpty() || password.isEmpty() ? "user/skip" : "user/create")));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    QJsonObject groupData;
-    groupData["username"] = username;
-    groupData["password"] = password;
-    groupData["token"] = token;
-    groupData["agree"] = "agree";
-    groupData["type"] = registerType;
+    QJsonObject accountData;
+    accountData["username"] = username;
+    accountData["password"] = password;
+    accountData["token"] = token;
+    accountData["agree"] = "agree";
+    accountData["type"] = registerType;
 
-    QJsonDocument doc(groupData);
+    QJsonDocument doc(accountData);
     QByteArray body = doc.toJson();
 
     QNetworkReply *reply = manager->post(request, body);

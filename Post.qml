@@ -189,39 +189,6 @@ Item {
             }
         }
 
-//        Button {
-//            id: groupBackground
-//            text: qsTr("")
-//            anchors.right: parent.right
-//            anchors.top: parent.top
-//            anchors.rightMargin: 10
-//            anchors.topMargin: 15
-//            flat: true
-//            font.capitalization: Font.MixedCase
-//            font.bold: true
-//            font.pointSize: nameSize
-
-//            background: Rectangle {
-//                implicitWidth: 100//groupName.contentWidth
-//                implicitHeight: 10//groupName.contentHeight - 60
-//                color: parent.down ? globalTextColorDarker : globalTextColor
-//                radius: 20
-//            }
-
-//            contentItem: Text {
-//                id: groupName
-//                //width: window.width / 3//postBody.width - postAvatar.anchors.leftMargin - postAvatar.contentWidth -
-//                text: parent.text
-//                font: parent.font
-//                color: postBody.color
-//                renderType: Text.NativeRendering
-//                textFormat: Text.PlainText
-//                maximumLineCount: 1
-//                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-//                elide: Text.ElideRight
-//            }
-//        }
-
         Rectangle {
             id: postBottom
             width: postBody.width
@@ -490,13 +457,7 @@ Item {
 
                         model: ListModel {
                             id: comboBoxItems
-                            //ListElement { text: "Debug action" }
-                            //ListElement { text: "Save image" }
                             ListElement { text: "Share" }
-                            //ListElement { text: "Report" }
-                            //ListElement { text: "Delete" }
-                            //ListElement { text: "Hide" }
-                            //ListElement { text: "Ban" }
                         }
 
                         contentItem: Text {

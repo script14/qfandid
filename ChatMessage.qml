@@ -77,7 +77,6 @@ Item {
 
             model: ListModel {
                 id: comboBoxItems
-                //ListElement { text: "Report" }
             }
 
             contentItem: Text {

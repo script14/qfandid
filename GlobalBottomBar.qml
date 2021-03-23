@@ -102,14 +102,6 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
-
-//            background: Rectangle {
-//                implicitWidth: postButtonText.contentWidth
-//                implicitHeight: postButtonText.contentHeight
-//                opacity: enabled ? 1 : 0.3
-//                color: parent.down ? Qt.darker("#797979", 1.5) : "#797979"
-//                radius: implicitHeight
-//            }
         }
 
         RowLayout {

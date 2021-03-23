@@ -56,7 +56,6 @@ Item {
     {
         if (multiFeedListView.unlocked)
         {
-            //console.log("Loading " + type)
             multiFeedListView.unlocked = false
             multiFeedBackend.getFeed(type, postId, groupId, groupSearch, notificationId, userToken)
         }
@@ -470,8 +469,6 @@ Item {
             removeImage()
             sendButton.enabled = true
             sendButton.text = "Send"
-            //sendButton.color = globalTextColor
-            //sendButtonBackground.color = fandidYellowDarker
             myBusyIndicator.visible = false
 
             var insertIndex = commentsPage.parentId == 0 ? multiModel.count : commentIndex + 1

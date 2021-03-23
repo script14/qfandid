@@ -299,23 +299,6 @@ Item {
                 font.capitalization: Font.MixedCase
                 Material.background: fandidYellowDarker
 
-//                background: Rectangle {
-//                    id: sendButtonBackground
-//                    implicitWidth: sendButtonText.contentWidth
-//                    implicitHeight: sendButtonText.contentHeight
-//                    color: parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker
-//                    radius: 20
-//                }
-
-//                contentItem: Text {
-//                    id: sendButtonText
-//                    text: parent.text
-//                    font: parent.font
-//                    horizontalAlignment: Text.AlignHCenter
-//                    verticalAlignment: Text.AlignVCenter
-//                    color: parent.down ? Qt.darker(globalTextColor, 1.2) : globalTextColor
-//                }
-
                 onPressed: sendMessage()
 
                 MyBusyIndicator {
@@ -362,8 +345,6 @@ Item {
                 sendButton.text = progress + "%"
             else
             {
-                //sendButtonText.color = globalBackgroundDarker
-                //sendButtonBackground.color = globalBackgroundDarker
                 sendButton.text = ic_send
                 myBusyIndicator.visible = true
             }
@@ -400,8 +381,6 @@ Item {
         roomInsideTextArea.enabled = true
         sendButton.enabled = true
         sendButton.text = ic_send
-        //sendButton.color = globalTextColor
-        //sendButtonBackground.color = fandidYellowDarker
         myBusyIndicator.visible = false
     }
 

@@ -26,7 +26,6 @@ Item {
 
     //Variables
     property int buttonSize: 13
-    //property int buttonImplicitWidth: rectangle.width / 4
     property int buttonImplicitHeight: rectangle.height
 
     property color selected: fandidYellowDarker
@@ -84,7 +83,6 @@ Item {
                 font.capitalization: Font.MixedCase
                 display: AbstractButton.TextOnly
                 Layout.fillWidth: true
-                //implicitWidth: buttonImplicitWidth
                 implicitHeight: buttonImplicitHeight
                 background.anchors.fill: this
                 padding: 0
@@ -109,7 +107,6 @@ Item {
                 font.capitalization: Font.MixedCase
                 Layout.fillWidth: true
                 display: AbstractButton.TextOnly
-                //implicitWidth: buttonImplicitWidth
                 implicitHeight: buttonImplicitHeight
                 background.anchors.fill: this
                 padding: 0
@@ -134,7 +131,6 @@ Item {
                 font.capitalization: Font.MixedCase
                 display: AbstractButton.TextOnly
                 Layout.fillWidth: true
-                //implicitWidth: buttonImplicitWidth
                 implicitHeight: buttonImplicitHeight
                 background.anchors.fill: this
                 padding: 0
@@ -159,7 +155,6 @@ Item {
                 font.capitalization: Font.MixedCase
                 Layout.fillWidth: true
                 display: AbstractButton.TextOnly
-                //implicitWidth: buttonImplicitWidth
                 implicitHeight: buttonImplicitHeight
                 background.anchors.fill: this
                 padding: 0

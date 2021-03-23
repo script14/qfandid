@@ -21,28 +21,6 @@ import QtQuick.Controls.Material 2.12
 Switch {
     Material.accent: fandidYellowDarker
 
-//    indicator: Rectangle {
-//        implicitWidth: platformIsMobile ? 50 : 60
-//        implicitHeight: platformIsMobile ? 15 : 26
-//        x: parent.leftPadding
-//        y: parent.height / 2 - height / 2
-//        radius: 13
-//        Material.accent: fandidYellowDarker
-
-//        Rectangle {
-//            x: parent.parent.checked ? parent.width - width : 0
-//            width: 26
-//            height: parent.implicitHeight
-//            radius: 13
-//            color: parent.parent.down ? "#cccccc" : globalTextColor
-
-//            Behavior on x
-//            {
-//                NumberAnimation { duration: 100 }
-//            }
-//        }
-//    }
-
     contentItem: Text {
         text: parent.text
         font: parent.font

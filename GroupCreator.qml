@@ -94,14 +94,6 @@ Item {
         Material.accent: fandidYellowDarker
         rightPadding: nameCharLimit.contentWidth + 20
 
-//        background: Rectangle {
-//            id: groupNameTextFieldBackground
-//            implicitWidth: window.width - 10
-//            implicitHeight: platformIsMobile ? 20 : 40
-//            color: globalBackgroundDarker
-//            radius: 20
-//        }
-
         Label {
             id: nameCharLimit
             text: "0/" + nameCharacterLimit
@@ -200,22 +192,6 @@ Item {
         Material.background: fandidYellowDarker
         enabled: groupNameTextField.text.length !== 0 && groupDescriptionTextArea.text.length !== 0
         onClicked: groupCreatorBackend.createGroup(groupNameTextField.text, groupDescriptionTextArea.text, nsfwSwitch.checked, userToken)
-
-//        background: Rectangle {
-//            implicitWidth: createButtonText.contentWidth + 50
-//            implicitHeight: createButtonText.contentHeight
-//            color: enabled ? (parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker) : darkenedButton
-//            radius: 20
-//        }
-
-//        contentItem: Text {
-//            id: createButtonText
-//            text: parent.text
-//            font: parent.font
-//            horizontalAlignment: Text.AlignHCenter
-//            verticalAlignment: Text.AlignVCenter
-//            color: parent.down ? Qt.darker(globalTextColor, 1.2) : globalTextColor
-//        }
     }
 
     Connections {

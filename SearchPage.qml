@@ -38,14 +38,6 @@ Item {
         Material.accent: fandidYellowDarker
         font.pointSize: 15
 
-//        background: Rectangle {
-//            id: searchTextBackground
-//            implicitWidth: window.width - 10
-//            implicitHeight: platformIsMobile ? 10 : 20
-//            color: globalBackgroundDarker
-//            radius: 20
-//        }
-
         onAccepted:
         {
             if (text.length >= 3)

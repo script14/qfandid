@@ -475,7 +475,7 @@ Item {
 
             Button {
                 id: buttonaboutQt
-                text: qsTr("about Qt")
+                text: qsTr("About Qt")
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter

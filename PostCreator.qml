@@ -116,20 +116,11 @@ Item {
         inputMethodHints: Qt.ImhSensitiveData
         Material.accent: fandidYellowDarker
 
-//        background: Rectangle {
-//            id: textFieldBackground
-//            implicitWidth: window.width - postGroupLabel.anchors.leftMargin - postGroupLabel.contentWidth - textField.anchors.leftMargin - 10
-//            implicitHeight: platformIsMobile ? 20 : 40
-//            color: globalBackgroundDarker
-//            radius: 20
-//        }
-
         onTextChanged: loadGroups()
 
         onPressed:
         {
             textField.implicitWidth = window.width - postGroupLabel.anchors.leftMargin - postGroupLabel.contentWidth - textField.anchors.leftMargin - 10
-            //textFieldBackground.color = globalBackgroundDarker
 
             loadGroups()
         }
@@ -308,23 +299,6 @@ Item {
             Material.background: fandidYellowDarker
             enabled: groupId == 0 ? false : true
 
-//            background: Rectangle {
-//                id: postButtonBackground
-//                implicitWidth: postButtonText.contentWidth + 20
-//                implicitHeight: postButtonText.contentHeight
-//                color: enabled ? (parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker) : darkenedButton
-//                radius: 20
-//            }
-
-//            contentItem: Text {
-//                id: postButtonText
-//                text: parent.text
-//                font: parent.font
-//                horizontalAlignment: Text.AlignHCenter
-//                verticalAlignment: Text.AlignVCenter
-//                color: parent.down ? Qt.darker(globalTextColor, 1.2) : globalTextColor
-//            }
-
                 onPressed:
                 {
                     postTextArea.enabled = false
@@ -353,8 +327,6 @@ Item {
                 postButton.text = progress + "%"
             else
             {
-                //postButtonText.color = globalBackgroundDarker
-                //postButtonBackground.color = globalBackgroundDarker
                 myBusyIndicator.visible = true
                 postButton.text = "Post"
             }
@@ -380,7 +352,6 @@ Item {
             if (groupName.length != 0)
             {
                 textField.implicitWidth = textField.contentWidth + 20
-                //textFieldBackground.color = fandidYellowDarker
             }
 
             postCreator.groupId = groupId
