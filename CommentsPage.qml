@@ -48,6 +48,7 @@ Item {
         }
     }
 
+    Component.onCompleted: focusWindow.focus = true
     Component.onDestruction: focusWindow.focus = true
 
     Rectangle {

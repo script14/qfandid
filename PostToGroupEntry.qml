@@ -41,7 +41,7 @@ Item {
         anchors.right: parent.right
         height: button.height + border.width
         color: "transparent"
-        border.color: "#414141"
+        border.color: postToGroupEntryBorderColor
         border.width: 6
 
         Button {
@@ -54,7 +54,7 @@ Item {
             anchors.left: parent.left
             font.pointSize: 15
             font.capitalization: Font.MixedCase
-            Material.background: globalBackgroundDarker
+            Material.background: postToGroupEntryColor
             background.anchors.fill: this
             leftPadding: 5
 
@@ -69,14 +69,8 @@ Item {
 
             onClicked:
             {
-                //This is to check whether this component is used when selecting groups from the search page or post creator
-                if (typeof(searchPage) !== "undefined")
-                    console.debug("I am unfinished")
-                else if (typeof(postCreator) !== "undefined")
-                {
-                    postCreatorPreloader.onPreloadPostCreator(groupId, groupName, "", riskLevel > 0)
-                    nsfwSwitch.checked = riskLevel
-                }
+                postCreatorPreloader.onPreloadPostCreator(groupId, groupName, "", riskLevel > 0)
+                nsfwSwitch.checked = riskLevel
             }
         }
     }
