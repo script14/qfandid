@@ -1,4 +1,4 @@
-var appVersion = `0.8.1 open beta`
+var appVersion = `0.8.2 open beta`
 
 var aboutQt = `About Qt\n
 This program uses Qt version 5.15.2.\n
@@ -39,4 +39,7 @@ Third-party libraries used:
 var changelog = `Changelog:
 ` + appVersion + `
 - Added light mode, disabled by default, activated from settings
+- Improved focus:
+    - Mobile: Back button often not working on the first press should now be fixed
+    - PC: If you select some text or are writing in a text field, pressing escape will restore focus, so pressing it a second time will work to exit the page
 `

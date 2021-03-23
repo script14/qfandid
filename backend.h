@@ -202,6 +202,7 @@ public:
     Q_INVOKABLE void checkAppVersion(QString appVersion);
     Q_INVOKABLE QString readText(QString path);
     Q_INVOKABLE QString registerAccount(QString username, QString password, QString token, bool rememberMe);
+    Q_INVOKABLE void setLightMode(bool enabled);
 
     enum RequestType
    {

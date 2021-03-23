@@ -260,7 +260,7 @@ Item {
             MySwitch {
                 id: lightModeSwitch
                 checked: userSettings["lightMode"]
-                onCheckedChanged: userSettings["lightMode"] = checked
+                onCheckedChanged: settingsBackend.setLightMode(checked)
             }
         }
 

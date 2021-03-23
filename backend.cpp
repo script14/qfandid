@@ -1008,7 +1008,8 @@ void BackEnd::saveUserSettings(QVariantMap userSettings)
     settings.setValue("postFontSize", userSettings["postFontSize"]);
     settings.setValue("commentFontSize", userSettings["commentFontSize"]);
     settings.setValue("scrollBarToLeft", userSettings["scrollBarToLeft"]);
-    settings.setValue("lightMode", userSettings["lightMode"]);
+    //Light mode is handled separately to prevent potential crashes
+    //settings.setValue("lightMode", userSettings["lightMode"]);
 
     settings.endGroup();
 }
@@ -1210,4 +1211,10 @@ QString BackEnd::registerAccount(QString username, QString password, QString tok
 
         return response;
     }
+}
+
+void BackEnd::setLightMode(bool enabled)
+{
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "qFandid", "qFandid");
+    settings.setValue("Settings/lightMode", enabled);
 }

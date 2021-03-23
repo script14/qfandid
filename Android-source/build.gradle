@@ -76,6 +76,6 @@ android {
         resConfig "en"
         minSdkVersion = qtMinSdkVersion
         targetSdkVersion = qtTargetSdkVersion
-        versionName "0.8.1 open beta"
+        versionName "0.8.2 open beta"
     }
 }
