@@ -895,28 +895,35 @@ void BackEnd::finishedGettingDirectMessageInfo(QNetworkReply *reply)
 
 void BackEnd::checkNotificationsBackground(QString userToken)
 {
-    //qDebug() << "Beginning check";
-
-    QNetworkAccessManager *managerDms = new QNetworkAccessManager(this);
-    QNetworkRequest requestDms;
-    requestDms.setUrl(QUrl(host + "chat/rooms/0"));
-    requestDms.setRawHeader("token", userToken.toUtf8());
-    connect(managerDms, &QNetworkAccessManager::finished, this, &BackEnd::finishedCheckingDirectMessagesBackground);
-
-    QNetworkAccessManager *managerPostNotifications = new QNetworkAccessManager(this);
-    QNetworkRequest requestPostNotifications;
-    requestPostNotifications.setUrl(QUrl(host + "notif/desc/0"));
-    requestPostNotifications.setRawHeader("token", userToken.toUtf8());
-    connect(managerPostNotifications, &QNetworkAccessManager::finished, this, &BackEnd::finishedCheckingPostNotificationsBackground);
-
-    managerDms->get(requestDms);
-    managerPostNotifications->get(requestPostNotifications);
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkRequest request;
+    request.setUrl(QUrl(host + "user/info"));
+    request.setRawHeader("token", userToken.toUtf8());
+    connect(manager, &QNetworkAccessManager::finished, this, &BackEnd::finishedCheckingNotificationsBackground);
+    QNetworkReply *reply = manager->get(request);
+    reply->setProperty("userToken", userToken);
 }
 
-void BackEnd::finishedCheckingDirectMessagesBackground(QNetworkReply *reply)
+void BackEnd::finishedCheckingNotificationsBackground(QNetworkReply *reply)
 {
-    //qDebug() << "DMs finished";
+    QString response = reply->readAll();
+    QJsonValue obj = QJsonDocument::fromJson(response.toUtf8()).array().first().toObject();
 
+    emit newCommentsCounted(obj["notifs"].toInt());
+
+    if (obj["msgs"].toInt() > 0)
+    {
+        QNetworkAccessManager *managerDms = new QNetworkAccessManager(this);
+        QNetworkRequest requestDms;
+        requestDms.setUrl(QUrl(host + "chat/rooms/0"));
+        requestDms.setRawHeader("token", reply->property("userToken").toString().toUtf8());
+        connect(managerDms, &QNetworkAccessManager::finished, this, &BackEnd::finishedCheckingDirectMessageNotificationsBackground);
+        managerDms->get(requestDms);
+    }
+}
+
+void BackEnd::finishedCheckingDirectMessageNotificationsBackground(QNetworkReply *reply)
+{
     QString response = reply->readAll();
     QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
     QJsonArray jsonArray = jsonDoc.array();
@@ -925,6 +932,10 @@ void BackEnd::finishedCheckingDirectMessagesBackground(QNetworkReply *reply)
     foreach (const QJsonValue &value, jsonArray)
     {
         QJsonObject obj = value.toObject();
+
+        if (!obj["seen"].toBool())
+            unseenMessages++;
+
         if (!obj["sent"].toBool())
         {
             int roomId = obj["id"].toInt();
@@ -936,32 +947,10 @@ void BackEnd::finishedCheckingDirectMessagesBackground(QNetworkReply *reply)
             QString animalNounTwo = regex.globalMatch((yourId == 1 ? oneVn : twoVn), 1).next().captured(0);
 
             makePushNotification(roomId, yourId, obj["postId"].toInt(), obj["lastMsg"].toString(), oneVn, obj["oneColor"].toString(), avatars[animalNounOne], twoVn, obj["twoColor"].toString(), avatars[animalNounTwo]);
-            unseenMessages++;
         }
     }
 
     emit unseenMessagesCounted(unseenMessages);
-}
-
-void BackEnd::finishedCheckingPostNotificationsBackground(QNetworkReply *reply)
-{
-    //qDebug() << "Comments finished";
-
-    QString response = reply->readAll();
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
-    QJsonArray jsonArray = jsonDoc.array();
-
-    int newComments= 0;
-    foreach (const QJsonValue &value, jsonArray)
-    {
-        QJsonObject obj = value.toObject();
-        if (!obj["seen"].toBool())
-            newComments++;
-    }
-
-    //Make push notification if user has chosen that option
-
-    emit newCommentsCounted(newComments);
 }
 
 void BackEnd::startSystemTrayIcon()

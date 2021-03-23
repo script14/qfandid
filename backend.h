@@ -302,7 +302,6 @@ private:
     QString postTime = "Void";
     QString imageToUploadBase64 = "";
     QSystemTrayIcon trayIcon;
-    //QVector<int> notifiedMessages;
 
     //Constant values
     //Nouns associated with the corresponding unicode value in the custom font
@@ -393,8 +392,8 @@ private slots:
     void finishedGettingNewDirectMessage(QNetworkReply *reply);
     void directMessageFinished(QNetworkReply *reply);
     void finishedGettingDirectMessageInfo(QNetworkReply *reply);
-    void finishedCheckingDirectMessagesBackground(QNetworkReply *reply);
-    void finishedCheckingPostNotificationsBackground(QNetworkReply *reply);
+    void finishedCheckingNotificationsBackground(QNetworkReply *reply);
+    void finishedCheckingDirectMessageNotificationsBackground(QNetworkReply *reply);
     void finishedFetchingUserInfo(QNetworkReply *reply);
     void receivedUpdateCheck(QNetworkReply *reply);
 

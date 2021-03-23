@@ -153,8 +153,11 @@ ApplicationWindow {
         focus: !platformIsMobile
         signal preloadPostCreator(int groupId, string groupName, string text, bool nsfw)
 
-        Keys.onEscapePressed: if (mainStackView.depth > 1)
-                                  mainStackView.pop()
+        Keys.onEscapePressed:
+        {
+            if (mainStackView.depth > 1)
+                mainStackView.pop()
+        }
     }
 
     FontLoader {
