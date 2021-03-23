@@ -285,8 +285,10 @@ Item {
 
                     Keys.onPressed:
                     {
-                        if (!platformIsMobile && (event.key == Qt.Key_Return || event.key == Qt.Key_Enter) && !(event.modifiers & Qt.ShiftModifier))
+                        if (!platformIsMobile && (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) && !(event.modifiers & Qt.ShiftModifier))
                             sendMessage()
+                        else if (event.key === Qt.Key_Escape)
+                            focusWindow.focus = true
                     }
                 }
             }

@@ -59,11 +59,7 @@ Item {
                 }
             }
 
-            Keys.onEscapePressed:
-            {
-                textField.focus = false
-                focusWindow.focus = true
-            }
+            Keys.onEscapePressed: focusWindow.focus = true
         }
 
         RoundButton {

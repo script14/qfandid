@@ -582,6 +582,7 @@ Item {
             renderType: Text.NativeRendering
             anchors.horizontalCenter: parent.horizontalCenter
             textFormat: TextEdit.RichText
+            Keys.onEscapePressed: focusWindow.focus = true
             onLinkActivated:
             {
                 var properLink = link.replace("&amp;", "&")

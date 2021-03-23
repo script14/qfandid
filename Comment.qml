@@ -272,12 +272,7 @@ Item {
 
                     model: ListModel {
                         id: comboBoxItems
-                        //ListElement { text: "Debug action" }
                         ListElement { text: "Share" }
-                        //ListElement { text: "Report" }
-                        //ListElement { text: "Delete" }
-                        //ListElement { text: "Hide" }
-                        //ListElement { text: "Ban" }
                     }
 
                     contentItem: Text {
@@ -403,6 +398,7 @@ Item {
             font.pointSize: commentTextSize
             renderType: Text.NativeRendering
             textFormat: TextEdit.RichText
+            Keys.onEscapePressed: focusWindow.focus = true
             onLinkActivated:
             {
                 var properLink = link.replace("&amp;", "&")

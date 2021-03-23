@@ -112,6 +112,8 @@ Item {
             nameCharLimit.text = length + "/" + nameCharacterLimit
         }
 
+        Keys.onEscapePressed: focusWindow.focus = true
+
         onEditingFinished: focusWindow.focus = true
     }
 
@@ -163,6 +165,8 @@ Item {
                     remove(descriptionCharacterLimit, length)
                 descriptionCharLimit.text = length + "/" + descriptionCharacterLimit
             }
+
+            Keys.onEscapePressed: focusWindow.focus = true
 
             onEditingFinished: focusWindow.focus = true
         }

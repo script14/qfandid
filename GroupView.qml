@@ -120,6 +120,8 @@ Item {
             else
                 globalBackend.makeNotification("Insufficient input", "Please write at least 3 characters")
         }
+
+        Keys.onEscapePressed: focusWindow.focus = true
     }
 
     function groupSearchContent()

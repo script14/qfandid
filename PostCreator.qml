@@ -131,11 +131,7 @@ Item {
                 postToGroupEntryLoader.active = false
         }
 
-        Keys.onEscapePressed:
-        {
-            textField.focus = false
-            focusWindow.focus = true
-        }
+        Keys.onEscapePressed: focusWindow.focus = true
 
         function loadGroups()
         {
@@ -208,6 +204,8 @@ Item {
                     remove(textCharLimit, length)
                 charLimit.text = length + "/" + textCharLimit
             }
+
+            Keys.onEscapePressed: focusWindow.focus = true
 
             onEditingFinished: focusWindow.focus = true
         }

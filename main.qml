@@ -148,8 +148,7 @@ ApplicationWindow {
         //It is also the main item where focus is set by default so the app can react to various keys presses from keyboards
         id: focusWindow
         visible: false
-        focus: true
-        enabled: !platformIsMobile
+        focus: !platformIsMobile
         signal preloadPostCreator(int groupId, string groupName, string text, bool nsfw)
 
         Keys.onEscapePressed: if (mainStackView.depth > 1)
