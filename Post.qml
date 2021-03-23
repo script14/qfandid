@@ -86,7 +86,7 @@ Item {
     {
         if (postVote == 1)
         {
-            loveIcon.color = globalTextColor
+            loveIcon.color = whiteTextColor
             loveCount.text = (parseInt(loveCount.text) - 1)
             postVote = 0
         }
@@ -98,7 +98,7 @@ Item {
         }
         else
         {
-            hateIcon.color = globalTextColor
+            hateIcon.color = whiteTextColor
             loveIcon.color = loveColor
             hateCount.text = (parseInt(hateCount.text) - 1)
             loveCount.text = (parseInt(loveCount.text) + 1)
@@ -113,7 +113,7 @@ Item {
     {
         if (postVote == 1)
         {
-            loveIcon.color = globalTextColor
+            loveIcon.color = whiteTextColor
             hateIcon.color = hateColor
             hateCount.text = (parseInt(hateCount.text) + 1)
             loveCount.text = (parseInt(loveCount.text) - 1)
@@ -127,7 +127,7 @@ Item {
         }
         else
         {
-            hateIcon.color = globalTextColor
+            hateIcon.color = whiteTextColor
             hateCount.text = (parseInt(hateCount.text) - 1)
             postVote = 0
         }
@@ -175,7 +175,7 @@ Item {
                 height: groupName.contentHeight + 5
                 x: parent.width - parent.contentWidth - parent.anchors.rightMargin / 2
                 anchors.verticalCenter: parent.verticalCenter
-                color: globalTextColor
+                color: whiteTextColor
                 radius: 20
                 z: -1
 
@@ -223,7 +223,7 @@ Item {
 
                     Label {
                         id: loveIcon
-                        color: postVote == 1 ? loveColor : globalTextColor
+                        color: postVote == 1 ? loveColor : whiteTextColor
                         text: ic_love
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
@@ -240,7 +240,7 @@ Item {
 
                     Label {
                         id: loveCount
-                        color: globalTextColor
+                        color: whiteTextColor
                         text: qsTr("0")
                         renderType: Text.NativeRendering
                         font.pointSize: iconSize / 2
@@ -258,7 +258,7 @@ Item {
 
                     Label {
                         id: hateIcon
-                        color: postVote == -1 ? hateColor : globalTextColor
+                        color: postVote == -1 ? hateColor : whiteTextColor
                         text: ic_hate
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
@@ -275,7 +275,7 @@ Item {
 
                     Label {
                         id: hateCount
-                        color: globalTextColor
+                        color: whiteTextColor
                         text: qsTr("0")
                         renderType: Text.NativeRendering
                         font.pointSize: iconSize / 2
@@ -292,7 +292,7 @@ Item {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Label {
                         id: commentIcon
-                        color: globalTextColor
+                        color: whiteTextColor
                         text: ic_comment
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
@@ -315,7 +315,7 @@ Item {
 
                     Label {
                         id: commentCount
-                        color: globalTextColor
+                        color: whiteTextColor
                         text: qsTr("0")
                         renderType: Text.NativeRendering
                         font.pointSize: iconSize / 2
@@ -329,7 +329,7 @@ Item {
                 }
                 Label {
                     id: dmIcon
-                    color: ownPost ? globalTextColorDarker : globalTextColor
+                    color: ownPost ? globalTextColorDarker : whiteTextColor
                     text: ic_email
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -371,7 +371,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.contentWidth - 2
                 height: parent.contentHeight - 2
-                color: globalBackground
+                color: userSettings["lightMode"] && post.postName === "Mod" ? globalBackground : avatarBackgroundColor
                 z: -1
             }
         }
@@ -391,7 +391,7 @@ Item {
 
                     Label {
                         id: postName
-                        color: globalTextColor
+                        color: whiteTextColor
                         text: qsTr("ExuberantRaptor")
                         renderType: Text.NativeRendering
                         font.weight: Font.Bold
@@ -404,7 +404,7 @@ Item {
                         width: nsfwIndicator.contentWidth + 10
                         height: nsfwIndicator.contentHeight + 5
                         visible: postRiskLevel > 0 ? true : false
-                        color: globalTextColor
+                        color: whiteTextColor
                         radius: 20
 
                         Label {
@@ -425,7 +425,7 @@ Item {
                         width: opIndicator.contentWidth + 10
                         height: opIndicator.contentHeight + 5
                         visible: ownPost ? true : false
-                        color: globalTextColor
+                        color: whiteTextColor
                         radius: 20
 
                         Label {
@@ -464,7 +464,7 @@ Item {
                             id: comboBoxIcon
                             text: ic_arrow_down
                             font.family: "FandidIcons"
-                            color: globalTextColor
+                            color: whiteTextColor
                             font.pointSize: postActionsSize
                         }
 
@@ -558,7 +558,7 @@ Item {
 
                 Label {
                     id: postTime
-                    color: globalTextColor
+                    color: whiteTextColor
                     text: qsTr("2 hours ago")
                     font.pointSize: timeSize
                     renderType: Text.NativeRendering
@@ -571,7 +571,7 @@ Item {
             readOnly: true
             selectByMouse: clicked
             width: postBody.width - 20
-            color: globalTextColor
+            color: whiteTextColor
             text: post.postText.length >= outsideCharLimit && !clicked ? post.postText + "..." : post.postText
             anchors.top: posterLayout.bottom
             anchors.bottom: postMedia.visible ? postMedia.top : postBottom.top

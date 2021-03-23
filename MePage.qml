@@ -38,7 +38,7 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        color: globalBackgroundDarker
+        color: highlightColor
         z: 1
 
         RowLayout {
@@ -72,7 +72,7 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     font.bold: true
                     renderType: Text.NativeRendering
-                    color: fandidYellowDarker
+                    color: fandidYellow
                     font.pointSize: topIndicatorSize
                 }
 
@@ -110,7 +110,7 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     font.bold: true
                     renderType: Text.NativeRendering
-                    color: fandidYellowDarker
+                    color: fandidYellow
                     font.pointSize: topIndicatorSize
                 }
 
@@ -148,7 +148,7 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     font.bold: true
                     renderType: Text.NativeRendering
-                    color: fandidYellowDarker
+                    color: fandidYellow
                     font.pointSize: topIndicatorSize
                 }
 
@@ -186,7 +186,7 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     font.bold: true
                     renderType: Text.NativeRendering
-                    color: fandidYellowDarker
+                    color: fandidYellow
                     font.pointSize: topIndicatorSize
                 }
 
@@ -211,7 +211,6 @@ Item {
                 font.family: "FandidIcons"
                 Layout.fillWidth: true
                 font.capitalization: Font.MixedCase
-                Material.background: globalBackgroundDarker
                 Material.elevation: 0
                 background.anchors.fill: this
                 padding: 0
@@ -224,7 +223,7 @@ Item {
                     renderType: Text.NativeRendering
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker
+                    color: parent.down ? Qt.darker(fandidYellow, 1.5) : fandidYellow
                 }
 
                 onClicked: mainStackView.push("SettingsPage.qml")

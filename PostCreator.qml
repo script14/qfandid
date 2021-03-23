@@ -297,6 +297,7 @@ Item {
             font.pointSize: 18
             font.capitalization: Font.MixedCase
             Material.background: fandidYellowDarker
+            Material.foreground: buttonColor
             enabled: groupId == 0 ? false : true
 
                 onPressed:
@@ -373,6 +374,7 @@ Item {
     FileDialog {
         id: fileDialog
         title: "Choose an image"
+        folder: shortcuts.pictures
         //Set to remember last directory
         nameFilters: [ "Image files (*.jpg *.jpeg *.png *.tiff *.tif *.webp *.gif)" ]
 

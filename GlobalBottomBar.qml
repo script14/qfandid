@@ -88,7 +88,7 @@ Item {
             text: ic_create
             font.family: "FandidIcons"
             font.pointSize: postButtonTextSize
-            Material.background: "#5d5d5d"
+            Material.background: postCircleColor
             background.anchors.fill: this
             padding: buttonPadding
             onClicked: mainStackView.push("PostCreator.qml")
@@ -98,7 +98,7 @@ Item {
                 text: parent.text
                 font: parent.font
                 opacity: enabled ? 1.0 : 0.3
-                color: globalBackgroundDarker
+                color: postCircleTextColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }

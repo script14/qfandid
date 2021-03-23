@@ -190,6 +190,7 @@ Item {
         font.capitalization: Font.MixedCase
         font.bold: true
         Material.background: fandidYellowDarker
+        Material.foreground: buttonColor
         enabled: groupNameTextField.text.length !== 0 && groupDescriptionTextArea.text.length !== 0
         onClicked: groupCreatorBackend.createGroup(groupNameTextField.text, groupDescriptionTextArea.text, nsfwSwitch.checked, userToken)
     }

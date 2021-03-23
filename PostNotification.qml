@@ -44,7 +44,7 @@ Item {
         id: rectangle
         width: window.width - 10
         height: columnLayout.height + 10
-        color: seen ? globalBackground : globalBackgroundDarker
+        color: seen ? globalBackground : highlightColor
         anchors.left: parent.left
         anchors.right: parent.right
         radius: 20
@@ -68,6 +68,16 @@ Item {
                     font.family: "FandidIcons"
                     font.pointSize: avatarSize
                     renderType: Text.NativeRendering
+
+                    Rectangle {
+                        radius: 100
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: parent.contentWidth - 2
+                        height: parent.contentHeight - 2
+                        color: userSettings["lightMode"] && commentVn === "Mod" ? globalBackground : avatarBackgroundColor
+                        z: -1
+                    }
                 }
 
                 Label {

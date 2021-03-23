@@ -73,6 +73,7 @@ Item {
             renderType: Text.NativeRendering
             placeholderText: qsTr("Username")
             rightPadding: nameCharLimit.contentWidth + 20
+            leftPadding: nameCharLimit.contentWidth + 20
             Material.accent: fandidYellowDarker
 
             Label {
@@ -108,6 +109,7 @@ Item {
             renderType: Text.NativeRendering
             placeholderText: qsTr("Password")
             rightPadding: passwordCharLimit.contentWidth + 20
+            leftPadding: nameCharLimit.contentWidth + 20
             Material.accent: fandidYellowDarker
 
             Label {
@@ -143,6 +145,7 @@ Item {
             renderType: Text.NativeRendering
             placeholderText: qsTr("Confirm password")
             rightPadding: confirmPasswordCharLimit.contentWidth + 20
+            leftPadding: nameCharLimit.contentWidth + 20
             Material.accent: fandidYellowDarker
 
             Label {
@@ -220,6 +223,7 @@ Item {
             anchors.topMargin: 30
             anchors.horizontalCenter: parent.horizontalCenter
             Material.background: fandidYellowDarker
+            Material.foreground: buttonColor
 
             onClicked:
             {
@@ -259,6 +263,7 @@ Item {
             anchors.topMargin: 30
             anchors.horizontalCenter: parent.horizontalCenter
             Material.background: fandidYellowDarker
+            Material.foreground: buttonColor
 
             onClicked:
             {

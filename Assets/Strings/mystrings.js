@@ -23,22 +23,20 @@ var credits = `Team Members:
 - Founder and Server Developer: Krestek
 - qFandid Developer and Lead Admin: Sienhopist
 - Admins: 4Four, Azuri Minty Satan, CrackpipeCat, sabs546, ShittyPerson, Tennie
-
+\n
 Thanks to:
 - CrackpipeCat: For creating every avatar.
+- Azuri Minty Satan: For color advise.
 - ExuberantCat: For creating the first ever logo of Fandid.
 - Ragan Clack: For creating the image loading GIF.
 - Dictator Jibril: For creating a banner for our Patreon page.
 - Bread: For creating a banner for our Facebook page.
-
+\n
 Third-party libraries used:
 - Blurhash: for generating blurred images before the real image is downloaded. Source code: https://github.com/woltapp/blurhash
 `
 
 var changelog = `Changelog:
 ` + appVersion + `
-- Added new account creation
-- Added some fixed avatars
-- Fixed receiving notifications from a DM while being in it
-- Added a combobox to your own DMs to be able to download your own images
+- Added light mode, disabled by default, activated from settings
 `

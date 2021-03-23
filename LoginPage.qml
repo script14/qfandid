@@ -70,14 +70,6 @@ Item {
             renderType: Text.NativeRendering
             placeholderText: qsTr("Username")
             Material.accent: fandidYellowDarker
-
-//            background: Rectangle {
-//                id: usernameTextFieldBackground
-//                implicitWidth: window.width - 10
-//                implicitHeight: platformIsMobile ? 20 : 40
-//                color: globalBackgroundDarker
-//                radius: 20
-//            }
         }
 
         TextField {
@@ -152,6 +144,7 @@ Item {
             anchors.topMargin: 30
             anchors.horizontalCenter: parent.horizontalCenter
             Material.background: fandidYellowDarker
+            Material.foreground: buttonColor
 
             onClicked:
             {
@@ -197,6 +190,7 @@ Item {
             anchors.topMargin: 30
             anchors.horizontalCenter: parent.horizontalCenter
             Material.background: fandidYellowDarker
+            Material.foreground: buttonColor
 
             onClicked: mainStackView.replace("RegisterPage.qml")
         }

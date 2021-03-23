@@ -28,12 +28,12 @@ ApplicationWindow {
     visible: true
     color: globalBackground
     title: qsTr("qFandid")
-    Material.theme: Material.Dark
+    Material.theme: userSettings["lightMode"] ? Material.Light : Material.Dark
 
     //Global persistent QML variables
     //These have to be stored here so they can be accessed from any instance of any component
     property var userInfo: {"power": 0, "points": 0, "groups": 0, "posts": 0, "comments": 0, "riskLevel": 0}
-    property var userSettings: {"loadImagesOnlyInPostPage": false, "doNotHideNsfw": false, "postFontSize": 18, "commentFontSize": 13, "scrollBarToLeft": false}
+    property var userSettings: {"loadImagesOnlyInPostPage": false, "doNotHideNsfw": false, "postFontSize": 18, "commentFontSize": 13, "scrollBarToLeft": false, "lightMode": false}
     property string cacheDir: globalBackend.getCacheDir();
     property string userToken: ""
     property bool platformIsMobile: Qt.platform.os == "android" || Qt.platform.os == "ios"
@@ -46,14 +46,23 @@ ApplicationWindow {
     property string recaptchaLink: "https://fandid.app/captcha.html"
 
     //Colors
-    property color fandidYellow: "#FFC20B"
-    property color fandidYellowDarker: "#DBA100"
+    property color fandidYellow: userSettings["lightMode"] ? "#FFBB00" : "#FFC20B"
+    property color fandidYellowDarker: userSettings["lightMode"] ? "#FFBB00" : "#DBA100"
     property color darkenedButton: "#505050"
-    property color globalBackground: "#333333"
-    property color globalBackgroundDarker: Qt.darker(globalBackground, 1.4)
-    property color globalTextColor: "#E0E0E0"
-    property color globalTextColorDarker: Qt.darker(globalTextColor, 1.5)
-    property color notificationRed: "#DB0B00"
+    property color globalBackground: userSettings["lightMode"] ? "#F4F5FA" : "#333333"
+    property color globalBackgroundDarker: Qt.darker(globalBackground, userSettings["lightMode"] ? 1.1 : 1.4)
+    property color globalTextColor: userSettings["lightMode"] ? "#4D4D4D" : "#E0E0E0"
+    property color globalTextColorDarker: userSettings["lightMode"] ? "#9D9D9F" : Qt.darker(globalTextColor, 1.5)
+    property color topBarIndicatorDeselectedColor: userSettings["lightMode"] ? globalTextColor : globalTextColorDarker
+    property color avatarBackgroundColor: userSettings["lightMode"] ? "black" : globalBackground
+    property color commentIconColor: userSettings["lightMode"] ? globalTextColorDarker : globalTextColor
+    property color whiteTextColor: "#E0E0E0"
+    property color highlightColor: globalBackgroundDarker
+    property color postCircleColor: userSettings["lightMode"] ? "#DCDDE2" : "#5d5d5d"
+    property color postCircleTextColor: userSettings["lightMode"] ? "#777779" : globalBackgroundDarker
+    property color commentIndicatorColor: userSettings["lightMode"] ? globalBackgroundDarker : globalTextColor
+    property color buttonColor: userSettings["lightMode"] ? "white" : globalTextColor
+    property color notificationRed: userSettings["lightMode"] ? "red" : "#DB0B00"
 
     //Font icons
     property string ic_arrow_down: "\ue930"
@@ -83,6 +92,7 @@ ApplicationWindow {
     Component.onCompleted:
     {
         globalBackend.storeQmlInstance()
+        userSettings = globalBackend.fetchUserSettings()
         globalBackend.checkAppVersion(MyStrings.appVersion)
     }
 
@@ -161,7 +171,6 @@ ApplicationWindow {
         mainStackView.replace(mainView)
 
         globalBackend.fetchUserInfo(userToken)
-        userSettings = globalBackend.fetchUserSettings()
     }
 
     StackView {

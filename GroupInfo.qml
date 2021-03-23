@@ -84,7 +84,7 @@ Item {
 
             Label {
                 id: nsfwIndicator
-                color: globalBackgroundDarker
+                color: userSettings["lightMode"] ? globalTextColor : globalBackgroundDarker
                 text: qsTr("NSFW")
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignHCenter
@@ -197,6 +197,7 @@ Item {
             font.pointSize: horizontalInstance ? 20 : 15
             anchors.horizontalCenter: horizontalInstance ? parent.horizontalCenter : undefined
             Material.background: joined ? Qt.lighter(globalBackground, 1.3) : fandidYellowDarker
+            Material.foreground: joined ? globalTextColor : buttonColor
             radius: 20
 
             onClicked:

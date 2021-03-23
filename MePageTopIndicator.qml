@@ -29,7 +29,7 @@ Item {
     property int buttonImplicitHeight: rectangle.height
 
     property color selected: fandidYellowDarker
-    property color deselected: globalTextColorDarker
+    property color deselected: topBarIndicatorDeselectedColor
 
     function colorButton(index)
     {

@@ -46,41 +46,6 @@ void BackEnd::androidRequestStoragePermission()
 {
     QtAndroid::requestPermissionsSync(QStringList({"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"}));
 }
-
-//void BackEnd::startBackgroundMessagesService(int messageCheckInterval)
-//{
-//    QAndroidJniEnvironment env;
-
-//    JNINativeMethod methods[] {{"javaUnseenMessages", "(I)V", reinterpret_cast<void *>(javaSetNewMessages)}};
-//    QAndroidJniObject javaClass("org/sien/qfandid/BackgroundMessagesService");
-//    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
-//    env->RegisterNatives(objectClass, methods, sizeof(methods) / sizeof(methods[0]));
-//    env->DeleteLocalRef(objectClass);
-
-//    qDebug() << "Starting service from C++";
-//    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(), "org/sien/qfandid/BackgroundMessagesService");
-//    serviceIntent.putExtra("messageCheckInterval", QString::number(messageCheckInterval).toUtf8());
-//    serviceIntent.putExtra("userToken", userToken.toUtf8());
-//    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod("startService", "(Landroid/content/Intent;)Landroid/content/ComponentName;", serviceIntent.handle().object());
-//}
-
-//void BackEnd::registerJavaCallbacks()
-//{
-
-    //qDebug() << QAndroidJniObject::isClassAvailable("org/sien/qfandid/BackgroundMessagesService");
-//    QAndroidJniEnvironment env;
-//    JNINativeMethod methods[] {{"javaShareTextToQML", "(Ljava/lang/String;)V", reinterpret_cast<void *>(shareTextToQML)}};
-//    QAndroidJniObject javaClass("org/sien/qfandid/MainActivity");
-//    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
-//    env->RegisterNatives(objectClass, methods, sizeof(methods) / sizeof(methods[0]));
-//    env->DeleteLocalRef(objectClass);
-//}
-
-//void BackEnd::shareTextToQML(JNIEnv *env, jobject, jstring text)
-//{
-//    qDebug() << env->GetStringUTFChars(text, nullptr);
-//    emit BackEnd::instance()->testSignal(env->GetStringUTFChars(text, nullptr));
-//}
 #endif
 
 QString BackEnd::getUserToken()
@@ -514,7 +479,6 @@ void BackEnd::loadBlurhash(QString filename, QString blurhash)
     {
         if (!blurhash.isEmpty())
         {
-            //qDebug() << "Create blurhash";
             //The host server encodes the images in 32x32 by default. The images are decoded here in 32x32 too and stretched to the original size in QML
             uint8_t *bytes = decode(blurhash.toLocal8Bit().data(), 32, 32, 1, 4);
             if (bytes)
@@ -550,8 +514,6 @@ void BackEnd::loadImage(QString imageHash, QString imageType, QString id, QStrin
 
 void BackEnd::finishedDownloadingImage(QNetworkReply *reply)
 {
-    //qDebug() << "Downloaded image";
-
     QString id = reply->property("id").toString();
     QString imageType = reply->property("imageType").toString();
 
@@ -963,7 +925,7 @@ void BackEnd::finishedCheckingDirectMessagesBackground(QNetworkReply *reply)
     foreach (const QJsonValue &value, jsonArray)
     {
         QJsonObject obj = value.toObject();
-        if (/*!obj["seen"].toBool() && !notifiedMessages.contains(obj["id"].toInt())*/ !obj["sent"].toBool())
+        if (!obj["sent"].toBool())
         {
             int roomId = obj["id"].toInt();
             int yourId = obj["yourId"].toInt();
@@ -974,7 +936,6 @@ void BackEnd::finishedCheckingDirectMessagesBackground(QNetworkReply *reply)
             QString animalNounTwo = regex.globalMatch((yourId == 1 ? oneVn : twoVn), 1).next().captured(0);
 
             makePushNotification(roomId, yourId, obj["postId"].toInt(), obj["lastMsg"].toString(), oneVn, obj["oneColor"].toString(), avatars[animalNounOne], twoVn, obj["twoColor"].toString(), avatars[animalNounTwo]);
-            //notifiedMessages.append(roomId);
             unseenMessages++;
         }
     }
@@ -1047,6 +1008,7 @@ void BackEnd::saveUserSettings(QVariantMap userSettings)
     settings.setValue("postFontSize", userSettings["postFontSize"]);
     settings.setValue("commentFontSize", userSettings["commentFontSize"]);
     settings.setValue("scrollBarToLeft", userSettings["scrollBarToLeft"]);
+    settings.setValue("lightMode", userSettings["lightMode"]);
 
     settings.endGroup();
 }
@@ -1063,6 +1025,7 @@ QVariantMap BackEnd::fetchUserSettings()
     userSettings.insert("postFontSize", settings.value("postFontSize", 18).toInt());
     userSettings.insert("commentFontSize", settings.value("commentFontSize", 13).toInt());
     userSettings.insert("scrollBarToLeft", settings.value("scrollBarToLeft", false).toBool());
+    userSettings.insert("lightMode", settings.value("lightMode", false).toBool());
 
     settings.endGroup();
 

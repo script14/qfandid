@@ -239,8 +239,34 @@ Item {
         }
 
         RowLayout {
-            id: postTextSizeSpinBoxLayout
+            id: lightModeLayout
             anchors.top: scrollBarLocationLayout.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.topMargin: topMargins
+            anchors.leftMargin: 10
+            anchors.rightMargin: 10
+
+            Label {
+                id: lightModeLabel
+                Layout.fillWidth: true
+                text: qsTr("Light mode (requires restart)")
+                color: globalTextColor
+                textFormat: Text.PlainText
+                renderType: Text.NativeRendering
+                font.pointSize: optionTextSize
+            }
+
+            MySwitch {
+                id: lightModeSwitch
+                checked: userSettings["lightMode"]
+                onCheckedChanged: userSettings["lightMode"] = checked
+            }
+        }
+
+        RowLayout {
+            id: postTextSizeSpinBoxLayout
+            anchors.top: lightModeLayout.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.topMargin: topMargins
@@ -341,7 +367,7 @@ Item {
                     font: parent.font
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? Qt.darker(globalTextColor, 1.2) : globalTextColor
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
                 }
             }
         }
@@ -378,7 +404,7 @@ Item {
                     font: parent.font
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? globalTextColorDarker : globalTextColor
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
                 }
             }
 
@@ -405,7 +431,7 @@ Item {
                     font: parent.font
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? globalTextColorDarker : globalTextColor
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
                 }
             }
 
@@ -432,7 +458,7 @@ Item {
                     font: parent.font
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? globalTextColorDarker : globalTextColor
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
                 }
             }
         }
@@ -469,7 +495,7 @@ Item {
                     font: parent.font
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? globalTextColorDarker : globalTextColor
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
                 }
             }
 
@@ -496,7 +522,7 @@ Item {
                     font: parent.font
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? globalTextColorDarker : globalTextColor
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
                 }
             }
 
@@ -523,7 +549,7 @@ Item {
                     font: parent.font
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? globalTextColorDarker : globalTextColor
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
                 }
             }
         }
@@ -561,7 +587,7 @@ Item {
                     font: parent.font
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? globalTextColorDarker : globalTextColor
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
                 }
             }
 
@@ -588,7 +614,7 @@ Item {
                     font: parent.font
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.down ? globalTextColorDarker : globalTextColor
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
                 }
             }
         }
@@ -723,7 +749,7 @@ Item {
                 font: parent.font
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                color: parent.down ? globalTextColorDarker : globalTextColor
+                color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
             }
         }
     }

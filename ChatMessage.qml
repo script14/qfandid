@@ -83,7 +83,7 @@ Item {
                 id: comboBoxIcon
                 text: ic_arrow_down
                 font.family: "FandidIcons"
-                color: globalTextColor
+                color: whiteTextColor
                 font.pointSize: dMActionsSize
             }
 
@@ -153,7 +153,7 @@ Item {
             anchors.leftMargin: 10
             anchors.topMargin: chatMessageActions.visible ? 5 : 10
             width: window.width - 40
-            color: globalTextColor
+            color: whiteTextColor
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             text: content
             font.pointSize: messageSize
@@ -184,7 +184,7 @@ Item {
         Label {
             id: messageTime
             text: qsTr("10s")
-            color: globalTextColor
+            color: whiteTextColor
             font.pointSize: timeSize
             anchors.left: parent.left
             anchors.top: textContent.bottom

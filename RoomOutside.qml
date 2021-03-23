@@ -86,6 +86,16 @@ Item {
                     font.family: "FandidIcons"
                     font.pointSize: targetAvatarSize
                     renderType: Text.NativeRendering
+
+                    Rectangle {
+                        radius: 100
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: parent.contentWidth - 2
+                        height: parent.contentHeight - 2
+                        color: userSettings["lightMode"] && roomOutside.targetName === "Mod" ? globalBackground : avatarBackgroundColor
+                        z: -1
+                    }
                 }
 
                 Label {

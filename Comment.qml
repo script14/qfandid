@@ -75,7 +75,7 @@ Item {
     {
         if (vote == 1)
         {
-            loveIcon.color = globalTextColor
+            loveIcon.color = commentIconColor
             loveCount.text = (parseInt(loveCount.text) - 1)
             vote = 0
         }
@@ -87,7 +87,7 @@ Item {
         }
         else
         {
-            hateIcon.color = globalTextColor
+            hateIcon.color = commentIconColor
             loveIcon.color = loveColor
             hateCount.text = (parseInt(hateCount.text) - 1)
             loveCount.text = (parseInt(loveCount.text) + 1)
@@ -102,7 +102,7 @@ Item {
     {
         if (vote == 1)
         {
-            loveIcon.color = globalTextColor
+            loveIcon.color = commentIconColor
             hateIcon.color = hateColor
             hateCount.text = (parseInt(hateCount.text) + 1)
             loveCount.text = (parseInt(loveCount.text) - 1)
@@ -116,7 +116,7 @@ Item {
         }
         else
         {
-            hateIcon.color = globalTextColor
+            hateIcon.color = commentIconColor
             hateCount.text = (parseInt(hateCount.text) - 1)
             vote = 0
         }
@@ -159,6 +159,16 @@ Item {
             font.pointSize: avatarSize
             textFormat: Text.RichText
             font.family: "FandidIcons"
+
+            Rectangle {
+                radius: 100
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.contentWidth - 2
+                height: parent.contentHeight - 2
+                color: userSettings["lightMode"] && comment.name === "Mod" ? globalBackground : avatarBackgroundColor
+                z: -1
+            }
         }
 
         ColumnLayout {
@@ -187,7 +197,7 @@ Item {
                     height: youIndicatorText.contentHeight + 5
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                     visible: true
-                    color: globalTextColor
+                    color: commentIndicatorColor
                     radius: 20
                     Layout.topMargin: 2
 
@@ -210,7 +220,7 @@ Item {
                     height: opIndicatorText.contentHeight + 5
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                     visible: true
-                    color: globalTextColor
+                    color: commentIndicatorColor
                     radius: 20
                     Layout.topMargin: 2
                     Label {
@@ -429,7 +439,7 @@ Item {
 
                 Label {
                     id: loveIcon
-                    color: vote == 1 ? loveColor : globalTextColor
+                    color: vote == 1 ? loveColor : commentIconColor
                     text: ic_love
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -446,7 +456,7 @@ Item {
 
                 Label {
                     id: loveCount
-                    color: globalTextColor
+                    color: commentIconColor
                     text: qsTr("0")
                     renderType: Text.NativeRendering
                     font.pointSize: iconSize / 2
@@ -463,7 +473,7 @@ Item {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 Label {
                     id: hateIcon
-                    color: vote == -1 ? hateColor : globalTextColor
+                    color: vote == -1 ? hateColor : commentIconColor
                     text: ic_hate
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -480,7 +490,7 @@ Item {
 
                 Label {
                     id: hateCount
-                    color: globalTextColor
+                    color: commentIconColor
                     text: qsTr("0")
                     renderType: Text.NativeRendering
                     font.pointSize: iconSize / 2
@@ -495,7 +505,7 @@ Item {
 
             Label {
                 id: dmIcon
-                color: own ? globalTextColorDarker : globalTextColor
+                color: own ? Qt.darker(commentIconColor, 2) : commentIconColor
                 text: ic_email
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -518,7 +528,7 @@ Item {
 
             Label {
                 id: replyText
-                color: globalTextColor
+                color: commentIconColor
                 text: qsTr("Reply")
                 font.pointSize: replySize
 

@@ -117,6 +117,16 @@ Item {
                 font.pointSize: targetAvatarSize
                 renderType: Text.NativeRendering
 
+                Rectangle {
+                    radius: 100
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.contentWidth - 2
+                    height: parent.contentHeight - 2
+                    color: userSettings["lightMode"] && targetName === "Mod" ? globalBackground : avatarBackgroundColor
+                    z: -1
+                }
+
             }
 
             Label {
@@ -298,6 +308,7 @@ Item {
                 font.pointSize: 15
                 font.capitalization: Font.MixedCase
                 Material.background: fandidYellowDarker
+                Material.foreground: buttonColor
 
                 onPressed: sendMessage()
 
@@ -394,6 +405,7 @@ Item {
     FileDialog {
         id: fileDialog
         title: "Choose an image"
+        folder: shortcuts.pictures
         //Set to remember last directory
         nameFilters: [ "Image files (*.jpg *.jpeg *.png *.tiff *.tif *.webp *.gif)" ]
 

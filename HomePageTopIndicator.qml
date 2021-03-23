@@ -27,12 +27,11 @@ Item {
     property int buttonImplicitWidth: rectangle.width / 3
     property int buttonImplicitHeight: rectangle.height
     property int buttonPadding: platformIsMobile ? 5 : 0
+    property color selected: fandidYellowDarker
+    property color deselected: topBarIndicatorDeselectedColor
 
     function colorButton(index)
     {
-        var selected = fandidYellowDarker
-        var deselected = globalTextColor
-
         switch(index)
         {
         case 0:
@@ -81,7 +80,7 @@ Item {
                     id: newButtonContentItem
                     text: parent.text
                     font: parent.font
-                    color: fandidYellowDarker
+                    color: selected
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
@@ -106,7 +105,7 @@ Item {
                     id: hotButtonContentItem
                     text: parent.text
                     font: parent.font
-                    color: globalTextColor
+                    color: deselected
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
@@ -131,7 +130,7 @@ Item {
                     id: searchButtonContentItem
                     text: parent.text
                     font: parent.font
-                    color: globalTextColor
+                    color: deselected
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }

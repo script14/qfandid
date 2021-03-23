@@ -89,6 +89,7 @@ Item {
             font.pointSize: 15
             font.capitalization: Font.MixedCase
             Material.background: fandidYellowDarker
+            Material.foreground: buttonColor
             radius: 20
 
             onClicked:
