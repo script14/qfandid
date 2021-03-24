@@ -2,6 +2,8 @@
 # qFandid
 qFandid is a Qt frontend for the social media Fandid created by Krestek
 
+# Prebuilt binaries from [https://fandid.app/](https://fandid.app/)
+
 # Build instructions
 
 **Linux:**
