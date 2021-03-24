@@ -407,7 +407,6 @@ Item {
     FileDialog {
         id: fileDialog
         title: "Choose an image"
-        folder: shortcuts.pictures
         //Set to remember last directory
         nameFilters: [ "Image files (*.jpg *.jpeg *.png *.tiff *.tif *.webp *.gif)" ]
 
