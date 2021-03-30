@@ -728,7 +728,7 @@ void BackEnd::saveImage(QString name)
     }
 
     if (QFile::copy(cacheDir + name, downloadDir + name))
-        makeNotification("Saved image", "Saving to download directory");
+        makeNotification("Saved image", "Saved to download directory");
     else
         makeNotification("Error", "Could not save image");
 }

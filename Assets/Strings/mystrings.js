@@ -23,7 +23,7 @@ var credits = `Team Members:
 - Founder and Server Developer: Krestek
 - qFandid Developer and Lead Admin: Sienhopist
 - Admins: 4Four, Azuri Minty Satan, CrackpipeCat, sabs546, ShittyPerson, Tennie
-\n
+
 Thanks to:
 - CrackpipeCat: For creating every avatar.
 - Azuri Minty Satan: For color advise.
@@ -31,15 +31,12 @@ Thanks to:
 - Ragan Clack: For creating the image loading GIF.
 - Dictator Jibril: For creating a banner for our Patreon page.
 - Bread: For creating a banner for our Facebook page.
-\n
+
 Third-party libraries used:
 - Blurhash: for generating blurred images before the real image is downloaded. Source code: https://github.com/woltapp/blurhash
 `
 
 var changelog = `Changelog:
 ` + appVersion + `
-- Added light mode, disabled by default, activated from settings
-- Improved focus:
-    - Mobile: Back button often not working on the first press should now be fixed
-    - PC: If you select some text or are writing in a text field, pressing escape will restore focus, so pressing it a second time will work to exit the page
+- Small background optimizations for faster notification retrieval
 `

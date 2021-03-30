@@ -528,7 +528,7 @@ Item {
 
             Button {
                 id: buttonGPL
-                text: qsTr("GPL license")
+                text: qsTr("About GPL")
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
