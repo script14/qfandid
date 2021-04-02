@@ -39,4 +39,5 @@ Third-party libraries used:
 var changelog = `Changelog:
 ` + appVersion + `
 - Small background optimizations for faster notification retrieval
+- PC: App will follow system font
 `

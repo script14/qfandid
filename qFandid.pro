@@ -68,3 +68,4 @@ DISTFILES += \
     Android-source/src/org/sien/qfandid/Backend.java \
     Android-source/src/org/sien/qfandid/MainActivity.java \
     Android-source/src/org/sien/qfandid/NotificationClickReceiver.java
+android: include(/home/user/Android/Sdk/android_openssl/openssl.pri)
