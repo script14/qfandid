@@ -43,7 +43,7 @@ ApplicationWindow {
     //Links
     property string linkRules: "https://fandid.app/rules.html"
     property string linkWebsite: "https://fandid.app"
-    property string recaptchaLink: "https://fandid.app/captcha.html"
+    property string linkRecaptcha: "https://fandid.app/captcha.html"
 
     //Colors
     property color fandidYellow: userSettings["lightMode"] ? "#FFBB00" : "#FFC20B"

@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     //Fixes weird white border line that appears on Android when rotating the screen or sleeping and then waking the phone
-    //Bite: unnecessary if android:theme="@android:style/Theme.NoTitleBar"
+    //Note: unnecessary if android:theme="@android:style/Theme.NoTitleBar"
     //QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::Round);
 
     //It is required to initialize the webview before creating the application
@@ -112,9 +112,15 @@ int main(int argc, char *argv[])
 
     BackEnd::registerRequestTypeInQML();
 
-//    QFont font;
-//    font.setFamily(font.defaultFamily());
-//    app.setFont(font);
+    #if !defined Q_OS_ANDROID && !defined Q_OS_IOS
+    app.setFont(QApplication::font());
+    #endif
+
+    //engine.rootContext()->setContextProperty("systemFont", QApplication::font().family());
+    //engine.rootContext()->setContextProperty("testFont", QFontDatabase::systemFont(QFontDatabase::GeneralFont).family());
+    //qDebug() << QFontDatabase::systemFont(QFontDatabase::GeneralFont);
+
+    //QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "printFont", "(Landroid/content/Context;)V", QtAndroid::androidContext().object());
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

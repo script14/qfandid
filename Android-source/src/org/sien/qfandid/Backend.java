@@ -26,7 +26,6 @@ import java.io.File;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-//import android.graphics.Color;
 import android.graphics.BitmapFactory;
 import android.app.NotificationChannel;
 import android.content.SharedPreferences;
@@ -81,7 +80,7 @@ public class Backend
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             {
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel notificationChannel = new NotificationChannel("qFandid", "Direct message notifications", importance);
+                NotificationChannel notificationChannel = new NotificationChannel("Fandid", "Direct message notifications", importance);
                 m_notificationManager.createNotificationChannel(notificationChannel);
                 m_builder = new Notification.Builder(context, notificationChannel.getId());
             }
@@ -140,7 +139,7 @@ public class Backend
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             {
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel notificationChannel = new NotificationChannel("qFandid", "Other messages", importance);
+                NotificationChannel notificationChannel = new NotificationChannel("Fandid", "Update notifications", importance);
                 m_notificationManager.createNotificationChannel(notificationChannel);
                 m_builder = new Notification.Builder(context, notificationChannel.getId());
             }

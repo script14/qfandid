@@ -118,14 +118,14 @@
 //For making the program restart itself
 #include <QProcess>
 
-//For getting the default system font
-#include <QFont>
-
 //For applying Material style
 #include <QQuickStyle>
 
 //For registration through a web view
 #include <QtWebView>
+
+//For embedding C++ objects into QML with context properties
+//#include <QQmlContext>
 
 class BackEnd : public QObject
 {

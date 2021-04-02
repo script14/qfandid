@@ -457,6 +457,7 @@ Item {
 
                         model: ListModel {
                             id: comboBoxItems
+                            //ListElement { text: "Debug action" }
                             ListElement { text: "Share" }
                         }
 
@@ -504,7 +505,14 @@ Item {
                             switch(comboBoxItems.get(currentIndex).text)
                             {
                                 case "Debug action":
-                                    console.debug(postId)
+                                    var list = Qt.fontFamilies()
+                                    var total = ""
+                                    for (var i = 0; i < list.length; i++)
+                                    {
+                                        total += list[i] + ", "
+                                    }
+
+                                    mainStackView.push("InfoPage.qml", {"imageSource": "Assets/Images/logocolored.png", "title": "Debug", "textContent": total})
                                     break
 
                                 case "Share":

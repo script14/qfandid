@@ -1107,7 +1107,10 @@ void BackEnd::createGroup(QString name, QString description, bool nsfw, QString 
 void BackEnd::restartProgram()
 {
     qApp->quit();
+
+    #if !defined Q_OS_ANDROID && !defined Q_OS_IOS
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    #endif
 }
 
 void BackEnd::resetSkipId()
