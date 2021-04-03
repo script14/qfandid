@@ -50,7 +50,10 @@ HEADERS += \
 # armeabi-v7a arm64-v8a x86 x86_64
 ANDROID_ABIS += arm64-v8a armeabi-v7a
 
-OTHER_FILES += \
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/Android-source
+android: include(/home/user/Android/Sdk/android_openssl/openssl.pri)
+
+DISTFILES += \
     Android-source/AndroidManifest.xml \
     Android-source/build.gradle \
     Android-source/gradle.properties \
@@ -59,13 +62,7 @@ OTHER_FILES += \
     Android-source/gradlew \
     Android-source/gradlew.bat \
     Android-source/res/values/libs.xml \
-    Android-source/res/xml/fileprovider.xml
-
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/Android-source
-android: include(/home/user/Android/Sdk/android_openssl/openssl.pri)
-
-DISTFILES += \
+    Android-source/res/xml/fileprovider.xml \
     Android-source/src/org/sien/qfandid/Backend.java \
     Android-source/src/org/sien/qfandid/MainActivity.java \
     Android-source/src/org/sien/qfandid/NotificationClickReceiver.java
-android: include(/home/user/Android/Sdk/android_openssl/openssl.pri)
