@@ -40,7 +40,6 @@
         <file>GroupCreator.qml</file>
         <file>Assets/Images/winicon.ico</file>
         <file>SearchPage.qml</file>
-        <file>Assets/Vectors/ic_magnifying_glass.svg</file>
         <file>MyScrollBar.qml</file>
         <file>MySwitch.qml</file>
         <file>InfoPage.qml</file>

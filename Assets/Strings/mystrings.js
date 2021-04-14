@@ -43,4 +43,5 @@ var changelog = `Changelog:
 - Less waiting time before loading the next batch of posts, comments, etc
 - Fixed hyperlinks not being escaped when sharing text
 - Added option to copy all text to clipboard
+- New Mod and Placeholder avatars
 `
