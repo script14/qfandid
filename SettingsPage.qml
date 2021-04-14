@@ -265,8 +265,34 @@ Item {
         }
 
         RowLayout {
-            id: postTextSizeSpinBoxLayout
+            id: postStyleLayout
             anchors.top: lightModeLayout.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.topMargin: topMargins
+            anchors.leftMargin: 10
+            anchors.rightMargin: 10
+
+            Label {
+                id: postStyleLabel
+                Layout.fillWidth: true
+                text: qsTr("Website post style")
+                color: globalTextColor
+                textFormat: Text.PlainText
+                renderType: Text.NativeRendering
+                font.pointSize: optionTextSize
+            }
+
+            MySwitch {
+                id: postStyleSwitch
+                checked: userSettings["newPostStyle"]
+                onCheckedChanged: userSettings["newPostStyle"] = checked
+            }
+        }
+
+        RowLayout {
+            id: postTextSizeSpinBoxLayout
+            anchors.top: postStyleLayout.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.topMargin: topMargins

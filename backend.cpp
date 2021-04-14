@@ -1004,6 +1004,7 @@ void BackEnd::saveUserSettings(QVariantMap userSettings)
     settings.setValue("scrollBarToLeft", userSettings["scrollBarToLeft"]);
     //Light mode is handled separately to prevent potential crashes
     //settings.setValue("lightMode", userSettings["lightMode"]);
+    settings.setValue("newPostStyle", userSettings["newPostStyle"]);
 
     settings.endGroup();
 }
@@ -1027,6 +1028,7 @@ QVariantMap BackEnd::fetchUserSettings()
     userSettings.insert("commentFontSize", settings.value("commentFontSize", 13).toInt());
     userSettings.insert("scrollBarToLeft", settings.value("scrollBarToLeft", false).toBool());
     userSettings.insert("lightMode", settings.value("lightMode", false).toBool());
+    userSettings.insert("newPostStyle", settings.value("newPostStyle", false).toBool());
 
     settings.endGroup();
 

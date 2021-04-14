@@ -33,7 +33,7 @@ ApplicationWindow {
     //Global persistent QML variables
     //These have to be stored here so they can be accessed from any instance of any component
     property var userInfo: {"power": 0, "points": 0, "groups": 0, "posts": 0, "comments": 0, "riskLevel": 0}
-    property var userSettings: {"loadImagesOnlyInPostPage": false, "doNotHideNsfw": false, "postFontSize": 18, "commentFontSize": 13, "scrollBarToLeft": false, "lightMode": false}
+    property var userSettings: {"loadImagesOnlyInPostPage": false, "doNotHideNsfw": false, "postFontSize": 18, "commentFontSize": 13, "scrollBarToLeft": false, "lightMode": false, "newPostStyle": false}
     property string cacheDir: globalBackend.getCacheDir();
     property string userToken: ""
     property bool platformIsMobile: Qt.platform.os == "android" || Qt.platform.os == "ios"
@@ -59,12 +59,14 @@ ApplicationWindow {
     property color avatarBackgroundColor: userSettings["lightMode"] ? "black" : globalBackground
     property color commentIconColor: userSettings["lightMode"] ? globalTextColorDarker : globalTextColor
     property color whiteTextColor: "#E0E0E0"
+    //property color postTextColor: userSettings["newPostStyle"] ? (userSettings["lightMode"] ? "#333333" : whiteTextColor) : whiteTextColor
     property color highlightColor: globalBackgroundDarker
     property color postCircleColor: userSettings["lightMode"] ? "#DCDDE2" : "#5d5d5d"
     property color postCircleTextColor: userSettings["lightMode"] ? "#777779" : globalBackgroundDarker
     property color commentIndicatorColor: userSettings["lightMode"] ? globalBackgroundDarker : globalTextColor
     property color buttonColor: userSettings["lightMode"] ? "white" : globalTextColor
     property color notificationRed: userSettings["lightMode"] ? "red" : "#DB0B00"
+    property color newPostColor: userSettings["lightMode"] ? Qt.darker(globalBackground, 1.1) : Qt.lighter(globalBackground, 1.2)
 
     //Font icons
     property string ic_arrow_down: "\ue931"
