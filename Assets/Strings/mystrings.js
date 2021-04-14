@@ -45,4 +45,5 @@ var changelog = `Changelog:
 - Added option to copy all text to clipboard
 - New Mod and Placeholder avatars
 - PC: Fixed comment pictures disappearing in fullscreen mode
+- Fixed group not being set in post creator when you press the post button inside a group before the group is loaded
 `

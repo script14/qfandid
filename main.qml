@@ -152,6 +152,7 @@ ApplicationWindow {
         visible: false
         focus: !platformIsMobile
         signal preloadPostCreator(int groupId, string groupName, string text, bool nsfw)
+        signal enableGroupPostButton()
 
         Keys.onEscapePressed:
         {

@@ -26,6 +26,8 @@ Item {
     width: groupInfoBody.width
     height: groupInfoBody.height
 
+    Component.onCompleted: focusWindow.enableGroupPostButton()
+
     BackEnd {
         id: groupInfoBackend
     }

@@ -82,6 +82,7 @@ Item {
             width: implicitContentWidth + 50
             height: implicitContentHeight + 20
             text: qsTr("Post")
+            enabled: false
             font.bold: true
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
@@ -153,6 +154,14 @@ Item {
         anchors.bottom: parent.bottom
         anchors.leftMargin: 5
         anchors.topMargin: 10
+    }
+
+    Connections {
+        target: focusWindow
+        function onEnableGroupPostButton()
+        {
+            postButton.enabled = true
+        }
     }
 }
 
