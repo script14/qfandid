@@ -268,7 +268,7 @@ Item {
 
             Label {
                 Layout.fillWidth: true
-                text: qsTr("New post style")
+                text: qsTr("Minimal post style")
                 color: globalTextColor
                 textFormat: Text.PlainText
                 renderType: Text.NativeRendering
@@ -276,8 +276,8 @@ Item {
             }
 
             MySwitch {
-                checked: userSettings["newPostStyle"]
-                onCheckedChanged: userSettings["newPostStyle"] = checked
+                checked: userSettings["minimalPostStyle"]
+                onCheckedChanged: userSettings["minimalPostStyle"] = checked
             }
         }
 

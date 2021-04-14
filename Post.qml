@@ -58,7 +58,7 @@ Item {
     property int postVote: 0
 
     //Variables
-    property color postTextColor: userSettings["newPostStyle"] && userSettings["lightMode"] ? "#333333" : whiteTextColor
+    property color postTextColor: userSettings["minimalPostStyle"] && userSettings["lightMode"] ? "#333333" : whiteTextColor
     property color loveColor: "#fe4543"
     property color hateColor: "#a343fe"
     property int iconSize: postTextSize + 7 //25
@@ -149,7 +149,7 @@ Item {
         width: desktopIsFullscreen ? window.width / 3 : window.width - 10
         height: postBodyHeight
         x: desktopIsFullscreen ? width : 0
-        color: userSettings["newPostStyle"] ? newPostColor : postColor
+        color: userSettings["minimalPostStyle"] ? newPostColor : postColor
         radius: 20
 
         Text {
@@ -194,7 +194,7 @@ Item {
             id: postBottom
             width: postBody.width
             height: loveIcon.contentHeight * 1.2
-            color: userSettings["newPostStyle"] && userSettings["lightMode"] ? Qt.darker(postBody.color, 1.3) : Qt.darker(postBody.color, 1.7)
+            color: userSettings["minimalPostStyle"] && userSettings["lightMode"] ? Qt.darker(postBody.color, 1.3) : Qt.darker(postBody.color, 1.7)
             radius: postBody.radius
             anchors.left: parent.left
             anchors.right: parent.right
@@ -359,7 +359,7 @@ Item {
             anchors.top: parent.top
             anchors.leftMargin: 10
             anchors.topMargin: 10
-            color: userSettings["newPostStyle"] ? postColor : Qt.lighter(postBody.color, 1.3)
+            color: userSettings["minimalPostStyle"] ? postColor : Qt.lighter(postBody.color, 1.3)
             text: "\ue917"
             font.pointSize: avatarSize
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -392,7 +392,7 @@ Item {
 
                     Label {
                         id: postName
-                        color: userSettings["newPostStyle"] ? postAvatar.color : postTextColor
+                        color: userSettings["minimalPostStyle"] ? postAvatar.color : postTextColor
                         text: qsTr("ExuberantRaptor")
                         renderType: Text.NativeRendering
                         font.weight: Font.Bold

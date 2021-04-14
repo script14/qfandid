@@ -1055,7 +1055,7 @@ void BackEnd::saveUserSettings(QVariantMap userSettings)
     //Light mode is handled separately to prevent potential crashes
     //settings.setValue("lightMode", userSettings["lightMode"]);
 
-    settings.setValue("newPostStyle", userSettings["newPostStyle"]);
+    settings.setValue("minimalPostStyle", userSettings["minimalPostStyle"]);
     settings.setValue("dmNotifications", userSettings["dmNotifications"]);
     settings.setValue("commentNotifications", userSettings["commentNotifications"]);
 
@@ -1079,7 +1079,7 @@ QVariantMap BackEnd::fetchUserSettings()
     userSettings.insert("commentFontSize", settings.value("commentFontSize", 13).toInt());
     userSettings.insert("scrollBarToLeft", settings.value("scrollBarToLeft", false).toBool());
     userSettings.insert("lightMode", settings.value("lightMode", false).toBool());
-    userSettings.insert("newPostStyle", settings.value("newPostStyle", false).toBool());
+    userSettings.insert("minimalPostStyle", settings.value("minimalPostStyle", false).toBool());
     userSettings.insert("dmNotifications", settings.value("dmNotifications", true).toBool());
     userSettings.insert("commentNotifications", settings.value("commentNotifications", false).toBool());
 

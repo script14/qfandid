@@ -34,7 +34,7 @@ ApplicationWindow {
     //These have to be stored here so they can be accessed from any instance of any component
     property var userInfo: {"power": 0, "points": 0, "groups": 0, "posts": 0, "comments": 0, "riskLevel": 0}
     property var userSettings: {"loadImagesOnlyInPostPage": false, "doNotHideNsfw": false, "postFontSize": 18, "commentFontSize": 13,
-        "scrollBarToLeft": false, "lightMode": false, "newPostStyle": false, "dmNotifications": true, "commentNotifications": false}
+        "scrollBarToLeft": false, "lightMode": false, "minimalPostStyle": false, "dmNotifications": true, "commentNotifications": false}
     property string cacheDir: globalBackend.getCacheDir();
     property string userToken: ""
     property bool platformIsMobile: Qt.platform.os == "android" || Qt.platform.os == "ios"
