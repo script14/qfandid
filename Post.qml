@@ -58,7 +58,7 @@ Item {
     property int postVote: 0
 
     //Variables
-    property color postTextColor: userSettings["newPostStyle"] ? (userSettings["lightMode"] ? "#333333" : whiteTextColor) : whiteTextColor
+    property color postTextColor: userSettings["newPostStyle"] && userSettings["lightMode"] ? "#333333" : whiteTextColor
     property color loveColor: "#fe4543"
     property color hateColor: "#a343fe"
     property int iconSize: postTextSize + 7 //25
@@ -194,7 +194,7 @@ Item {
             id: postBottom
             width: postBody.width
             height: loveIcon.contentHeight * 1.2
-            color: userSettings["newPostStyle"] ? (userSettings["lightMode"] ? Qt.darker(postBody.color, 1.3) : Qt.darker(postBody.color, 1.7)) : Qt.darker(postBody.color, 1.7)
+            color: userSettings["newPostStyle"] && userSettings["lightMode"] ? Qt.darker(postBody.color, 1.3) : Qt.darker(postBody.color, 1.7)
             radius: postBody.radius
             anchors.left: parent.left
             anchors.right: parent.right
