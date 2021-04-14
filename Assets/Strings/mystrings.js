@@ -44,4 +44,5 @@ var changelog = `Changelog:
 - Fixed hyperlinks not being escaped when sharing text
 - Added option to copy all text to clipboard
 - New Mod and Placeholder avatars
+- PC: Fixed comment pictures disappearing in fullscreen mode
 `

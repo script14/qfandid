@@ -559,8 +559,8 @@ Item {
             property int scaleHeight: imageHeight === 0 ? sourceSize.height : imageHeight
             property int scaleWidth: imageWidth === 0 ? sourceSize.width : imageWidth
 
-            width: commentBody.width
-            height: scaleHeight * (commentBody.width - commentBody.x) / scaleWidth
+            width: commentBody.width * (desktopIsFullscreen ? 2/3 : 1)
+            height: (scaleHeight * commentBody.width / scaleWidth) * (desktopIsFullscreen ? 2/3 : 1)
             visible: source == "" ? false : true
             anchors.left: parent.left
             anchors.top: commentText.bottom
