@@ -276,7 +276,7 @@ Item {
             Label {
                 id: postStyleLabel
                 Layout.fillWidth: true
-                text: qsTr("Website post style")
+                text: qsTr("New post style")
                 color: globalTextColor
                 textFormat: Text.PlainText
                 renderType: Text.NativeRendering

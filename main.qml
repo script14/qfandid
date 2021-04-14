@@ -59,7 +59,6 @@ ApplicationWindow {
     property color avatarBackgroundColor: userSettings["lightMode"] ? "black" : globalBackground
     property color commentIconColor: userSettings["lightMode"] ? globalTextColorDarker : globalTextColor
     property color whiteTextColor: "#E0E0E0"
-    //property color postTextColor: userSettings["newPostStyle"] ? (userSettings["lightMode"] ? "#333333" : whiteTextColor) : whiteTextColor
     property color highlightColor: globalBackgroundDarker
     property color postCircleColor: userSettings["lightMode"] ? "#DCDDE2" : "#5d5d5d"
     property color postCircleTextColor: userSettings["lightMode"] ? "#777779" : globalBackgroundDarker

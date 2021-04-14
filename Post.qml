@@ -194,7 +194,7 @@ Item {
             id: postBottom
             width: postBody.width
             height: loveIcon.contentHeight * 1.2
-            color: Qt.darker(postBody.color, 1.7)
+            color: userSettings["newPostStyle"] ? (userSettings["lightMode"] ? Qt.darker(postBody.color, 1.3) : Qt.darker(postBody.color, 1.7)) : Qt.darker(postBody.color, 1.7)
             radius: postBody.radius
             anchors.left: parent.left
             anchors.right: parent.right
