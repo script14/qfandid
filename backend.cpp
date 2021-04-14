@@ -756,7 +756,8 @@ void BackEnd::sharePostOrComment(QString text)
     QString unescapedText = text.replace(QRegularExpression("&amp;"), "&")
             .replace(QRegularExpression("&lt;"), "<")
             .replace(QRegularExpression("&gt;"), ">")
-            .replace(QRegularExpression("<br>"), "\n");
+            .replace(QRegularExpression("<br>"), "\n")
+            .replace(QRegularExpression("<a href='.*;'>(.*)<\\/a>"), "\\1");
 
     #ifdef Q_OS_ANDROID
 

@@ -505,14 +505,7 @@ Item {
                             switch(comboBoxItems.get(currentIndex).text)
                             {
                                 case "Debug action":
-                                    var list = Qt.fontFamilies()
-                                    var total = ""
-                                    for (var i = 0; i < list.length; i++)
-                                    {
-                                        total += list[i] + ", "
-                                    }
-
-                                    mainStackView.push("InfoPage.qml", {"imageSource": "Assets/Images/logocolored.png", "title": "Debug", "textContent": total})
+                                    console.debug(post.postText)
                                     break
 
                                 case "Share":
