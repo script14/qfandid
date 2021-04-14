@@ -175,7 +175,7 @@ public:
     Q_INVOKABLE bool prepareImage(QUrl path);
     Q_INVOKABLE void cancelImage();
     Q_INVOKABLE void makeNotification(QString title, QString message);
-    Q_INVOKABLE void makePushNotification(int roomId, int yourId, int postId, QString lastMsg, QString oneVn, QString oneColor, QString oneAvatar, QString twoVn, QString twoColor, QString twoAvatar);
+    Q_INVOKABLE void makeDmNotification(int roomId, int yourId, int postId, QString lastMsg, QString oneVn, QString oneColor, QString oneAvatar, QString twoVn, QString twoColor, QString twoAvatar);
     Q_INVOKABLE void createPost(QString content, int groupId, bool nsfw, QString userToken);
     Q_INVOKABLE void saveImage(QString name);
     Q_INVOKABLE void deletePostOrComment(int type, int postId, int commentId, QString userToken);
@@ -281,6 +281,8 @@ signals:
 
     void openDirectMessageFromNotification(int roomId, int yourId, int postId, QString oneVn, QString oneColor, QString oneAvatar, QString twoVn, QString twoColor, QString twoAvatar);
 
+    void openPostFromNotification(int postId);
+
 private:
     static BackEnd *m_instance;
 
@@ -304,6 +306,7 @@ private:
     QString postTime = "Void";
     QString imageToUploadBase64 = "";
     QSystemTrayIcon trayIcon;
+    QVariantMap userSettings;
 
     //Constant values
     //Nouns associated with the corresponding unicode value in the custom font
@@ -397,6 +400,7 @@ private slots:
     void finishedGettingDirectMessageInfo(QNetworkReply *reply);
     void finishedCheckingNotificationsBackground(QNetworkReply *reply);
     void finishedCheckingDirectMessageNotificationsBackground(QNetworkReply *reply);
+    void finishedCheckingCommentsBackground(QNetworkReply *reply);
     void finishedFetchingUserInfo(QNetworkReply *reply);
     void receivedUpdateCheck(QNetworkReply *reply);
 

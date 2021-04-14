@@ -648,7 +648,7 @@ void BackEnd::makeNotification(QString title, QString message)
     #endif
 }
 
-void BackEnd::makePushNotification(int roomId, int yourId, int postId, QString lastMsg, QString oneVn, QString oneColor, QString oneAvatar, QString twoVn, QString twoColor, QString twoAvatar)
+void BackEnd::makeDmNotification(int roomId, int yourId, int postId, QString lastMsg, QString oneVn, QString oneColor, QString oneAvatar, QString twoVn, QString twoColor, QString twoAvatar)
 {
     #ifdef Q_OS_ANDROID
 
@@ -660,7 +660,7 @@ void BackEnd::makePushNotification(int roomId, int yourId, int postId, QString l
     QAndroidJniObject javaTwoColor = QAndroidJniObject::fromString(twoColor);
     QAndroidJniObject javaTwoAvatar = QAndroidJniObject::fromString(twoAvatar);
 
-    QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "makePushNotification",
+    QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "makeDmNotification",
                                               "(Landroid/content/Context;IIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
                                               QtAndroid::androidContext().object(), roomId, yourId, postId, javaLastMsg.object<jstring>(), javaOneVn.object<jstring>(), javaOneColor.object<jstring>(),
                                               javaOneAvatar.object<jstring>(), javaTwoVn.object<jstring>(), javaTwoColor.object<jstring>(), javaTwoAvatar.object<jstring>());
@@ -914,9 +914,8 @@ void BackEnd::finishedCheckingNotificationsBackground(QNetworkReply *reply)
     QString response = reply->readAll();
     QJsonValue obj = QJsonDocument::fromJson(response.toUtf8()).array().first().toObject();
 
-    emit newCommentsCounted(obj["notifs"].toInt());
-
-    if (obj["msgs"].toInt() > 0)
+    int directMessages = obj["msgs"].toInt();
+    if (directMessages > 0 && userSettings["dmNotifications"].toBool())
     {
         QNetworkAccessManager *managerDms = new QNetworkAccessManager(this);
         QNetworkRequest requestDms;
@@ -925,6 +924,21 @@ void BackEnd::finishedCheckingNotificationsBackground(QNetworkReply *reply)
         connect(managerDms, &QNetworkAccessManager::finished, this, &BackEnd::finishedCheckingDirectMessageNotificationsBackground);
         managerDms->get(requestDms);
     }
+    else
+        emit unseenMessagesCounted(directMessages);
+
+    int comments = obj["notifs"].toInt();
+    if (comments > 0 && userSettings["commentNotifications"].toBool())
+    {
+        QNetworkAccessManager *managerComments = new QNetworkAccessManager(this);
+        QNetworkRequest requestComments;
+        requestComments.setUrl(QUrl(host + "notif/desc/0"));
+        requestComments.setRawHeader("token", userToken.toUtf8());
+        connect(managerComments, &QNetworkAccessManager::finished, this, &BackEnd::finishedCheckingCommentsBackground);
+        managerComments->get(requestComments);
+    }
+    else
+        emit newCommentsCounted(comments);
 }
 
 void BackEnd::finishedCheckingDirectMessageNotificationsBackground(QNetworkReply *reply)
@@ -951,11 +965,44 @@ void BackEnd::finishedCheckingDirectMessageNotificationsBackground(QNetworkReply
             QString animalNounOne = regex.globalMatch((yourId == 2 ? oneVn : twoVn), 1).next().captured(0);
             QString animalNounTwo = regex.globalMatch((yourId == 1 ? oneVn : twoVn), 1).next().captured(0);
 
-            makePushNotification(roomId, yourId, obj["postId"].toInt(), obj["lastMsg"].toString(), oneVn, obj["oneColor"].toString(), avatars[animalNounOne], twoVn, obj["twoColor"].toString(), avatars[animalNounTwo]);
+            makeDmNotification(roomId, yourId, obj["postId"].toInt(), obj["lastMsg"].toString(), oneVn, obj["oneColor"].toString(), avatars[animalNounOne], twoVn, obj["twoColor"].toString(), avatars[animalNounTwo]);
         }
     }
 
     emit unseenMessagesCounted(unseenMessages);
+}
+
+void BackEnd::finishedCheckingCommentsBackground(QNetworkReply *reply)
+{
+    QString response = reply->readAll();
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
+    QJsonArray jsonArray = jsonDoc.array();
+
+    int comments = 0;
+    foreach (const QJsonValue &value, jsonArray)
+    {
+        QJsonObject obj = value.toObject();
+
+        if (!obj["seen"].toBool())
+        {
+            comments++;
+
+        #ifdef Q_OS_ANDROID
+
+            QAndroidJniObject javaCommentVn = QAndroidJniObject::fromString(obj["commentVn"].toString());
+            QAndroidJniObject javaPostContent = QAndroidJniObject::fromString(obj["postContent"].toString());
+            QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "makeCommentNotification",
+                "(Landroid/content/Context;ILjava/lang/String;ZLjava/lang/String;)V", QtAndroid::androidContext().object(), obj["postId"].toInt(), javaCommentVn.object<jstring>(), obj["own"].toBool(), javaPostContent.object<jstring>());
+
+        #else
+
+            makeNotification(obj["commentVn"].toString() + " commented on " + (obj["own"].toBool() ? "your post" : "the post"), obj["postContent"].toString());
+
+        #endif
+
+        }
+    }
+    emit newCommentsCounted(comments);
 }
 
 void BackEnd::startSystemTrayIcon()
@@ -994,6 +1041,8 @@ void BackEnd::finishedFetchingUserInfo(QNetworkReply *reply)
 
 void BackEnd::saveUserSettings(QVariantMap userSettings)
 {
+    this->userSettings = userSettings;
+
     QSettings settings(QSettings::IniFormat, QSettings::UserScope, "qFandid", "qFandid");
     settings.beginGroup("Settings");
 
@@ -1002,9 +1051,13 @@ void BackEnd::saveUserSettings(QVariantMap userSettings)
     settings.setValue("postFontSize", userSettings["postFontSize"]);
     settings.setValue("commentFontSize", userSettings["commentFontSize"]);
     settings.setValue("scrollBarToLeft", userSettings["scrollBarToLeft"]);
+
     //Light mode is handled separately to prevent potential crashes
     //settings.setValue("lightMode", userSettings["lightMode"]);
+
     settings.setValue("newPostStyle", userSettings["newPostStyle"]);
+    settings.setValue("dmNotifications", userSettings["dmNotifications"]);
+    settings.setValue("commentNotifications", userSettings["commentNotifications"]);
 
     settings.endGroup();
 }
@@ -1017,8 +1070,6 @@ void BackEnd::setLightMode(bool enabled)
 
 QVariantMap BackEnd::fetchUserSettings()
 {
-    QVariantMap userSettings;
-
     QSettings settings(QSettings::IniFormat, QSettings::UserScope, "qFandid", "qFandid");
     settings.beginGroup("Settings");
 
@@ -1029,6 +1080,8 @@ QVariantMap BackEnd::fetchUserSettings()
     userSettings.insert("scrollBarToLeft", settings.value("scrollBarToLeft", false).toBool());
     userSettings.insert("lightMode", settings.value("lightMode", false).toBool());
     userSettings.insert("newPostStyle", settings.value("newPostStyle", false).toBool());
+    userSettings.insert("dmNotifications", settings.value("dmNotifications", true).toBool());
+    userSettings.insert("commentNotifications", settings.value("commentNotifications", false).toBool());
 
     settings.endGroup();
 

@@ -116,7 +116,7 @@ public class MainActivity extends QtActivity
 
     private void processIntent(Intent intent)
     {
-        //Backend.makePushNotification(getApplicationContext(), "Intent", intent.getAction());
+        //Backend.makeDmNotification(getApplicationContext(), "Intent", intent.getAction());
 
         Uri uri;
         String scheme;
@@ -128,7 +128,7 @@ public class MainActivity extends QtActivity
         //     Bundle bundle = intent.getExtras();
         //     intentUri = (Uri)bundle.get(Intent.EXTRA_STREAM);
         //     intentScheme = intentUri.getScheme();
-        //     Backend.makePushNotification(getApplicationContext(), "Intent", intentScheme);
+        //     Backend.makeDmNotification(getApplicationContext(), "Intent", intentScheme);
         // }
 
         if (Intent.ACTION_SEND.equals(action) && type != null)

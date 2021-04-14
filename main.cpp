@@ -46,9 +46,16 @@ static void sendKeyboardHeightToQml(JNIEnv *env, jobject thiz, jint keyboardHeig
 static void startDirectMessageFromNotification(JNIEnv *env, jobject thiz, jint roomId, jint yourId, jint postId, jstring oneVn, jstring oneColor, jstring oneAvatar, jstring twoVn, jstring twoColor, jstring twoAvatar)
 {
     Q_UNUSED(thiz);
-    BackEnd::getQmlInstance()->openDirectMessageFromNotification((int)roomId, (int)yourId, (int)postId,
+    emit BackEnd::getQmlInstance()->openDirectMessageFromNotification((int)roomId, (int)yourId, (int)postId,
         env->GetStringUTFChars(oneVn, nullptr), env->GetStringUTFChars(oneColor, nullptr), env->GetStringUTFChars(oneAvatar, nullptr),
         env->GetStringUTFChars(twoVn, nullptr), env->GetStringUTFChars(twoColor, nullptr), env->GetStringUTFChars(twoAvatar, nullptr));
+}
+
+static void startPostFromNotification(JNIEnv *env, jobject thiz, jint postId)
+{
+    Q_UNUSED(env);
+    Q_UNUSED(thiz);
+    emit BackEnd::getQmlInstance()->openPostFromNotification((int)postId);
 }
 
 //Register special Java callback functions immediately once the app loads because they must be executed if the app is started via external Android intents
@@ -80,8 +87,10 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
     };
 
     JNINativeMethod notificationClickReceiverMethods[] = {{"javaStartDirectMessageFromNotification",
-       "(IIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
-       (void *)startDirectMessageFromNotification}};
+        "(IIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
+        (void *)startDirectMessageFromNotification},
+
+        {"javaStartPostFromNotification", "(I)V", (void *)startPostFromNotification}};
 
     // register the native methods
     if (env->RegisterNatives(mainActivityClass, mainActivityMethods, sizeof(mainActivityMethods) / sizeof(mainActivityMethods[0])) < 0)

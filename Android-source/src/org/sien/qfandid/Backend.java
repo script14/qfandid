@@ -71,7 +71,7 @@ public class Backend
         ((Activity)context).startActivity(intent);
     }
 
-    public static void makePushNotification(Context context, int roomId, int yourId, int postId, String lastMsg, String oneVn, String oneColor, String oneAvatar, String twoVn, String twoColor, String twoAvatar)
+    public static void makeDmNotification(Context context, int roomId, int yourId, int postId, String lastMsg, String oneVn, String oneColor, String oneAvatar, String twoVn, String twoColor, String twoAvatar)
     {
         try
         {
@@ -163,6 +163,54 @@ public class Backend
                     .setContentIntent(pendingOpenLink);
 
             m_notificationManager.notify(0, m_builder.build());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void makeCommentNotification(Context context, int postId, String commentVn, boolean own, String postContent)
+    {
+        try
+        {
+            m_notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            {
+                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                NotificationChannel notificationChannel = new NotificationChannel("Fandid", "Comment notifications", importance);
+                m_notificationManager.createNotificationChannel(notificationChannel);
+                m_builder = new Notification.Builder(context, notificationChannel.getId());
+            }
+            else
+            {
+                m_builder = new Notification.Builder(context);
+            }
+
+            Intent goToComment = new Intent(context, NotificationClickReceiver.class);
+            goToComment.putExtra("action", "goToComment");
+            goToComment.putExtra("postId", postId);
+            PendingIntent pendingGoToComment = PendingIntent.getBroadcast(context, 1, goToComment, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            m_builder.setSmallIcon(R.drawable.icon)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon))
+                    .setContentTitle(commentVn + " commented on " + (own ? "your post" : "the post"))
+                    .setContentText(postContent)
+                    .setCategory(Notification.CATEGORY_MESSAGE)
+                    .setDefaults(Notification.DEFAULT_SOUND)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingGoToComment);
+
+            SharedPreferences prefs = context.getSharedPreferences(Activity.class.getSimpleName(), Context.MODE_PRIVATE);
+            int notificationNumber = prefs.getInt("notificationNumber", 2);
+
+            m_notificationManager.notify(notificationNumber, m_builder.build());
+
+            SharedPreferences.Editor editor = prefs.edit();
+            notificationNumber++;
+            editor.putInt("notificationNumber", notificationNumber);
+            editor.commit();
         }
         catch (Exception e)
         {

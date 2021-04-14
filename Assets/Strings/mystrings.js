@@ -47,4 +47,5 @@ var changelog = `Changelog:
 - PC: Fixed comment pictures disappearing in fullscreen mode
 - Fixed group not being set in post creator when you press the post button inside a group before the group is loaded
 - Added new post style to match the website
+- Added toggles and enabling and disabling external notifications for direct messages and comments
 `

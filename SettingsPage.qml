@@ -122,7 +122,6 @@ Item {
             anchors.rightMargin: 10
 
             Label {
-                id: loadImgsOnlyInPostLabel
                 Layout.fillWidth: true
                 text: qsTr("Load images only in post page")
                 color: globalTextColor
@@ -156,7 +155,6 @@ Item {
             anchors.rightMargin: 10
 
             Label {
-                id: loadMatureContentLabel
                 Layout.fillWidth: true
                 text: qsTr("Load mature (NSFW) content")
                 color: globalTextColor
@@ -195,7 +193,6 @@ Item {
             anchors.rightMargin: 10
 
             Label {
-                id: doNotHideNsfwLabel
                 Layout.fillWidth: true
                 text: qsTr("Do not hide NSFW content")
                 color: doNotHideNsfw.enabled ? globalTextColor : globalTextColorDarker
@@ -222,7 +219,6 @@ Item {
             anchors.rightMargin: 10
 
             Label {
-                id: scrollBarLocationLabel
                 Layout.fillWidth: true
                 text: qsTr("Scroll bar to left (requires restart)")
                 color: globalTextColor
@@ -232,7 +228,6 @@ Item {
             }
 
             MySwitch {
-                id: scrollBarLocationSwitch
                 checked: userSettings["scrollBarToLeft"]
                 onCheckedChanged: userSettings["scrollBarToLeft"] = checked
             }
@@ -248,7 +243,6 @@ Item {
             anchors.rightMargin: 10
 
             Label {
-                id: lightModeLabel
                 Layout.fillWidth: true
                 text: qsTr("Light mode (requires restart)")
                 color: globalTextColor
@@ -258,7 +252,6 @@ Item {
             }
 
             MySwitch {
-                id: lightModeSwitch
                 checked: userSettings["lightMode"]
                 onCheckedChanged: settingsBackend.setLightMode(checked)
             }
@@ -274,7 +267,6 @@ Item {
             anchors.rightMargin: 10
 
             Label {
-                id: postStyleLabel
                 Layout.fillWidth: true
                 text: qsTr("New post style")
                 color: globalTextColor
@@ -284,15 +276,62 @@ Item {
             }
 
             MySwitch {
-                id: postStyleSwitch
                 checked: userSettings["newPostStyle"]
                 onCheckedChanged: userSettings["newPostStyle"] = checked
             }
         }
 
         RowLayout {
-            id: postTextSizeSpinBoxLayout
+            id: dmNotificationsLayout
             anchors.top: postStyleLayout.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.topMargin: topMargins
+            anchors.leftMargin: 10
+            anchors.rightMargin: 10
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("DM Notifications")
+                color: globalTextColor
+                textFormat: Text.PlainText
+                renderType: Text.NativeRendering
+                font.pointSize: optionTextSize
+            }
+
+            MySwitch {
+                checked: userSettings["dmNotifications"]
+                onCheckedChanged: userSettings["dmNotifications"] = checked
+            }
+        }
+
+        RowLayout {
+            id: commentNotificationsLayout
+            anchors.top: dmNotificationsLayout.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.topMargin: topMargins
+            anchors.leftMargin: 10
+            anchors.rightMargin: 10
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Comment Notifications")
+                color: globalTextColor
+                textFormat: Text.PlainText
+                renderType: Text.NativeRendering
+                font.pointSize: optionTextSize
+            }
+
+            MySwitch {
+                checked: userSettings["commentNotifications"]
+                onCheckedChanged: userSettings["commentNotifications"] = checked
+            }
+        }
+
+        RowLayout {
+            id: postTextSizeSpinBoxLayout
+            anchors.top: commentNotificationsLayout.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.topMargin: topMargins
