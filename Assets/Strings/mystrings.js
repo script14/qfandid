@@ -40,4 +40,5 @@ var changelog = `Changelog:
 ` + appVersion + `
 - Small background optimizations for faster notification retrieval
 - PC: App will follow system font
+- Less waiting time before loading the next batch of posts, comments, etc
 `

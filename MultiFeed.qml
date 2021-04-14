@@ -42,7 +42,7 @@ Item {
         switch (type)
         {
             case RequestType.ROOMLIST:
-                return 15
+                return 19
             case RequestType.HOT:
                 return 20
             case RequestType.NOTIFICATIONS:

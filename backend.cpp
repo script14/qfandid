@@ -194,14 +194,14 @@ void BackEnd::finishedGettingFeed(QNetworkReply *reply)
 
     QJsonArray jsonArray = jsonDoc.array();
 
+    int unlockDelay = 300;
+
     if (jsonArray.isEmpty())
     {
-        QTimer::singleShot(1000, this, &BackEnd::unlockPostFeed);
+        QTimer::singleShot(unlockDelay, this, &BackEnd::unlockPostFeed);
         emit reachedFeedEnd();
         return;
     }
-
-    int unlockDelay = 1000;
 
     foreach (const QJsonValue &value, jsonArray)
     {
@@ -215,7 +215,7 @@ void BackEnd::finishedGettingFeed(QNetworkReply *reply)
             break;
         case 3:
             sendNotification(value.toObject());
-            unlockDelay = 100;
+            unlockDelay = 50;
             break;
         case 2:
         case 7:
@@ -224,11 +224,11 @@ void BackEnd::finishedGettingFeed(QNetworkReply *reply)
             break;
         case 5:
             sendRoomList(value.toObject());
-            unlockDelay = 100;
+            unlockDelay = 20;
             break;
         case 6:
             sendChatMessage(value.toObject(), false);
-            unlockDelay = 100;
+            unlockDelay = 20;
             break;
         default:
             continue;
