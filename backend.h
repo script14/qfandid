@@ -203,6 +203,7 @@ public:
     Q_INVOKABLE void checkAppVersion(QString appVersion);
     Q_INVOKABLE QString readText(QString path);
     Q_INVOKABLE QString registerAccount(QString username, QString password, QString token, bool rememberMe);
+    Q_INVOKABLE void copyTextToClipboard(QString text);
 
     enum RequestType
    {
@@ -231,7 +232,7 @@ public:
    }
 
 signals:
-   void debugSignal(int keyboardHeight);
+    void debugSignal(int keyboardHeight);
 
     void loginFailed();
 
@@ -286,7 +287,8 @@ private:
     void loadBlurhash(QString filename, QString blurhash);
 
     QString parsePostTime(int seconds);
-    QString parseHyperlinks(QString originalText);
+    QString escapeText(QString originalText);
+    QString unescapeText(QString originalText);
     void makeMessageNotification(QString title, QString message);
 
     void sendPost(QJsonObject jsonObj);

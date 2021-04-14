@@ -106,7 +106,7 @@ QString BackEnd::parsePostTime(int seconds)
     return QString("Void");
 }
 
-QString BackEnd::parseHyperlinks(QString originalText)
+QString BackEnd::escapeText(QString originalText)
 {
     //Due to C++ literal strings rules, all backslashes inside the pattern must be escaped with another backslash
     QRegularExpression regex("(((https?://)|(www\\.))\\S+)");
@@ -116,6 +116,15 @@ QString BackEnd::parseHyperlinks(QString originalText)
             .replace(QRegularExpression(">"), "&gt;")
             .replace(regex, "<a href='\\1' style='color:#FFC20B;'>\\1</a>")
             .replace(QRegularExpression("\n"), "<br>");
+}
+
+QString BackEnd::unescapeText(QString originalText)
+{
+    return originalText.replace(QRegularExpression("&amp;"), "&")
+            .replace(QRegularExpression("&lt;"), "<")
+            .replace(QRegularExpression("&gt;"), ">")
+            .replace(QRegularExpression("<br>"), "\n")
+            .replace(QRegularExpression("<a href='.*;'>(.*)<\\/a>"), "\\1");
 }
 
 void BackEnd::getFeed(int type, int id, int groupId, QString groupSearch, int notificationId, QString userToken)
@@ -269,7 +278,7 @@ void BackEnd::sendPost(QJsonObject jsonObj)
                 jsonObj["riskLevel"].toInt(),
                 jsonObj["color"].toString(),
                 jsonObj["groupName"].toString(),
-                parseHyperlinks(jsonObj["content"].toString()),
+                escapeText(jsonObj["content"].toString()),
                 jsonObj["image"].toString(),
                 jsonObj["imageHash"].toString(),
                 jsonObj["imageType"].toString(),
@@ -304,7 +313,7 @@ void BackEnd::sendComment(QJsonObject jsonObj)
                 avatars[animalNoun],
                 jsonObj["vn"].toString(),
                 jsonObj["color"].toString(),
-                parseHyperlinks(jsonObj["content"].toString()),
+                escapeText(jsonObj["content"].toString()),
                 jsonObj["image"].toString(),
                 jsonObj["imageHash"].toString(),
                 jsonObj["imageType"].toString(),
@@ -323,7 +332,7 @@ void BackEnd::sendGroupInfo(QJsonObject jsonObj)
                 jsonObj["model"].toInt(),
                 jsonObj["riskLevel"].toInt(),
                 jsonObj["groupName"].toString(),
-                parseHyperlinks(jsonObj["description"].toString()),
+                escapeText(jsonObj["description"].toString()),
                 jsonObj["own"].toBool(),
                 jsonObj["joined"].toBool()
             );
@@ -366,7 +375,7 @@ void BackEnd::sendChatMessage(QJsonObject jsonObj, bool newMessage)
                 parsePostTime(jsonObj["time"].toInt()),
                 jsonObj["senderId"].toInt(),
                 jsonObj["model"].toInt(),
-                parseHyperlinks(jsonObj["content"].toString()),
+                escapeText(jsonObj["content"].toString()),
                 jsonObj["image"].toString(),
                 jsonObj["imageHash"].toString(),
                 jsonObj["imageType"].toString(),
@@ -753,11 +762,7 @@ void BackEnd::deletePostOrComment(int type, int postId, int commentId, QString u
 
 void BackEnd::sharePostOrComment(QString text)
 {
-    QString unescapedText = text.replace(QRegularExpression("&amp;"), "&")
-            .replace(QRegularExpression("&lt;"), "<")
-            .replace(QRegularExpression("&gt;"), ">")
-            .replace(QRegularExpression("<br>"), "\n")
-            .replace(QRegularExpression("<a href='.*;'>(.*)<\\/a>"), "\\1");
+    QString unescapedText = unescapeText(text);
 
     #ifdef Q_OS_ANDROID
 
@@ -1209,4 +1214,14 @@ QString BackEnd::registerAccount(QString username, QString password, QString tok
 
         return response;
     }
+}
+
+void BackEnd::copyTextToClipboard(QString text)
+{
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(unescapeText(text));
+
+    #ifdef Q_OS_ANDROID
+    makeNotification("", "Copied to clipboard");
+    #endif
 }

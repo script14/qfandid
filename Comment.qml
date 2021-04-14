@@ -326,6 +326,10 @@ Item {
                                 commentBackend.sharePostOrComment(name + " on Fandid" + (content.length == 0 ?  " uploaded an image" : " said:\n" + content) + "\nJoin Fandid at " + linkWebsite + "\n")
                                 break
 
+                            case "Copy":
+                                commentBackend.copyTextToClipboard(comment.content)
+                                break
+
                             case "Save image":
                                 commentBackend.saveImage(commentMedia.imageId + "." + imageType)
                                 break
@@ -353,6 +357,9 @@ Item {
 
                     Component.onCompleted:
                     {
+                        if (comment.content.length > 0)
+                            comboBoxItems.append({"text": "Copy"})
+
                         //Add options dynamically depending on power level and ownership
                         if (commentMedia.source != "")
                             comboBoxItems.append({"text": "Save image"})

@@ -512,6 +512,10 @@ Item {
                                     postBackend.sharePostOrComment(post.postName + " on Fandid" + (post.postText.length == 0 ?  " uploaded an image" : " said:\n" + post.postText) + "\nJoin Fandid at " + linkWebsite + "\n")
                                     break
 
+                                case "Copy":
+                                    postBackend.copyTextToClipboard(post.postText)
+                                    break
+
                                 case "Save image":
                                     postBackend.saveImage(postMedia.imageId + "." + imageType)
                                     break
@@ -539,6 +543,9 @@ Item {
 
                         Component.onCompleted:
                         {
+                            if (post.postText.length > 0)
+                                comboBoxItems.append({"text": "Copy"})
+
                             //Add options dynamically depending on power level and ownership
                             if (postMedia.source != "")
                                 comboBoxItems.append({"text": "Save image"})

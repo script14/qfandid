@@ -62,7 +62,6 @@ Item {
             anchors.top: parent.top
             anchors.leftMargin: 10
             anchors.topMargin: 5
-            visible: !ownMessage || messageMedia.source != ""
             Layout.alignment: Qt.AlignTop | Qt.AlignLeft
             implicitWidth: comboBoxIcon.contentWidth
             currentIndex: -1
@@ -125,6 +124,10 @@ Item {
                         globalBackend.makeNotification("Error", "Reporting is not implemented")
                         break
 
+                    case "Copy":
+                        chatMessageBackend.copyTextToClipboard(chatMessage.content)
+                        break
+
                     case "Save image":
                         chatMessageBackend.saveImage(chatMessage.id + "." + imageType)
                         break
@@ -135,6 +138,9 @@ Item {
 
             Component.onCompleted:
             {
+                if (chatMessage.content.length > 0)
+                    comboBoxItems.append({"text": "Copy"})
+
                 //Add options dynamically depending on power level and ownership
                 if (messageMedia.source != "")
                     comboBoxItems.append({"text": "Save image"})
