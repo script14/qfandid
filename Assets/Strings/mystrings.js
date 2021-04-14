@@ -48,4 +48,5 @@ var changelog = `Changelog:
 - Fixed group not being set in post creator when you press the post button inside a group before the group is loaded
 - Added new post style to match the website
 - Added toggles for enabling and disabling external notifications for direct messages and comments
+- Android: Improved back button not working sometimes, but the bug will likely be present on devices using Swiftkey
 `
