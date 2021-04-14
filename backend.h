@@ -189,6 +189,7 @@ public:
     Q_INVOKABLE void startSystemTrayIcon();
     Q_INVOKABLE void fetchUserInfo(QString userToken);
     Q_INVOKABLE void saveUserSettings(QVariantMap userSettings);
+    Q_INVOKABLE void setLightMode(bool enabled);
     Q_INVOKABLE QVariantMap fetchUserSettings();
     Q_INVOKABLE void setNsfw(int nsfw, QString userToken);
     Q_INVOKABLE void logout();
@@ -202,7 +203,6 @@ public:
     Q_INVOKABLE void checkAppVersion(QString appVersion);
     Q_INVOKABLE QString readText(QString path);
     Q_INVOKABLE QString registerAccount(QString username, QString password, QString token, bool rememberMe);
-    Q_INVOKABLE void setLightMode(bool enabled);
 
     enum RequestType
    {

@@ -1002,6 +1002,12 @@ void BackEnd::saveUserSettings(QVariantMap userSettings)
     settings.endGroup();
 }
 
+void BackEnd::setLightMode(bool enabled)
+{
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "qFandid", "qFandid");
+    settings.setValue("Settings/lightMode", enabled);
+}
+
 QVariantMap BackEnd::fetchUserSettings()
 {
     QVariantMap userSettings;
@@ -1043,10 +1049,10 @@ void BackEnd::modAction(QString action, int type, int id, QString userToken)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
-    request.setUrl(QUrl(host + "mod/" + action + "/" + (type == 0 ? "post" : "cmnt") + "/" + QString::number(id)));
+    request.setUrl(QUrl(host + "mod/" + action + (type == 0 ? "/post/" : "/cmnt/") + QString::number(id)));
     request.setRawHeader("token", userToken.toUtf8());
+    connect(manager, &QNetworkAccessManager::finished, this, &BackEnd::postOrCommentRemoved);
     manager->get(request);
-    emit postOrCommentRemoved();
 
     #if defined Q_OS_ANDROID || defined Q_OS_IOS
     makeNotification("Removed", (type == 0 ? "Post " : "Comment ") + action);
@@ -1202,10 +1208,4 @@ QString BackEnd::registerAccount(QString username, QString password, QString tok
 
         return response;
     }
-}
-
-void BackEnd::setLightMode(bool enabled)
-{
-    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "qFandid", "qFandid");
-    settings.setValue("Settings/lightMode", enabled);
 }
