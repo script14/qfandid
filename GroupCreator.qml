@@ -28,6 +28,7 @@ Item {
     property int nameCharacterLimit: 31
     property int descriptionCharacterLimit: 500
 
+    Component.onCompleted: focusWindow.focus = true
     Component.onDestruction: focusWindow.focus = true
 
     BackEnd {

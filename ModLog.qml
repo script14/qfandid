@@ -20,6 +20,7 @@ import RequestType 1.0
 
 Item {
 
+    Component.onCompleted: focusWindow.focus = true
     Component.onDestruction: focusWindow.focus = true
 
     Rectangle {

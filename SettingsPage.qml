@@ -34,6 +34,7 @@ Item {
         id: settingsBackend
     }
 
+    Component.onCompleted: focusWindow.focus = true
     Component.onDestruction:
     {
         focusWindow.focus = true
@@ -411,6 +412,7 @@ Item {
                 text: qsTr("Clear")
                 font.bold: true
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                focusPolicy: Qt.NoFocus
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
                 onClicked:

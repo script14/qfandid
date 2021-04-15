@@ -29,6 +29,9 @@ Item {
     //Variables
     property int buttonSize: platformIsMobile ? 13 : 15
 
+    Component.onCompleted: focusWindow.focus = true
+    Component.onDestruction: focusWindow.focus = true
+
     Rectangle {
         id: groupViewTopBar
         anchors.top: parent.top

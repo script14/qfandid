@@ -25,6 +25,9 @@ Item {
     property int textSize: 15
     property string textContent: ""
 
+    Component.onCompleted: focusWindow.focus = true
+    Component.onDestruction: focusWindow.focus = true
+
     Rectangle {
         id: settingsPageTopBar
         anchors.top: parent.top

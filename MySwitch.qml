@@ -20,6 +20,7 @@ import QtQuick.Controls.Material 2.12
 
 Switch {
     Material.accent: fandidYellowDarker
+    focusPolicy: Qt.NoFocus
 
     contentItem: Text {
         text: parent.text
