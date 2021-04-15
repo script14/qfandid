@@ -49,4 +49,5 @@ var changelog = `Changelog:
 - Added new post style to match the website
 - Added toggles for enabling and disabling external notifications for direct messages and comments
 - Android: Improved back button not working sometimes, but the bug will likely be present on devices using Swiftkey
+- Android: Saved images will now go in a "Fandid" folder in the user's pictures directory
 `

@@ -53,20 +53,8 @@
 //For handling network connections within the same function / thread and accessing the reply there
 #include <QEventLoop>
 
-//For temporarily loading a downloaded image into memory to determine its format
-//DEPRECATED
-//#include <QBuffer>
-
-//For determining the format of the downloaded image
-//DEPRECATED
-//#include <QImageReader>
-
 //For finding platform-specific directories
 #include <QStandardPaths>
-
-//For searching the local file system with wildcards to find if an image is already cached
-//DEPRECATED
-//#include <QDir>
 
 //For reading and writing files on the local file system
 #include <QSaveFile>
@@ -103,9 +91,6 @@
 //For opening images with external programs on Windows, Linux and MacOS
 #include <QDesktopServices>
 
-//For keeping track of which unseen messages have already been notified
-//#include <QVector>
-
 //For communication across separate threads
 #include <QMetaObject>
 
@@ -123,9 +108,6 @@
 
 //For registration through a web view
 #include <QtWebView>
-
-//For embedding C++ objects into QML with context properties
-//#include <QQmlContext>
 
 class BackEnd : public QObject
 {
@@ -363,8 +345,13 @@ private:
         {"Wolf", "\ue930"}
     };
 
+    //Locations
     const QString cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/";
+    #ifdef Q_OS_ANDROID
+    const QString downloadDir = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) + "/Fandid/";
+    #else
     const QString downloadDir = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation) + "/";
+    #endif
 
     const QString host = "https://api.fandid.app/";
     const QString versionSource = "https://fandid.app/qt/version";
