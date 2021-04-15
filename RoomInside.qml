@@ -397,6 +397,21 @@ Item {
         myBusyIndicator.visible = false
     }
 
+    function setImage(fileUrl)
+    {
+        if (roomInsideBackend.prepareImage(fileUrl))
+        {
+            imageToUpload.source = Qt.resolvedUrl(fileUrl)
+            imageToUpload.visible = true
+            upload.color = globalBackgroundDarker
+        }
+        else
+        {
+            removeImage()
+            globalBackend.makeNotification("Warning", "Image file size is too high")
+        }
+    }
+
     function removeImage()
     {
         imageToUpload.visible = false
@@ -407,24 +422,44 @@ Item {
     FileDialog {
         id: fileDialog
         title: "Choose an image"
-        //Set to remember last directory
         nameFilters: [ "Image files (*.jpg *.jpeg *.png *.tiff *.tif *.webp *.gif)" ]
+        onAccepted: setImage(fileUrl)
+        onRejected: removeImage()
+    }
 
-        onAccepted:
-        {
-            if (roomInsideBackend.prepareImage(fileUrl))
-            {
-                imageToUpload.source = Qt.resolvedUrl(fileUrl)
-                imageToUpload.visible = true
-                upload.color = globalBackgroundDarker
-            }
-            else
-            {
-                removeImage()
-                globalBackend.makeNotification("Warning", "Image file size is too high")
-            }
+    Label {
+        id: dragAndDropLabel
+        z: 1
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        text: qsTr("Drop file here")
+        font.pointSize: 40
+        color: fandidYellow
+        visible: false
+    }
+
+    DropArea {
+        id: dropArea
+        anchors.fill: parent
+        onEntered: {
+            window.color = globalBackgroundDragAndDrop
+            dragAndDropLabel.visible = true
         }
 
-        onRejected: removeImage()
+        onExited: {
+            window.color = globalBackground
+            dragAndDropLabel.visible = false
+        }
+
+        onDropped: {
+            window.color = globalBackground
+            dragAndDropLabel.visible = false
+
+            if (!drop.urls[0].endsWith(".jpg") && !drop.urls[0].endsWith(".jpeg") && !drop.urls[0].endsWith(".png")
+                    && !drop.urls[0].endsWith(".tiff") && !drop.urls[0].endsWith(".tif") && !drop.urls[0].endsWith(".webp") && !drop.urls[0].endsWith(".gif"))
+                globalBackend.makeNotification("Invalid file", "You cannot upload this type of file")
+            else
+                setImage(drop.urls[0])
+        }
     }
 }

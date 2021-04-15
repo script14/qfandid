@@ -52,6 +52,7 @@ ApplicationWindow {
     property color darkenedButton: "#505050"
     property color globalBackground: userSettings["lightMode"] ? "#F4F5FA" : "#333333"
     property color globalBackgroundDarker: Qt.darker(globalBackground, userSettings["lightMode"] ? 1.1 : 1.4)
+    property color globalBackgroundDragAndDrop: userSettings["lightMode"] ? Qt.darker(globalBackground, 1.5) : Qt.lighter(globalBackground, 1.5)
     property color postToGroupEntryColor: userSettings["lightMode"] ? "white" : globalBackgroundDarker
     property color postToGroupEntryBorderColor: userSettings["lightMode"] ? globalBackgroundDarker : "#414141"
     property color globalTextColor: userSettings["lightMode"] ? "#4D4D4D" : "#E0E0E0"
