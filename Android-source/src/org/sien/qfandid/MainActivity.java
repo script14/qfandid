@@ -41,7 +41,6 @@ public class MainActivity extends QtActivity
     //"native" means these are C++ functions
     private static native void javaShareTextToQML(String text);
     private static native void javaCheckNotificationsOnResume();
-    private static native void javaSendKeyboardHeightToQml(int keyboardHeight);
 
     public static boolean intentPending;
     public static boolean intentInitialized;
