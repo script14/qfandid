@@ -56,6 +56,8 @@ Item {
     {
         checkDirectMessageInfo()
         messageNotificationTimer.running = false
+        if (platformIsMobile)
+            globalBackend.cancelActiveNotification(roomId)
     }
 
     Component.onDestruction:

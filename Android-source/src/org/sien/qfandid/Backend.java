@@ -33,10 +33,12 @@ import android.app.PendingIntent;
 
 public class Backend
 {
+    public Backend() {}
+
+    private static native void javaStoreNotificationId(int roomOrCommentId, int notificationId);
+
     private static NotificationManager m_notificationManager;
     private static Notification.Builder m_builder;
-
-    public Backend() {}
 
     public static void makeToastMessage(Context context, String message)
     {
@@ -118,6 +120,7 @@ public class Backend
             int notificationNumber = prefs.getInt("notificationNumber", 2);
 
             m_notificationManager.notify(notificationNumber, m_builder.build());
+            javaStoreNotificationId(roomId, notificationNumber);
 
             SharedPreferences.Editor editor = prefs.edit();
             notificationNumber++;
@@ -206,6 +209,7 @@ public class Backend
             int notificationNumber = prefs.getInt("notificationNumber", 2);
 
             m_notificationManager.notify(notificationNumber, m_builder.build());
+            javaStoreNotificationId(postId, notificationNumber);
 
             SharedPreferences.Editor editor = prefs.edit();
             notificationNumber++;
@@ -216,5 +220,10 @@ public class Backend
         {
             e.printStackTrace();
         }
+    }
+
+    public static void cancelActiveNotification(int id)
+    {
+        m_notificationManager.cancel(id);
     }
 }

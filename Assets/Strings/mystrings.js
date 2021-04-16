@@ -75,4 +75,6 @@ var changelog = `Changelog:
         It must have at least one empty line above and below the code block
 
         \`\`\`
+
+- Android: Opening a DM or comment will automatically cancel its active notification if one exists
 `

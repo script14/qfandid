@@ -65,7 +65,6 @@ public class NotificationClickReceiver extends BroadcastReceiver
         }
         else if (action.equals("openLink"))
         {
-            System.out.println(intent.getStringExtra("link"));
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(intent.getStringExtra("link")));
             browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(browserIntent);

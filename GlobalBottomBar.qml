@@ -254,7 +254,7 @@ Item {
         target: globalBackend
         function onUnseenMessagesCounted(unseenMessages)
         {
-            if (unseenMessages > 0)
+            if (unseenMessages > 0 && swipeViewMain.currentIndex !== 2)
             {
                 chatText = "Chat (" + (unseenMessages === 20 ? unseenMessages + "+" : unseenMessages) + ")"
                 chatButtonContentItem.color = notificationRed

@@ -133,10 +133,9 @@ public:
 
     Q_INVOKABLE bool androidCheckStoragePermission();
     Q_INVOKABLE void androidRequestStoragePermission();
-    //Q_INVOKABLE void startBackgroundMessagesService(int messageCheckInterval);
-    //Q_INVOKABLE void registerJavaCallbacks();
+    Q_INVOKABLE void cancelActiveNotification(int id);
 
-    //static void shareTextToQML(JNIEnv *env, jobject, jstring text);
+    QMap<int, int>activeNotifications;
 
     #endif
 

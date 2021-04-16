@@ -18,21 +18,12 @@ package org.sien.qfandid;
 
 import org.qtproject.qt5.android.bindings.QtActivity;
 import android.content.Intent;
-import java.io.File;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.content.ContentResolver;
-import java.io.InputStream;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.content.ContextWrapper;
 import java.lang.Exception;
-import java.io.FileOutputStream;
 import android.app.Activity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.graphics.Rect;
+import android.content.SharedPreferences;
 
 public class MainActivity extends QtActivity
 {
@@ -50,6 +41,10 @@ public class MainActivity extends QtActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        //Reset shared preferences containing notification IDs
+        SharedPreferences prefs = getSharedPreferences(Activity.class.getSimpleName(), Context.MODE_PRIVATE);
+        prefs.edit().clear().commit();
 
         //Stuff when intent launches app
     }

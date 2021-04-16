@@ -49,6 +49,13 @@ static void startPostFromNotification(JNIEnv *env, jobject thiz, jint postId)
     emit BackEnd::getQmlInstance()->openPostFromNotification((int)postId);
 }
 
+static void storeNotificationId(JNIEnv *env, jobject thiz, jint roomOrCommentId, jint notificationId)
+{
+    Q_UNUSED(env);
+    Q_UNUSED(thiz);
+    BackEnd::getQmlInstance()->activeNotifications.insert((int)roomOrCommentId, (int)notificationId);
+}
+
 //Register special Java callback functions immediately once the app loads because they must be executed if the app is started via external Android intents
 //Also because this is the only way to register natives into a Java class that extends QtActivity
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
@@ -65,7 +72,13 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
     if (!mainActivityClass)
         return JNI_ERR;
 
+    jclass backendClass = env->FindClass("org/sien/qfandid/Backend");
+    if (!backendClass)
+        return JNI_ERR;
+
     jclass notificationClickReceiverClass = env->FindClass("org/sien/qfandid/NotificationClickReceiver");
+    if (!notificationClickReceiverClass)
+        return JNI_ERR;
 
     //Set native method arrays
     JNINativeMethod mainActivityMethods[] = {
@@ -76,14 +89,23 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
         {"javaCheckNotificationsOnResume", "()V", (void *)checkNotificationsOnResume}
     };
 
-    JNINativeMethod notificationClickReceiverMethods[] = {{"javaStartDirectMessageFromNotification",
+    JNINativeMethod BackendMethods[] = {
+        {"javaStoreNotificationId", "(II)V", (void *)storeNotificationId}
+    };
+
+    JNINativeMethod notificationClickReceiverMethods[] = {
+        {"javaStartDirectMessageFromNotification",
         "(IIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
         (void *)startDirectMessageFromNotification},
 
-        {"javaStartPostFromNotification", "(I)V", (void *)startPostFromNotification}};
+        {"javaStartPostFromNotification", "(I)V", (void *)startPostFromNotification}
+    };
 
     // register the native methods
     if (env->RegisterNatives(mainActivityClass, mainActivityMethods, sizeof(mainActivityMethods) / sizeof(mainActivityMethods[0])) < 0)
+        return JNI_ERR;
+
+    if (env->RegisterNatives(backendClass, BackendMethods, sizeof(BackendMethods) / sizeof(BackendMethods[0])) < 0)
         return JNI_ERR;
 
     if (env->RegisterNatives(notificationClickReceiverClass, notificationClickReceiverMethods, sizeof(notificationClickReceiverMethods) / sizeof(notificationClickReceiverMethods[0])) < 0)

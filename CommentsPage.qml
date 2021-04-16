@@ -48,7 +48,13 @@ Item {
         }
     }
 
-    Component.onCompleted: focusWindow.focus = true
+    Component.onCompleted:
+    {
+        focusWindow.focus = true
+        if (platformIsMobile)
+            globalBackend.cancelActiveNotification(postId)
+    }
+
     Component.onDestruction: focusWindow.focus = true
 
     Rectangle {

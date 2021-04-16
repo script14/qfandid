@@ -46,6 +46,15 @@ void BackEnd::androidRequestStoragePermission()
 {
     QtAndroid::requestPermissionsSync(QStringList({"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"}));
 }
+
+void BackEnd::cancelActiveNotification(int roomOrCommentId)
+{
+    if (activeNotifications.contains(roomOrCommentId))
+    {
+        QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "cancelActiveNotification", "(I)V", activeNotifications[roomOrCommentId]);
+        activeNotifications.remove(roomOrCommentId);
+    }
+}
 #endif
 
 QString BackEnd::getUserToken()
