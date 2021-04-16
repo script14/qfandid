@@ -34,15 +34,6 @@ static void checkNotificationsOnResume(JNIEnv *env, jobject thiz)
     QMetaObject::invokeMethod(qmlInstance, "checkNotificationsBackground", Qt::AutoConnection, Q_ARG(QString, qmlInstance->getUserToken()));
 }
 
-static void sendKeyboardHeightToQml(JNIEnv *env, jobject thiz, jint keyboardHeight)
-{
-    Q_UNUSED(env);
-    Q_UNUSED(thiz);
-    BackEnd *qmlInstance = BackEnd::getQmlInstance();
-    if (qmlInstance != NULL)
-        emit qmlInstance->virtualKeyboardHeightChanged((int)keyboardHeight);
-}
-
 static void startDirectMessageFromNotification(JNIEnv *env, jobject thiz, jint roomId, jint yourId, jint postId, jstring oneVn, jstring oneColor, jstring oneAvatar, jstring twoVn, jstring twoColor, jstring twoAvatar)
 {
     Q_UNUSED(thiz);
@@ -82,8 +73,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
             "(Ljava/lang/String;)V", // const char* function signature
             (void *)shareTextToQML // function pointer
         },
-        {"javaCheckNotificationsOnResume", "()V", (void *)checkNotificationsOnResume},
-        {"javaSendKeyboardHeightToQml", "(I)V", (void *)sendKeyboardHeightToQml}
+        {"javaCheckNotificationsOnResume", "()V", (void *)checkNotificationsOnResume}
     };
 
     JNINativeMethod notificationClickReceiverMethods[] = {{"javaStartDirectMessageFromNotification",
@@ -124,12 +114,6 @@ int main(int argc, char *argv[])
     #if !defined Q_OS_ANDROID && !defined Q_OS_IOS
     app.setFont(QApplication::font());
     #endif
-
-    //engine.rootContext()->setContextProperty("systemFont", QApplication::font().family());
-    //engine.rootContext()->setContextProperty("testFont", QFontDatabase::systemFont(QFontDatabase::GeneralFont).family());
-    //qDebug() << QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-
-    //QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "printFont", "(Landroid/content/Context;)V", QtAndroid::androidContext().object());
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

@@ -550,13 +550,6 @@ void BackEnd::finishedDownloadingImage(QNetworkReply *reply)
 
     QByteArray data = QByteArray::fromBase64(reply->readAll());
 
-//    QBuffer buffer(&data);
-
-//    QImageReader identifier;
-//    identifier.setDevice(&buffer);
-
-//    QString extension = identifier.supportsAnimation() ? ".gif" : ".webp";
-
     QString path = cacheDir + id + "." + imageType;
 
     QSaveFile file(path);
@@ -565,9 +558,6 @@ void BackEnd::finishedDownloadingImage(QNetworkReply *reply)
     file.commit();
 
     emit imageReady(false);
-
-    //Once the real image is stored in cache, the blurhash version is no longer needed
-    //QFile::remove(cacheDir + id + ".blurhash");
 }
 
 void BackEnd::vote(QString type, int id, int voteAction, QString userToken)
