@@ -99,7 +99,7 @@ Item {
             onClicked:
             {
                 mainStackView.push("PostCreator.qml")
-                focusWindow.preloadPostCreator(groupId, groupName, "", (groupViewMultiFeed.externMultiModel.get(0).riskLevel > 0))
+                focusWindow.preloadPostCreator(groupId, groupName, "", "", (groupViewMultiFeed.externMultiModel.get(0).riskLevel > 0))
             }
         }
     }

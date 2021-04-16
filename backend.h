@@ -74,10 +74,6 @@
 //For executing Java functions from C++, sending and receiving values
 #include <QAndroidJniObject>
 
-//For starting the background service on demand
-//DEPRECATED
-//#include <QAndroidIntent>
-
 //For registering native C++ functions that can be called from java
 #include <QAndroidJniEnvironment>
 #endif
@@ -252,7 +248,7 @@ signals:
     void newCommentsCounted(int newComments);
 
     void sendSharedTextToQML(QString sharedText);
-    void sendImagePathToQML(QString path);
+    void sendSharedImageToQML(QString path);
 
     void sendUserInfo(QVariantMap userInfo);
 

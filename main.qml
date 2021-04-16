@@ -157,7 +157,7 @@ ApplicationWindow {
         //It is also the main item where focus is set by default so the app can react to various keys presses from keyboards
         id: focusWindow
         visible: false
-        signal preloadPostCreator(int groupId, string groupName, string text, bool nsfw)
+        signal preloadPostCreator(int groupId, string groupName, string text, string imagePath, bool nsfw)
         signal enableGroupPostButton()
 
         Keys.onBackPressed:

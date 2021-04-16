@@ -69,7 +69,7 @@ Item {
 
             onClicked:
             {
-                postCreatorPreloader.onPreloadPostCreator(groupId, groupName, "", riskLevel > 0)
+                postCreatorPreloader.onPreloadPostCreator(groupId, groupName, "", "", riskLevel > 0)
                 nsfwSwitch.checked = riskLevel
             }
         }

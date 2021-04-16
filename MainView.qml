@@ -38,11 +38,18 @@ Item {
             //This is triggered from Android intents in Java
             function onSendSharedTextToQML(sharedText)
             {
-                console.debug(mainStackView.depth)
                 if (mainStackView.depth === 1)
                 {
                     mainStackView.push("PostCreator.qml")
-                    focusWindow.preloadPostCreator(0, "", sharedText, false)
+                    focusWindow.preloadPostCreator(0, "", sharedText, "", false)
+                }
+            }
+            function onSendSharedImageToQML(path)
+            {
+                if (mainStackView.depth === 1)
+                {
+                    mainStackView.push("PostCreator.qml")
+                    focusWindow.preloadPostCreator(0, "", "", path, false)
                 }
             }
         }

@@ -56,6 +56,12 @@ static void storeNotificationId(JNIEnv *env, jobject thiz, jint roomOrCommentId,
     BackEnd::getQmlInstance()->activeNotifications.insert((int)roomOrCommentId, (int)notificationId);
 }
 
+static void shareImageToQML(JNIEnv *env, jobject thiz, jstring path)
+{
+    Q_UNUSED(thiz);
+    emit BackEnd::getQmlInstance()->sendSharedImageToQML(env->GetStringUTFChars(path, nullptr));
+}
+
 //Register special Java callback functions immediately once the app loads because they must be executed if the app is started via external Android intents
 //Also because this is the only way to register natives into a Java class that extends QtActivity
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
@@ -86,7 +92,8 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
             "(Ljava/lang/String;)V", // const char* function signature
             (void *)shareTextToQML // function pointer
         },
-        {"javaCheckNotificationsOnResume", "()V", (void *)checkNotificationsOnResume}
+        {"javaCheckNotificationsOnResume", "()V", (void *)checkNotificationsOnResume},
+        {"javaShareImageToQML", "(Ljava/lang/String;)V", (void *)shareImageToQML}
     };
 
     JNINativeMethod BackendMethods[] = {

@@ -24,6 +24,11 @@ import android.os.Bundle;
 import java.lang.Exception;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import java.io.InputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class MainActivity extends QtActivity
 {
@@ -31,6 +36,7 @@ public class MainActivity extends QtActivity
 
     //"native" means these are C++ functions
     private static native void javaShareTextToQML(String text);
+    private static native void javaShareImageToQML(String path);
     private static native void javaCheckNotificationsOnResume();
 
     public static boolean intentPending;
@@ -73,8 +79,6 @@ public class MainActivity extends QtActivity
 
     private void processIntent(Intent intent)
     {
-        Uri uri;
-        String scheme;
         String action = intent.getAction();
         String type = intent.getType();
 
@@ -86,10 +90,26 @@ public class MainActivity extends QtActivity
                 if (sharedText != null)
                     javaShareTextToQML(sharedText);
             }
-//            else if ("image/jpg".equals(type) || "image/jpeg".equals(type) || "image/png".equals(type) || "image/tiff".equals(type) || "image/tif".equals(type) || "image/webp".equals(type) || "image/gif".equals(type))
-//            {
-//
-//            }
+            else if (type.startsWith("image/"))
+            {
+                Uri imageUri = (Uri)intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                try
+                {
+                    InputStream input = getContentResolver().openInputStream(imageUri);
+                    Bitmap image = BitmapFactory.decodeStream(input);
+                    File file = new File (getApplicationInfo().dataDir, "TempImage.png");
+                    FileOutputStream out = new FileOutputStream(file);
+                    image.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    out.flush();
+                    out.close();
+
+                    javaShareImageToQML(file.getAbsolutePath());
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

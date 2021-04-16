@@ -39,6 +39,12 @@ Item {
         {
             postTextArea.text += sharedText
         }
+
+        function onSendSharedImageToQML(path)
+        {
+            if (path.length > 0)
+                setImage("file:/" + path)
+        }
     }
 
     Component.onCompleted: focusWindow.focus = true
@@ -344,7 +350,7 @@ Item {
         id: postCreatorPreloader
         target: focusWindow
 
-        function onPreloadPostCreator(groupId, groupName, text, nsfw)
+        function onPreloadPostCreator(groupId, groupName, text, imagePath, nsfw)
         {
             textField.text = groupName
             postToGroupEntryLoader.active = false
@@ -359,6 +365,9 @@ Item {
 
             if (text.length != 0)
                 postTextArea.text = text
+
+            if (imagePath.length > 0)
+                setImage("file:/" + imagePath)
 
             postTextArea.forceActiveFocus()
         }

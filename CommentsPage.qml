@@ -46,6 +46,11 @@ Item {
         {
             commentTextArea.text += sharedText
         }
+        function onSendSharedImageToQML(path)
+        {
+            if (path.length > 0)
+                setImage("file:/" + path)
+        }
     }
 
     Component.onCompleted:
