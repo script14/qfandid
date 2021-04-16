@@ -262,7 +262,7 @@ signals:
 
     void openDirectMessageFromNotification(int roomId, int yourId, int postId, QString oneVn, QString oneColor, QString oneAvatar, QString twoVn, QString twoColor, QString twoAvatar);
 
-    void openPostFromNotification(int postId);
+    void openPostFromNotification(int postId, int notificationId);
 
 private:
     static BackEnd *m_instance;

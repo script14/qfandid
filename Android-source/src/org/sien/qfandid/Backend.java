@@ -173,7 +173,7 @@ public class Backend
         }
     }
 
-    public static void makeCommentNotification(Context context, int postId, String commentVn, boolean own, String postContent)
+    public static void makeCommentNotification(Context context, int postId, int notificationId, String commentVn, boolean own, String postContent)
     {
         try
         {
@@ -194,6 +194,7 @@ public class Backend
             Intent goToComment = new Intent(context, NotificationClickReceiver.class);
             goToComment.putExtra("action", "goToComment");
             goToComment.putExtra("postId", postId);
+            goToComment.putExtra("notificationId", notificationId);
             PendingIntent pendingGoToComment = PendingIntent.getBroadcast(context, 1, goToComment, PendingIntent.FLAG_UPDATE_CURRENT);
 
             m_builder.setSmallIcon(R.drawable.icon)

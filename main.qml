@@ -112,9 +112,9 @@ ApplicationWindow {
             mainStackView.push("RoomInside.qml", {"roomId": roomId, "postId": postId, "yourId": yourId, "oneAvatar": oneAvatar, "oneVn": oneVn, "oneColor": oneColor, "twoAvatar": twoAvatar, "twoVn": twoVn, "twoColor": twoColor})
         }
 
-        function onOpenPostFromNotification(postId)
+        function onOpenPostFromNotification(postId, notificationId)
         {
-            mainStackView.push("CommentsPage.qml", {"postId": postId})
+            mainStackView.push("CommentsPage.qml", {"postId": postId, "notificationId": notificationId})
         }
     }
 

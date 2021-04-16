@@ -28,7 +28,7 @@ public class NotificationClickReceiver extends BroadcastReceiver
     public NotificationClickReceiver() {}
 
     private static native void javaStartDirectMessageFromNotification(int roomId, int yourId, int postId, String oneVn, String oneColor, String oneAvatar, String twoVn, String twoColor, String twoAvatar);
-    private static native void javaStartPostFromNotification(int postId);
+    private static native void javaStartPostFromNotification(int postId, int notificationId);
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -56,8 +56,9 @@ public class NotificationClickReceiver extends BroadcastReceiver
         else if (action.equals("goToComment"))
         {
             int postId = intent.getIntExtra("postId", 0);
+            int notificationId = intent.getIntExtra("notificationId", 0);
 
-            javaStartPostFromNotification(postId);
+            javaStartPostFromNotification(postId, notificationId);
 
             PackageManager pm = context.getPackageManager();
             Intent launchIntent = pm.getLaunchIntentForPackage("org.sien.qfandid");

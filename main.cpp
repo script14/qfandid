@@ -42,11 +42,11 @@ static void startDirectMessageFromNotification(JNIEnv *env, jobject thiz, jint r
         env->GetStringUTFChars(twoVn, nullptr), env->GetStringUTFChars(twoColor, nullptr), env->GetStringUTFChars(twoAvatar, nullptr));
 }
 
-static void startPostFromNotification(JNIEnv *env, jobject thiz, jint postId)
+static void startPostFromNotification(JNIEnv *env, jobject thiz, jint postId, jint notificationId)
 {
     Q_UNUSED(env);
     Q_UNUSED(thiz);
-    emit BackEnd::getQmlInstance()->openPostFromNotification((int)postId);
+    emit BackEnd::getQmlInstance()->openPostFromNotification((int)postId, (int)notificationId);
 }
 
 static void storeNotificationId(JNIEnv *env, jobject thiz, jint roomOrCommentId, jint notificationId)
@@ -98,7 +98,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
         "(IIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
         (void *)startDirectMessageFromNotification},
 
-        {"javaStartPostFromNotification", "(I)V", (void *)startPostFromNotification}
+        {"javaStartPostFromNotification", "(II)V", (void *)startPostFromNotification}
     };
 
     // register the native methods

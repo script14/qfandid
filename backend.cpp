@@ -1013,7 +1013,8 @@ void BackEnd::finishedCheckingCommentsBackground(QNetworkReply *reply)
             QAndroidJniObject javaCommentVn = QAndroidJniObject::fromString(obj["commentVn"].toString());
             QAndroidJniObject javaPostContent = QAndroidJniObject::fromString(obj["postContent"].toString());
             QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "makeCommentNotification",
-                "(Landroid/content/Context;ILjava/lang/String;ZLjava/lang/String;)V", QtAndroid::androidContext().object(), obj["postId"].toInt(), javaCommentVn.object<jstring>(), obj["own"].toBool(), javaPostContent.object<jstring>());
+                "(Landroid/content/Context;IILjava/lang/String;ZLjava/lang/String;)V", QtAndroid::androidContext().object(),
+                obj["postId"].toInt(), obj["id"].toInt(), javaCommentVn.object<jstring>(), obj["own"].toBool(), javaPostContent.object<jstring>());
 
         #else
 
