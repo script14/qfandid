@@ -97,7 +97,7 @@ Item {
             }
         }
 
-        Label {
+        Text {
             id: description
             color: globalTextColor
             text: groupDescription
@@ -113,6 +113,7 @@ Item {
             anchors.leftMargin: horizontalInstance ? undefined : 20
             anchors.topMargin: 10
             renderType: Text.NativeRendering
+            textFormat: Text.RichText
             anchors.horizontalCenter: horizontalInstance ? parent.horizontalCenter : undefined
         }
 

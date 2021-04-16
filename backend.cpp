@@ -109,13 +109,25 @@ QString BackEnd::parsePostTime(int seconds)
 QString BackEnd::escapeText(QString originalText)
 {
     //Due to C++ literal strings rules, all backslashes inside the pattern must be escaped with another backslash
-    QRegularExpression regex("(((https?://)|(www\\.))\\S+)");
+    QRegularExpression linkRegex("(((https?://)|(www\\.))\\S+[^()<>\\[\\]'\"`])");
     //color fandidYellow: "#FFC20B"
     return originalText.replace(QRegularExpression("&"), "&amp;")
             .replace(QRegularExpression("<"), "&lt;")
             .replace(QRegularExpression(">"), "&gt;")
-            .replace(regex, "<a href='\\1' style='color:#FFC20B;'>\\1</a>")
-            .replace(QRegularExpression("\n"), "<br>");
+            .replace(linkRegex, "<a href='\\1' style='color:#FFC20B;'>\\1</a>")
+            .replace(QRegularExpression("\n"), "<br>")
+            .replace(QRegularExpression("```(.*?)```"), "<tt>\\1</tt>")
+            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|\\*\\*\\*(.*?)\\*\\*\\*(?=[^>]*(?:<|$))"), "<b><i>\\1</i></b>")
+            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|\\*\\*(.*?)\\*\\*(?=[^>]*(?:<|$))"), "<b>\\1</b>")
+            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|\\*(.*?)\\*(?=[^>]*(?:<|$))"), "<i>\\1</i>")
+//            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|###(.*?)###(?=[^>]*(?:<|$))"), "<h3>\\1</h3>")
+//            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|##(.*?)##(?=[^>]*(?:<|$))"), "<h2>\\1</h2>")
+//            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|#(.*?)#(?=[^>]*(?:<|$))"), "<h1>\\1</h1>")
+            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|\\^\\^(.*?)\\^\\^(?=[^>]*(?:<|$))"), "<small>\\1</small>")
+            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|--(.*?)--(?=[^>]*(?:<|$))"), "<sub>\\1</sub>")
+            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|\\+\\+(.*?)\\+\\+(?=[^>]*(?:<|$))"), "<sup>\\1</sup>")
+            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|__(.*?)__(?=[^>]*(?:<|$))"), "<u>\\1</u>")
+            .replace(QRegularExpression("<tt><br>[^<>].*?<br></tt>(*SKIP)(*F)|~~(.*?)~~(?=[^>]*(?:<|$))"), "<s>\\1</s>");
 }
 
 QString BackEnd::unescapeText(QString originalText)
@@ -124,7 +136,17 @@ QString BackEnd::unescapeText(QString originalText)
             .replace(QRegularExpression("&lt;"), "<")
             .replace(QRegularExpression("&gt;"), ">")
             .replace(QRegularExpression("<br>"), "\n")
-            .replace(QRegularExpression("<a href='.*;'>(.*)<\\/a>"), "\\1");
+            .replace(QRegularExpression("<a href='.*?;'>(.*?)</a>"), "\\1")
+            .replace(QRegularExpression("<b><i>(.*?)</i></b>"), "\\1")
+            .replace(QRegularExpression("<b>(.*?)</b>"), "\\1")
+            .replace(QRegularExpression("<i>(.*?)</i>"), "\\1")
+//            .replace(QRegularExpression("<h[1-5]>(.*?)</h[1-5]>"), "\\1")
+            .replace(QRegularExpression("<small>(.*?)</small>"), "\\1")
+            .replace(QRegularExpression("<sub>(.*?)</sub>"), "\\1")
+            .replace(QRegularExpression("<sup>(.*?)</sup>"), "\\1")
+            .replace(QRegularExpression("<u>(.*?)</u>"), "\\1")
+            .replace(QRegularExpression("<s>(.*?)</s>"), "\\1")
+            .replace(QRegularExpression("</?tt>"), "");
 }
 
 void BackEnd::getFeed(int type, int id, int groupId, QString groupSearch, int notificationId, QString userToken)
@@ -804,8 +826,6 @@ void BackEnd::openImageExternally(QString path)
 
 void BackEnd::startDirectMessageLongPolling(int roomId, QString userToken)
 {
-    qDebug() << "Long polling";
-
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     manager->setTransferTimeout(60000);
     QNetworkRequest request;
@@ -819,8 +839,6 @@ void BackEnd::startDirectMessageLongPolling(int roomId, QString userToken)
 
 void BackEnd::finishedGettingNewDirectMessage(QNetworkReply *reply)
 {
-    qDebug() << "Message received";
-
     QString response = reply->readAll();
     QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
 

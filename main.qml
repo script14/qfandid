@@ -17,7 +17,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import qFandid.Backend 1.0 //The C++ globalBackend whose name & version are defined in the .pro file
-//import RequestType 1.0 //A shared enumeration between QML and C++
 import QtQuick.Controls.Material 2.12
 import 'Assets/Strings/mystrings.js' as MyStrings
 
