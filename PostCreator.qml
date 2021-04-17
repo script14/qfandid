@@ -158,7 +158,7 @@ Item {
         anchors.top: textField.bottom
         anchors.topMargin: 15
         height: window.height / 2
-        x: postGroupLabel.anchors.leftMargin + postGroupLabel.contentWidth + textField.anchors.leftMargin
+        x: window.width / 1.5 - window.width / 2
         z: 1
         sourceComponent: MultiFeed {
             type: RequestType.POSTTOGROUPENTRY

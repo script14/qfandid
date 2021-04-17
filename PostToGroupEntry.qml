@@ -36,7 +36,7 @@ Item {
 
     Rectangle {
         id: rectangle
-        width: window.width / 2
+        width: window.width / 1.5
         anchors.left: parent.left
         anchors.right: parent.right
         height: button.height + border.width
