@@ -627,10 +627,7 @@ bool BackEnd::prepareImage(QUrl path)
 {
     #ifdef Q_OS_ANDROID
 
-    QAndroidJniObject javaPath = QAndroidJniObject::fromString(path.toString());
-    QAndroidJniObject javaUri = QAndroidJniObject::callStaticObjectMethod("android/net/Uri", "parse", "(Ljava/lang/String;)Landroid/net/Uri;", javaPath.object<jstring>());
-    QAndroidJniObject javaRealPath = QAndroidJniObject::callStaticObjectMethod("org/sien/qfandid/RealPathUtil", "getRealPath", "(Landroid/content/Context;Landroid/net/Uri;)Ljava/lang/String;", QtAndroid::androidContext().object(), javaUri.object());
-    QFile *file = new QFile(javaRealPath.toString());
+    QFile *file = new QFile(QQmlFile::urlToLocalFileOrQrc(path));
 
     #else
 
