@@ -50,7 +50,7 @@ public class NotificationClickReceiver extends BroadcastReceiver
             javaStartDirectMessageFromNotification(roomId, yourId, postId, oneVn, oneColor, oneAvatar, twoVn, twoColor, twoAvatar);
 
             PackageManager pm = context.getPackageManager();
-            Intent launchIntent = pm.getLaunchIntentForPackage("org.sien.qfandid");
+            Intent launchIntent = pm.getLaunchIntentForPackage(context.getPackageName());
             context.startActivity(launchIntent);
         }
         else if (action.equals("goToComment"))
@@ -61,7 +61,7 @@ public class NotificationClickReceiver extends BroadcastReceiver
             javaStartPostFromNotification(postId, notificationId);
 
             PackageManager pm = context.getPackageManager();
-            Intent launchIntent = pm.getLaunchIntentForPackage("org.sien.qfandid");
+            Intent launchIntent = pm.getLaunchIntentForPackage(context.getPackageName());
             context.startActivity(launchIntent);
         }
         else if (action.equals("openLink"))

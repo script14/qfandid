@@ -70,10 +70,8 @@ var changelog = `Changelog:
         \~\~strikethrough\~\~
 
         \`\`\`
-
         Code block that ignores the special characters above
-        It must have at least one empty line above and below the code block
-
+        The contents of the code block must be on a new line from the "\`\`\`" character group
         \`\`\`
 
 - Android: Opening a DM or comment will automatically cancel its active notification if one exists

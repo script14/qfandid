@@ -458,7 +458,7 @@ Item {
 
                         model: ListModel {
                             id: comboBoxItems
-                            ListElement { text: "Debug action" }
+                            //ListElement { text: "Debug action" }
                             ListElement { text: "Share" }
                         }
 

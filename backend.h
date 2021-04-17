@@ -76,6 +76,10 @@
 
 //For registering native C++ functions that can be called from java
 #include <QAndroidJniEnvironment>
+
+//For storing active notifications in C++
+
+#include <QMultiMap>
 #endif
 
 //For desktop tray notifications on Windows, Linux and MacOS
@@ -131,7 +135,7 @@ public:
     Q_INVOKABLE void androidRequestStoragePermission();
     Q_INVOKABLE void cancelActiveNotification(int id);
 
-    QMap<int, int>activeNotifications;
+    QMultiMap<int, int>activeNotifications;
 
     #endif
 

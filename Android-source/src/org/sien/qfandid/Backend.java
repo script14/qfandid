@@ -82,7 +82,7 @@ public class Backend
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             {
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel notificationChannel = new NotificationChannel("Fandid", "Direct message notifications", importance);
+                NotificationChannel notificationChannel = new NotificationChannel("Fandid DMs", "Direct message notifications", importance);
                 m_notificationManager.createNotificationChannel(notificationChannel);
                 m_builder = new Notification.Builder(context, notificationChannel.getId());
             }
@@ -142,7 +142,7 @@ public class Backend
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             {
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel notificationChannel = new NotificationChannel("Fandid", "Update notifications", importance);
+                NotificationChannel notificationChannel = new NotificationChannel("Fandid messages", "Update notifications", importance);
                 m_notificationManager.createNotificationChannel(notificationChannel);
                 m_builder = new Notification.Builder(context, notificationChannel.getId());
             }
@@ -182,7 +182,7 @@ public class Backend
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             {
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel notificationChannel = new NotificationChannel("Fandid", "Comment notifications", importance);
+                NotificationChannel notificationChannel = new NotificationChannel("Fandid comments", "Comment notifications", importance);
                 m_notificationManager.createNotificationChannel(notificationChannel);
                 m_builder = new Notification.Builder(context, notificationChannel.getId());
             }

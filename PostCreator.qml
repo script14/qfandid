@@ -431,8 +431,8 @@ Item {
             postTextAreaBackground.color = globalBackground
             dragAndDropLabel.visible = false
 
-            if (!drop.urls[0].endsWith(".jpg") && !drop.urls[0].endsWith(".jpeg") && !drop.urls[0].endsWith(".png")
-                    && !drop.urls[0].endsWith(".tiff") && !drop.urls[0].endsWith(".tif") && !drop.urls[0].endsWith(".webp") && !drop.urls[0].endsWith(".gif"))
+            if (!drop.urls[0].toLowerCase().endsWith(".jpg") && !drop.urls[0].toLowerCase().endsWith(".jpeg") && !drop.urls[0].toLowerCase().endsWith(".png") && !drop.urls[0].toLowerCase().endsWith(".tiff")
+                    && !drop.urls[0].toLowerCase().endsWith(".tif") && !drop.urls[0].toLowerCase().endsWith(".webp") && !drop.urls[0].toLowerCase().endsWith(".gif"))
                 globalBackend.makeNotification("Invalid file", "You cannot upload this type of file")
             else
                 setImage(drop.urls[0])

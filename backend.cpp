@@ -51,7 +51,11 @@ void BackEnd::cancelActiveNotification(int roomOrCommentId)
 {
     if (activeNotifications.contains(roomOrCommentId))
     {
-        QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "cancelActiveNotification", "(I)V", activeNotifications[roomOrCommentId]);
+        //QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "cancelActiveNotification", "(I)V", activeNotifications[roomOrCommentId]);
+        QList<int> notifications = activeNotifications.values(roomOrCommentId);
+        foreach (const int notificationId, notifications)
+            QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "cancelActiveNotification", "(I)V", notificationId);
+
         activeNotifications.remove(roomOrCommentId);
     }
 }

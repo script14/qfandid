@@ -97,9 +97,14 @@ public class MainActivity extends QtActivity
                 {
                     InputStream input = getContentResolver().openInputStream(imageUri);
                     Bitmap image = BitmapFactory.decodeStream(input);
-                    File file = new File (getApplicationInfo().dataDir, "TempImage.png");
+                    File file = new File (getApplicationInfo().dataDir, "TempImage.webp");
                     FileOutputStream out = new FileOutputStream(file);
-                    image.compress(Bitmap.CompressFormat.PNG, 100, out);
+
+                    if (android.os.Build.VERSION.SDK_INT >= 30)
+                        image.compress(Bitmap.CompressFormat.WEBP_LOSSY, 80, out);
+                    else
+                        image.compress(Bitmap.CompressFormat.WEBP, 80, out);
+
                     out.flush();
                     out.close();
 
