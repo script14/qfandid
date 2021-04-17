@@ -76,4 +76,5 @@ var changelog = `Changelog:
 
 - Android: Opening a DM or comment will automatically cancel its active notification if one exists
 - Android: Added sharing images from other apps
+- Android: Added notifications when saving images and made DM notifications display on screen when they arrive
 `

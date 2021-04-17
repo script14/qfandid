@@ -70,5 +70,9 @@ public class NotificationClickReceiver extends BroadcastReceiver
             browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(browserIntent);
         }
+        else if (action.equals("openImage"))
+        {
+            Backend.openImageExternally(context, intent.getStringExtra("path"));
+        }
     }
 }

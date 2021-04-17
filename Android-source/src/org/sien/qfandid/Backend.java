@@ -70,7 +70,8 @@ public class Backend
         intent.setAction(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, mime);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        ((Activity)context).startActivity(intent);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     public static void makeDmNotification(Context context, int roomId, int yourId, int postId, String lastMsg, String oneVn, String oneColor, String oneAvatar, String twoVn, String twoColor, String twoAvatar)
@@ -81,7 +82,7 @@ public class Backend
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             {
-                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                int importance = NotificationManager.IMPORTANCE_HIGH;
                 NotificationChannel notificationChannel = new NotificationChannel("Fandid DMs", "Direct message notifications", importance);
                 m_notificationManager.createNotificationChannel(notificationChannel);
                 m_builder = new Notification.Builder(context, notificationChannel.getId());
@@ -226,5 +227,52 @@ public class Backend
     public static void cancelActiveNotification(int id)
     {
         m_notificationManager.cancel(id);
+    }
+
+    public static void makeImageNotification(Context context, String name, String path)
+    {
+        try
+        {
+            m_notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            {
+                int importance = NotificationManager.IMPORTANCE_LOW;
+                NotificationChannel notificationChannel = new NotificationChannel("Fandid saved images", "Saved image notifications", importance);
+                m_notificationManager.createNotificationChannel(notificationChannel);
+                m_builder = new Notification.Builder(context, notificationChannel.getId());
+            }
+            else
+            {
+                m_builder = new Notification.Builder(context);
+            }
+
+            Intent openImage = new Intent(context, NotificationClickReceiver.class);
+            openImage.putExtra("action", "openImage");
+            openImage.putExtra("path", path);
+            PendingIntent pendingOpenImage = PendingIntent.getBroadcast(context, 1, openImage, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            m_builder.setSmallIcon(R.drawable.icon)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon))
+                    .setContentTitle("Saved image")
+                    .setContentText(name)
+                    .setCategory(Notification.CATEGORY_MESSAGE)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingOpenImage);
+
+            SharedPreferences prefs = context.getSharedPreferences(Activity.class.getSimpleName(), Context.MODE_PRIVATE);
+            int notificationNumber = prefs.getInt("notificationNumber", 2);
+
+            m_notificationManager.notify(notificationNumber, m_builder.build());
+
+            SharedPreferences.Editor editor = prefs.edit();
+            notificationNumber++;
+            editor.putInt("notificationNumber", notificationNumber);
+            editor.commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

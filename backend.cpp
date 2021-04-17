@@ -771,7 +771,18 @@ void BackEnd::saveImage(QString name)
         saveDir.mkpath(".");
 
     if (QFile::copy(cacheDir + name, downloadDir + name))
+    {
         makeNotification("Saved image", "Saved image");
+
+        #ifdef Q_OS_ANDROID
+
+        QAndroidJniObject javaName = QAndroidJniObject::fromString(name);
+        QAndroidJniObject javaPath = QAndroidJniObject::fromString(downloadDir + name);
+        QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "makeImageNotification",
+            "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V",QtAndroid::androidContext().object(), javaName.object<jstring>(), javaPath.object<jstring>());
+
+        #endif
+    }
     else
         makeNotification("Error", "Could not save image");
 }
