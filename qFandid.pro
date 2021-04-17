@@ -65,4 +65,5 @@ DISTFILES += \
     Android-source/res/xml/fileprovider.xml \
     Android-source/src/org/sien/qfandid/Backend.java \
     Android-source/src/org/sien/qfandid/MainActivity.java \
-    Android-source/src/org/sien/qfandid/NotificationClickReceiver.java
+    Android-source/src/org/sien/qfandid/NotificationClickReceiver.java \
+    Android-source/src/org/sien/qfandid/RealPathUtil.java

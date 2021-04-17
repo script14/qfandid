@@ -625,12 +625,17 @@ void BackEnd::createComment(QString content, int postId, int parentId, QString u
 
 bool BackEnd::prepareImage(QUrl path)
 {
-    QFile *file;
-
     #ifdef Q_OS_ANDROID
-    file = new QFile(QQmlFile::urlToLocalFileOrQrc(path));
+
+    QAndroidJniObject javaPath = QAndroidJniObject::fromString(path.toString());
+    QAndroidJniObject javaUri = QAndroidJniObject::callStaticObjectMethod("android/net/Uri", "parse", "(Ljava/lang/String;)Landroid/net/Uri;", javaPath.object<jstring>());
+    QAndroidJniObject javaRealPath = QAndroidJniObject::callStaticObjectMethod("org/sien/qfandid/RealPathUtil", "getRealPath", "(Landroid/content/Context;Landroid/net/Uri;)Ljava/lang/String;", QtAndroid::androidContext().object(), javaUri.object());
+    QFile *file = new QFile(javaRealPath.toString());
+
     #else
-    file = new QFile(path.toLocalFile());
+
+    QFile *file = new QFile(path.toLocalFile());
+
     #endif
 
     file->open(QIODevice::ReadOnly);
