@@ -398,6 +398,7 @@ Item {
     FileDialog {
         id: fileDialog
         title: "Choose an image"
+        folder: shortcuts.pictures
         nameFilters: [ "Image files (*.jpg *.jpeg *.png *.tiff *.tif *.webp *.gif)" ]
         onAccepted: setImage(fileUrl)
         onRejected: removeImage()

@@ -66,3 +66,5 @@ DISTFILES += \
     Android-source/src/org/sien/qfandid/Backend.java \
     Android-source/src/org/sien/qfandid/MainActivity.java \
     Android-source/src/org/sien/qfandid/NotificationClickReceiver.java
+
+ios: QMAKE_INFO_PLIST=$$PWD/iOS-source/Info.plist
