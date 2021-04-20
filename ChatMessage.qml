@@ -76,6 +76,7 @@ Item {
 
             model: ListModel {
                 id: comboBoxItems
+                //ListElement { text: "Debug action" }
             }
 
             contentItem: Text {
@@ -120,6 +121,10 @@ Item {
 
                 switch(comboBoxItems.get(currentIndex).text)
                 {
+                    case "Debug action":
+                    console.debug(content)
+                    break
+
                     case "Report":
                         globalBackend.makeNotification("Error", "Reporting is not implemented")
                         break

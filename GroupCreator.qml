@@ -93,6 +93,7 @@ Item {
         renderType: Text.NativeRendering
         placeholderText: qsTr("Group name")
         Material.accent: fandidYellowDarker
+        leftPadding: nameCharLimit.contentWidth + 20
         rightPadding: nameCharLimit.contentWidth + 20
 
         Label {

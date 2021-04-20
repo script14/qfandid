@@ -506,7 +506,7 @@ Item {
                             switch(comboBoxItems.get(currentIndex).text)
                             {
                                 case "Debug action":
-                                    console.debug(post.postText)
+                                    postBackend.launchMaintenanceTool()
                                     break
 
                                 case "Share":

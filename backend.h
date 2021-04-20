@@ -128,14 +128,17 @@ public:
 
     QString getUserToken();
 
-    //Android-exclusive
     #ifdef Q_OS_ANDROID
 
     Q_INVOKABLE bool androidCheckStoragePermission();
     Q_INVOKABLE void androidRequestStoragePermission();
-    Q_INVOKABLE void cancelActiveNotification(int id);
+    Q_INVOKABLE void cancelActiveNotification(int roomOrCommentId);
 
     QMultiMap<int, int>activeNotifications;
+
+    #elif defined Q_OS_WINDOWS
+
+    Q_INVOKABLE void launchMaintenanceTool();
 
     #endif
 

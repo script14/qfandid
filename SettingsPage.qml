@@ -24,11 +24,12 @@ import 'Assets/Strings/mystrings.js' as MyStrings
 
 Item {
 
-    //Sizes
+    //Variables
     property int optionTextSize: 15
     property int linkTextSize: 15
     property int topMargins: platformIsMobile ? 15 : 30
     property int buttonSize: platformIsMobile ? 13 : 15
+    property bool platformIsWindows: Qt.platform.os == "windows"
 
     BackEnd {
         id: settingsBackend
@@ -96,26 +97,54 @@ Item {
         anchors.topMargin: 10
         contentHeight: window.height * 2
 
-        Label {
-            id: appVersionLabel
+        RowLayout {
+            id: appVersionRowLayout
             anchors.top: parent.top
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.topMargin: 10
             anchors.leftMargin: 10
             anchors.rightMargin: 10
-            text: "App version: " + MyStrings.appVersion
-            color: globalTextColor
-            textFormat: Text.PlainText
-            renderType: Text.NativeRendering
-            font.pointSize: optionTextSize
+
+            Label {
+                id: appVersionLabel
+                Layout.alignment: Qt.AlignHCenter
+                text: "App version: " + MyStrings.appVersion
+                color: globalTextColor
+                textFormat: Text.PlainText
+                renderType: Text.NativeRendering
+                font.pointSize: optionTextSize
+            }
+
+            Button {
+                text: qsTr("Launch updater")
+                font.bold: true
+                font.pointSize: buttonSize
+                font.capitalization: Font.MixedCase
+                visible: platformIsWindows
+                onClicked: settingsBackend.launchMaintenanceTool()
+
+                background: Rectangle {
+                    implicitWidth: updateButtonText.contentWidth + 50
+                    implicitHeight: updateButtonText.contentHeight
+                    color: parent.down ? Qt.darker(fandidYellowDarker, 1.5) : fandidYellowDarker
+                    radius: 20
+                }
+
+                contentItem: Text {
+                    id: updateButtonText
+                    text: parent.text
+                    font: parent.font
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    color: parent.down ? Qt.darker(buttonColor, 1.2) : buttonColor
+                }
+            }
         }
 
         RowLayout {
             id: imgsOnlyInPostRowLayout
-            anchors.top: appVersionLabel.bottom
+            anchors.top: appVersionRowLayout.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.topMargin: topMargins
@@ -454,6 +483,7 @@ Item {
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                focusPolicy: Qt.NoFocus
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
                 onClicked: Qt.openUrlExternally(linkRules)
@@ -481,6 +511,7 @@ Item {
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                focusPolicy: Qt.NoFocus
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
                 onClicked: mainStackView.push("InfoPage.qml", {"imageSource": "Assets/Images/logocolored.png", "title": "Changelog", "textContent": MyStrings.changelog})
@@ -508,6 +539,7 @@ Item {
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                focusPolicy: Qt.NoFocus
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
                 onClicked: mainStackView.push("InfoPage.qml", {"imageSource": "Assets/Images/logocolored.png", "title": "Credits", "textContent": MyStrings.credits})
@@ -545,6 +577,7 @@ Item {
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                focusPolicy: Qt.NoFocus
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
                 onClicked: mainStackView.push("InfoPage.qml", {"imageSource": "Assets/Images/logocolored.png", "title": "About qFandid", "textContent": MyStrings.aboutqFandid})
@@ -572,6 +605,7 @@ Item {
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                focusPolicy: Qt.NoFocus
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
                 onClicked: mainStackView.push("InfoPage.qml", {"imageSource": "Assets/Images/Qt.svg", "title": "About Qt", "textContent": MyStrings.aboutQt})
@@ -599,6 +633,7 @@ Item {
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                focusPolicy: Qt.NoFocus
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
                 onClicked: mainStackView.push("InfoPage.qml", {"imageSource": "Assets/Images/gpl-v3-logo.svg", "title": "GPL license", "textContent": globalBackend.readText(":/COPYING")})
@@ -637,6 +672,7 @@ Item {
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                focusPolicy: Qt.NoFocus
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
                 onClicked: mainStackView.push("ModLog.qml")
@@ -664,6 +700,7 @@ Item {
                 font.bold: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                focusPolicy: Qt.NoFocus
                 font.pointSize: buttonSize
                 font.capitalization: Font.MixedCase
                 onClicked: settingsBackend.modJoinGroups(userToken)

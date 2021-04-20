@@ -48,7 +48,7 @@ var changelog = `Changelog:
 - Fixed group not being set in post creator when you press the post button inside a group before the group is loaded
 - Added new post style to match the website
 - Added toggles for enabling and disabling external notifications for direct messages and comments
-- Android: Improved back button not working sometimes, but the bug will likely be present on devices using Swiftkey
+- Android: Improved back button not working sometimes. However, the bug will likely be present on devices using the Swiftkey keyboard
 - Android: Saved images will now go in a "Fandid" folder in the device's pictures directory
 - PC: Added dragging and dropping images from your file manager
 - Added simple markdown support that works like this
@@ -71,10 +71,16 @@ var changelog = `Changelog:
 
         \`\`\`
         Code block that ignores the special characters above
-        The contents of the code block must be on a new line from the "\`\`\`" character group
+        The contents of the code block must be on a new line from the \`\`\` character group
+        See example below
+        \`\`\`
+
+        \`\`\`
+        \*\*\*This bold italic will be ignored and the asterisks will be visible\*\*\*
         \`\`\`
 
 - Android: Opening a DM or comment will automatically cancel its active notification if one exists
 - Android: Added sharing images from other apps
-- Android: Added notifications when saving images and made DM notifications display on screen when they arrive
+- Android: Added notifications when saving images and increased priority of DM notifications. However, if you already have the app installed, you will have to uninstall and reinstall it for DM notifications to have higher priority
+- Windows: Added an update button that can be used from the settings page. It will launch the maintenance and automatically update the app if updates exist. It only works if you installed qFandid through the online Windows installer provided in the Fandid home webpage
 `

@@ -51,7 +51,6 @@ void BackEnd::cancelActiveNotification(int roomOrCommentId)
 {
     if (activeNotifications.contains(roomOrCommentId))
     {
-        //QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "cancelActiveNotification", "(I)V", activeNotifications[roomOrCommentId]);
         QList<int> notifications = activeNotifications.values(roomOrCommentId);
         foreach (const int notificationId, notifications)
             QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "cancelActiveNotification", "(I)V", notificationId);
@@ -148,8 +147,8 @@ QString BackEnd::unescapeText(QString originalText)
     return originalText.replace(QRegularExpression("&amp;"), "&")
             .replace(QRegularExpression("&lt;"), "<")
             .replace(QRegularExpression("&gt;"), ">")
-            .replace(QRegularExpression("<br>"), "\n")
             .replace(QRegularExpression("<a href='.*?;'>(.*?)</a>"), "\\1")
+            .replace(QRegularExpression("<br>"), "\n")
             .replace(QRegularExpression("<b><i>(.*?)</i></b>"), "\\1")
             .replace(QRegularExpression("<b>(.*?)</b>"), "\\1")
             .replace(QRegularExpression("<i>(.*?)</i>"), "\\1")
@@ -1237,8 +1236,17 @@ void BackEnd::checkAppVersion(QString appVersion)
 void BackEnd::receivedUpdateCheck(QNetworkReply *reply)
 {
     QString latestVersion = reply->readAll();
+
+    #ifdef Q_OS_WINDOWS
+    QString message = "Update from settings";
+    #elif defined Q_OS_LINUX
+    QString message = "Update from your package manager or rebuild from source";
+    #else
+    QString message = "Get it from https://fandid.app";
+    #endif
+
     if (!latestVersion.isEmpty() && reply->property("appVersion").toString().compare(latestVersion) != 0)
-        makeMessageNotification(latestVersion + " update available", "Get it from https://fandid.app");
+        makeMessageNotification(latestVersion + " update available", message);
 }
 
 void BackEnd::makeMessageNotification(QString title, QString message)
@@ -1315,7 +1323,23 @@ void BackEnd::copyTextToClipboard(QString text)
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(unescapeText(text));
 
-    #ifdef Q_OS_ANDROID
+    #if defined Q_OS_ANDROID || defined Q_OS_IOS
     makeNotification("", "Copied to clipboard");
     #endif
 }
+
+#ifdef Q_OS_WINDOWS
+void BackEnd::launchMaintenanceTool()
+{
+    QDir installDir(QCoreApplication::applicationDirPath());
+    installDir.cdUp();
+    QString maintenanceToolPath = installDir.absolutePath() + "/maintenancetool.exe";
+    if (QFile::exists(maintenanceToolPath))
+    {
+        QProcess::startDetached(maintenanceToolPath, QStringList());
+        qApp->quit();
+    }
+    else
+        makeNotification("Error, cannot find maintenance tool", "Did you install Fandid through the official Windows installer?");
+}
+#endif
