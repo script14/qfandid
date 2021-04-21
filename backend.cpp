@@ -775,7 +775,9 @@ void BackEnd::saveImage(QString name)
         QAndroidJniObject javaName = QAndroidJniObject::fromString(name);
         QAndroidJniObject javaPath = QAndroidJniObject::fromString(downloadDir + name);
         QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "makeImageNotification",
-            "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V",QtAndroid::androidContext().object(), javaName.object<jstring>(), javaPath.object<jstring>());
+            "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V", QtAndroid::androidContext().object(), javaName.object<jstring>(), javaPath.object<jstring>());
+
+        QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "updateStorage", "(Landroid/content/Context;Ljava/lang/String;)V", QtAndroid::androidContext().object(), javaPath.object<jstring>());
 
         #endif
     }

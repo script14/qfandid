@@ -83,4 +83,5 @@ var changelog = `Changelog:
 - Android: Added sharing images from other apps
 - Android: Added notifications when saving images and increased priority of DM notifications. However, if you already have the app installed, you will have to uninstall and reinstall it for DM notifications to have higher priority
 - Windows: Added an update button that can be used from the settings page. It will launch the maintenance and automatically update the app if updates exist. It only works if you installed qFandid through the online Windows installer provided in the Fandid home webpage
+- Android: Fixed saved images not being visible in other apps
 `

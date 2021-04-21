@@ -30,6 +30,8 @@ import android.graphics.BitmapFactory;
 import android.app.NotificationChannel;
 import android.content.SharedPreferences;
 import android.app.PendingIntent;
+import android.os.Build;
+import android.media.MediaScannerConnection;
 
 public class Backend
 {
@@ -80,7 +82,7 @@ public class Backend
         {
             m_notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             {
                 int importance = NotificationManager.IMPORTANCE_HIGH;
                 NotificationChannel notificationChannel = new NotificationChannel("Fandid DMs", "Direct message notifications", importance);
@@ -140,7 +142,7 @@ public class Backend
         {
             m_notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             {
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
                 NotificationChannel notificationChannel = new NotificationChannel("Fandid messages", "Update notifications", importance);
@@ -180,7 +182,7 @@ public class Backend
         {
             m_notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             {
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
                 NotificationChannel notificationChannel = new NotificationChannel("Fandid comments", "Comment notifications", importance);
@@ -235,7 +237,7 @@ public class Backend
         {
             m_notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             {
                 int importance = NotificationManager.IMPORTANCE_LOW;
                 NotificationChannel notificationChannel = new NotificationChannel("Fandid saved images", "Saved image notifications", importance);
@@ -274,5 +276,16 @@ public class Backend
         {
             e.printStackTrace();
         }
+    }
+
+    public static void updateStorage(Context context, String path)
+    {
+        if (Build.VERSION.SDK_INT >= 29)
+        {
+            File file = new File(path);
+            MediaScannerConnection.scanFile(context, new String[]{file.toString()}, null, null);
+        }
+        else
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
     }
 }
