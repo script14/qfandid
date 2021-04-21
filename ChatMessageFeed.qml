@@ -84,6 +84,7 @@ Item {
                     "id": id,
                     "time": time,
                     "senderId": senderId,
+                    "originalText": originalText,
                     "content": content,
                     "imageId": media,
                     "imageHash": imageHash,
@@ -97,7 +98,7 @@ Item {
 
     Connections {
         target: chatMessageBackend
-        function onAddChatMessage(newMessage, id, time, senderId, model, content, media, imageHash, imageType, imageWidth, imageHeight)
+        function onAddChatMessage(newMessage, id, time, senderId, model, originalText, content, media, imageHash, imageType, imageWidth, imageHeight)
         {
             chatMessageModel.insert(newMessage ? 0 : chatMessageListView.count,
                 {
@@ -105,6 +106,7 @@ Item {
                     "time": time,
                     "senderId": senderId,
                     "model": model,
+                    "originalText": originalText,
                     "content": content,
                     "media": media,
                     "imageHash": imageHash,

@@ -45,6 +45,7 @@ Item {
     property alias groupName: groupName.text
 
     property string postText: "Kono Dio da!"
+    property string originalText: "original"
     property alias postMedia: postMedia.imageId
 
     property string imageHash: ""
@@ -458,7 +459,7 @@ Item {
 
                         model: ListModel {
                             id: comboBoxItems
-                            //ListElement { text: "Debug action" }
+                            ListElement { text: "Debug action" }
                             ListElement { text: "Share" }
                         }
 
@@ -506,7 +507,10 @@ Item {
                             switch(comboBoxItems.get(currentIndex).text)
                             {
                                 case "Debug action":
-                                    postBackend.launchMaintenanceTool()
+                                    postText.textFormat = Text.PlainText
+                                    postText.text = originalText
+                                    postText.readOnly = false
+                                    postText.forceActiveFocus()
                                     break
 
                                 case "Share":

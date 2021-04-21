@@ -215,6 +215,7 @@ Item {
                         "postColor": colorCode,
                         "groupName": group,
                         "postText": text,
+                        "originalText": originalText,
                         "postMedia": media,
                         "imageHash": imageHash,
                         "imageType": imageType,
@@ -243,6 +244,7 @@ Item {
                         "commentAvatar": avatar,
                         "name": name,
                         "commentColor": colorCode,
+                        "originalText": originalText,
                         "content": content,
                         "media": media,
                         "imageHash": imageHash,
@@ -325,7 +327,7 @@ Item {
 
         //onDoAddPost: multiFeedListView.addPost(text) //DEPRECATED syntax
 
-        function onAddPost(pid, id, model, groupId, isOwnPost, isClicked, isFollowed, avatar, name, time, riskLevel, colorCode, group, text, media, imageHash, imageType, imageWidth, imageHeight, love, hate, comment, vote)
+        function onAddPost(pid, id, model, groupId, isOwnPost, isClicked, isFollowed, avatar, name, time, riskLevel, colorCode, group, originalText, text, media, imageHash, imageType, imageWidth, imageHeight, love, hate, comment, vote)
         {
             multiModel.append(
                 {
@@ -342,6 +344,7 @@ Item {
                     "riskLevel": riskLevel,
                     "colorCode": colorCode,
                     "group": group,
+                    "originalText": originalText,
                     "text": text,
                     "media": media,
                     "imageHash": imageHash,
@@ -356,7 +359,7 @@ Item {
                         )
         }
 
-        function onAddComment(pid, id, model, riskLevel, postId, parentId, time, love, hate, vote, op, own, avatar, name, colorCode, content, media, imageHash, imageType, imageWidth, imageHeight)
+        function onAddComment(pid, id, model, riskLevel, postId, parentId, time, love, hate, vote, op, own, avatar, name, colorCode, originalText, content, media, imageHash, imageType, imageWidth, imageHeight)
         {
             multiModel.append(
                 {
@@ -375,6 +378,7 @@ Item {
                     "avatar": avatar,
                     "name": name,
                     "colorCode": colorCode,
+                    "originalText": originalText,
                     "content": content,
                     "media": media,
                     "imageHash": imageHash,
@@ -459,7 +463,7 @@ Item {
     Connections {
         target: typeof(commentsPageBackend) != "undefined" ? commentsPageBackend : focusWindow
         ignoreUnknownSignals: true
-        function onAddComment(pid, id, model, riskLevel, postId, parentId, time, love, hate, vote, op, own, avatar, name, colorCode, content, media, imageHash, imageType, imageWidth, imageHeight)
+        function onAddComment(pid, id, model, riskLevel, postId, parentId, time, love, hate, vote, op, own, avatar, name, colorCode, originalText, content, media, imageHash, imageType, imageWidth, imageHeight)
         {
             //This is to handle the signal when creating a comment. It is the same signal as when comments are auto loaded into the feed, but they don't conflict because this one is emitted from a different backend instance
 
@@ -484,12 +488,12 @@ Item {
             }
 
             //update insertIndex if the next comment already has replies, otherwise the comment visually won't be inserted at the end of the comment chain
-            if (insertIndex != multiModel.count)
+            if (insertIndex !== multiModel.count)
             {
                 //Start from 1 because 0 is the post
                 for (var i = insertIndex; i < multiModel.count; i++)
                 {
-                    if (multiModel.get(i).parentId != 0)
+                    if (multiModel.get(i).parentId !== 0)
                         insertIndex++
                     else
                         break
@@ -497,7 +501,7 @@ Item {
             }
 
             multiModel.insert(insertIndex, {"pid": pid, "id": id, "model": model, "riskLevel": riskLevel, "postId": postId, "parentId": parentId, "time": time, "love": love, "hate": hate, "vote": vote, "op": op, "own": own, "avatar": avatar,
-                                  "name": name, "colorCode": colorCode, "content": content, "media": media, "imageHash": imageHash, "imageType": imageType, "imageWidth": imageWidth, "imageHeight": imageHeight})
+                                  "name": name, "colorCode": colorCode, "originalText": originalText, "content": content, "media": media, "imageHash": imageHash, "imageType": imageType, "imageWidth": imageWidth, "imageHeight": imageHeight})
 
             multiFeedListView.positionViewAtIndex(insertIndex, ListView.Center)
 

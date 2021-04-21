@@ -29,6 +29,7 @@ Item {
     property alias time: messageTime.text
     property int senderId: 0
     property string content: ""
+    property string originalText: "original"
     property alias imageId: messageMedia.imageId
 
     property string imageHash: ""
@@ -122,7 +123,7 @@ Item {
                 switch(comboBoxItems.get(currentIndex).text)
                 {
                     case "Debug action":
-                    console.debug(content)
+                    console.debug(originalText)
                     break
 
                     case "Report":

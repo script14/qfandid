@@ -47,6 +47,7 @@ Item {
     property string commentColor: "blue"
 
     property string content: "And then he turns himself into a pickle. Funniest shit I've ever seen"
+    property string originalText: "original"
     property alias media: commentMedia.imageId
 
     property string imageHash: ""
@@ -320,7 +321,7 @@ Item {
                         switch(comboBoxItems.get(currentIndex).text)
                         {
                             case "Debug action":
-                                console.debug(comment.content)
+                                console.debug(originalText)
                                 break
 
                             case "Share":

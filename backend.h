@@ -226,13 +226,13 @@ signals:
     void loginFailed();
 
     void addPost(int pid, int id, int model, int groupId, bool isOwnPost, bool isClicked, bool isFollowed, QString avatar, QString name, QString time,
-                 int riskLevel, QString colorCode, QString group, QString text, QString media, QString imageHash, QString imageType, int imageWidth, int imageHeight, int love, int hate, int comment, int vote);
+                 int riskLevel, QString colorCode, QString group, QString originalText, QString text, QString media, QString imageHash, QString imageType, int imageWidth, int imageHeight, int love, int hate, int comment, int vote);
 
     void unlockPostFeed();
     void reachedFeedEnd();
 
     void addComment(int pid, int id, int riskLevel, int model, int postId, int parentId, QString time, int love, int hate, int vote, bool op, bool own, QString avatar,
-                    QString name, QString colorCode, QString content, QString media, QString imageHash, QString imageType, int imageWidth, int imageHeight);
+                    QString name, QString colorCode, QString originalText, QString content, QString media, QString imageHash, QString imageType, int imageWidth, int imageHeight);
 
     void submitFailed();
 
@@ -242,7 +242,7 @@ signals:
 
     void addRoomList(int id, QString time, int postId, int commentId, int yourId, int model, QString lastMsg, QString oneAvatar, QString twoAvatar, QString oneVn, QString oneColor, QString twoVn, QString twoColor, bool seen, bool blocked, bool youBlocked);
 
-    void addChatMessage(bool newMessage, int id, QString time, int senderId, int model, QString content, QString media, QString imageHash, QString imageType, int imageWidth, int imageHeight);
+    void addChatMessage(bool newMessage, int id, QString time, int senderId, int model, QString originalText, QString content, QString media, QString imageHash, QString imageType, int imageWidth, int imageHeight);
 
     void addNotification(int id, int postId, int commentId, int count, int model, QString postContent, QString commenterAvatar, QString commentVn, bool own, bool seen);
 
