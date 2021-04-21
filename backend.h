@@ -189,6 +189,10 @@ public:
     Q_INVOKABLE QString registerAccount(QString username, QString password, QString token, bool rememberMe);
     Q_INVOKABLE void copyTextToClipboard(QString text);
 
+    #if defined Q_OS_WINDOWS || defined Q_OS_MACOS || defined Q_OS_LINUX
+    Q_INVOKABLE void saveWindowProperties(int windowWidth, int windowHeight);
+    #endif
+
     enum RequestType
    {
         NEW,

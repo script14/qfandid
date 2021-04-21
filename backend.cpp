@@ -1099,6 +1099,8 @@ void BackEnd::saveUserSettings(QVariantMap userSettings)
     settings.setValue("dmNotifications", userSettings["dmNotifications"]);
     settings.setValue("commentNotifications", userSettings["commentNotifications"]);
 
+    //Window properties are handled separately
+
     settings.endGroup();
 }
 
@@ -1122,6 +1124,13 @@ QVariantMap BackEnd::fetchUserSettings()
     userSettings.insert("minimalPostStyle", settings.value("minimalPostStyle", false).toBool());
     userSettings.insert("dmNotifications", settings.value("dmNotifications", true).toBool());
     userSettings.insert("commentNotifications", settings.value("commentNotifications", false).toBool());
+
+    settings.endGroup();
+
+    settings.beginGroup("WindowProperties");
+
+    userSettings.insert("windowWidth", settings.value("windowWidth", 720).toInt());
+    userSettings.insert("windowHeight", settings.value("windowHeight", 1280).toInt());
 
     settings.endGroup();
 
@@ -1215,7 +1224,7 @@ void BackEnd::restartProgram()
 {
     qApp->quit();
 
-    #if !defined Q_OS_ANDROID && !defined Q_OS_IOS
+    #if defined Q_OS_WINDOWS || defined Q_OS_MACOS || defined Q_OS_LINUX
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
     #endif
 }
@@ -1343,5 +1352,16 @@ void BackEnd::launchMaintenanceTool()
     }
     else
         makeNotification("Error, cannot find maintenance tool", "Did you install Fandid through the official Windows installer?");
+}
+#endif
+
+#if defined Q_OS_WINDOWS || defined Q_OS_MACOS || defined Q_OS_LINUX
+void BackEnd::saveWindowProperties(int windowWidth, int windowHeight)
+{
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "qFandid", "qFandid");
+    settings.beginGroup("WindowProperties");
+    settings.setValue("windowWidth", windowWidth);
+    settings.setValue("windowHeight", windowHeight);
+    settings.endGroup();
 }
 #endif
