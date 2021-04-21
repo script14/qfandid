@@ -45,6 +45,11 @@ Item {
             if (path.length > 0)
                 setImage("file:/" + path)
         }
+
+        function onAndroidFileDialogResult(path)
+        {
+            setImage("file:/" + path)
+        }
     }
 
     Component.onCompleted: focusWindow.focus = true
@@ -378,11 +383,6 @@ Item {
                 setImage("file:/" + imagePath)
 
             postTextArea.forceActiveFocus()
-        }
-
-        function onAndroidSendImage(path)
-        {
-            setImage("file:/" + path)
         }
     }
 

@@ -131,11 +131,6 @@ ApplicationWindow {
         {
             mainStackView.push("CommentsPage.qml", {"postId": postId, "notificationId": notificationId})
         }
-
-        function onSendBackImage(path)
-        {
-            focusWindow.androidSendImage(path)
-        }
     }
 
     onClosing:
@@ -179,7 +174,6 @@ ApplicationWindow {
         visible: false
         signal preloadPostCreator(int groupId, string groupName, string text, string imagePath, bool nsfw)
         signal enableGroupPostButton()
-        signal androidSendImage(string path)
 
         Keys.onBackPressed:
         {

@@ -272,7 +272,7 @@ signals:
 
     void openPostFromNotification(int postId, int notificationId);
 
-    void sendBackImage(QString path);
+    void androidFileDialogResult(QString path);
 
 private:
     static BackEnd *m_instance;

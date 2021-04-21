@@ -72,10 +72,16 @@ Item {
         {
             roomInsideTextArea.text += sharedText
         }
+
         function onSendSharedImageToQML(path)
         {
             if (path.length > 0)
                 setImage("file:/" + path)
+        }
+
+        function onAndroidFileDialogResult(path)
+        {
+            setImage("file:/" + path)
         }
     }
 
@@ -394,14 +400,6 @@ Item {
 
             if (newRoom)
                 checkDirectMessageInfo()
-        }
-    }
-
-    Connections {
-        target: focusWindow
-        function onAndroidSendImage(path)
-        {
-            setImage("file:/" + path)
         }
     }
 

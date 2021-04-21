@@ -46,10 +46,16 @@ Item {
         {
             commentTextArea.text += sharedText
         }
+
         function onSendSharedImageToQML(path)
         {
             if (path.length > 0)
                 setImage("file:/" + path)
+        }
+
+        function onAndroidFileDialogResult(path)
+        {
+            setImage("file:/" + path)
         }
     }
 
@@ -362,14 +368,6 @@ Item {
             sendButton.color = globalTextColor
             myBusyIndicator.visible = false
             globalBackend.makeNotification("Comment failed", "Failed to submit comment. Maybe you are commenting too quickly")
-        }
-    }
-
-    Connections {
-        target: focusWindow
-        function onAndroidSendImage(path)
-        {
-            setImage("file:/" + path)
         }
     }
 

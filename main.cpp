@@ -65,7 +65,7 @@ static void shareImageToQML(JNIEnv *env, jobject thiz, jstring path)
 static void sendBackImage(JNIEnv *env, jobject thiz, jstring path)
 {
     Q_UNUSED(thiz);
-    emit BackEnd::getQmlInstance()->sendBackImage(env->GetStringUTFChars(path, nullptr));
+    emit BackEnd::getQmlInstance()->androidFileDialogResult(env->GetStringUTFChars(path, nullptr));
 }
 
 //Register special Java callback functions immediately once the app loads because they must be executed if the app is started via external Android intents
