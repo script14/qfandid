@@ -85,4 +85,5 @@ var changelog = `Changelog:
 - Windows: Added an update button that can be used from the settings page. It will launch the maintenance and automatically update the app if updates exist. It only works if you installed qFandid through the online Windows installer provided in the Fandid home webpage
 - Android: Fixed saved images not being visible in other apps
 - PC: App will now restore its previous window size on launch
+- Android: App now uses an Android Java native file dialog which allows using other apps to choose images. It also fixes the problem with choosing images on Motorola smartphones
 `

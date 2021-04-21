@@ -38,6 +38,7 @@ public class MainActivity extends QtActivity
     private static native void javaShareTextToQML(String text);
     private static native void javaShareImageToQML(String path);
     private static native void javaCheckNotificationsOnResume();
+    private static native void javaSendBackImage(String path);
 
     public static boolean intentPending;
     public static boolean intentInitialized;
@@ -75,6 +76,20 @@ public class MainActivity extends QtActivity
         super.onNewIntent(intent);
 
         processIntent(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null)
+        {
+            if (requestCode == 200)
+            {
+                Uri selectedImageUri = data.getData();
+                javaSendBackImage(RealPathUtil.getRealPath(getApplicationContext(), selectedImageUri));
+            }
+        }
     }
 
     private void processIntent(Intent intent)

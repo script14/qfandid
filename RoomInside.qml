@@ -231,6 +231,12 @@ Item {
                     cursorShape: Qt.PointingHandCursor
                     onClicked:
                     {
+                        if (imageToUpload.visible)
+                        {
+                            removeImage()
+                            return
+                        }
+
                         if (Qt.platform.os == "android")
                         {
                             roomInsideBackend.androidRequestStoragePermission()
@@ -239,9 +245,10 @@ Item {
                                 globalBackend.makeNotification("", "You must grant storage permission to upload images")
                                 return
                             }
+                            globalBackend.androidOpenFileDialog()
                         }
-
-                        fileDialog.open()
+                        else
+                            fileDialog.open()
                     }
                 }
 
@@ -387,6 +394,14 @@ Item {
 
             if (newRoom)
                 checkDirectMessageInfo()
+        }
+    }
+
+    Connections {
+        target: focusWindow
+        function onAndroidSendImage(path)
+        {
+            setImage("file:/" + path)
         }
     }
 

@@ -133,6 +133,7 @@ public:
     Q_INVOKABLE bool androidCheckStoragePermission();
     Q_INVOKABLE void androidRequestStoragePermission();
     Q_INVOKABLE void cancelActiveNotification(int roomOrCommentId);
+    Q_INVOKABLE void androidOpenFileDialog();
 
     QMultiMap<int, int>activeNotifications;
 
@@ -270,6 +271,8 @@ signals:
     void openDirectMessageFromNotification(int roomId, int yourId, int postId, QString oneVn, QString oneColor, QString oneAvatar, QString twoVn, QString twoColor, QString twoAvatar);
 
     void openPostFromNotification(int postId, int notificationId);
+
+    void sendBackImage(QString path);
 
 private:
     static BackEnd *m_instance;

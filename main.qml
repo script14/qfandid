@@ -32,9 +32,12 @@ ApplicationWindow {
     //Global persistent QML variables
     //These have to be stored here so they can be accessed from any instance of any component
     property var userInfo: {"power": 0, "points": 0, "groups": 0, "posts": 0, "comments": 0, "riskLevel": 0}
+
     property var userSettings: {"loadImagesOnlyInPostPage": false, "doNotHideNsfw": false, "postFontSize": 18, "commentFontSize": 13,
-        "scrollBarToLeft": false, "lightMode": false, "minimalPostStyle": false, "dmNotifications": true, "commentNotifications": false, "windowWidth": 720, "windowHeight": 1280}
-    property string cacheDir: globalBackend.getCacheDir();
+        "scrollBarToLeft": false, "lightMode": false, "minimalPostStyle": false, "dmNotifications": true, "commentNotifications": false,
+        "windowWidth": 720, "windowHeight": 1280}
+
+    property string cacheDir: globalBackend.getCacheDir()
     property string userToken: ""
     property bool platformIsMobile: Qt.platform.os == "android" || Qt.platform.os == "ios"
     property bool desktopIsFullscreen: (window.visibility === 4 || window.visibility === 5) && !platformIsMobile //4 is Maximized, 5 is FullScreen
@@ -128,6 +131,11 @@ ApplicationWindow {
         {
             mainStackView.push("CommentsPage.qml", {"postId": postId, "notificationId": notificationId})
         }
+
+        function onSendBackImage(path)
+        {
+            focusWindow.androidSendImage(path)
+        }
     }
 
     onClosing:
@@ -171,6 +179,7 @@ ApplicationWindow {
         visible: false
         signal preloadPostCreator(int groupId, string groupName, string text, string imagePath, bool nsfw)
         signal enableGroupPostButton()
+        signal androidSendImage(string path)
 
         Keys.onBackPressed:
         {

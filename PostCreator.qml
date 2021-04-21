@@ -245,6 +245,12 @@ Item {
                 cursorShape: Qt.PointingHandCursor
                 onClicked:
                 {
+                    if (imageToUpload.visible)
+                    {
+                        removeImage()
+                        return
+                    }
+
                     if (Qt.platform.os == "android")
                     {
                         postCreatorBackend.androidRequestStoragePermission()
@@ -253,9 +259,11 @@ Item {
                             globalBackend.makeNotification("", "You must grant storage permission to upload images")
                             return
                         }
-                    }
 
-                    fileDialog.open()
+                        globalBackend.androidOpenFileDialog()
+                    }
+                    else
+                        fileDialog.open()
                 }
             }
 
@@ -370,6 +378,11 @@ Item {
                 setImage("file:/" + imagePath)
 
             postTextArea.forceActiveFocus()
+        }
+
+        function onAndroidSendImage(path)
+        {
+            setImage("file:/" + path)
         }
     }
 

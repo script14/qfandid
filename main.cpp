@@ -62,6 +62,12 @@ static void shareImageToQML(JNIEnv *env, jobject thiz, jstring path)
     emit BackEnd::getQmlInstance()->sendSharedImageToQML(env->GetStringUTFChars(path, nullptr));
 }
 
+static void sendBackImage(JNIEnv *env, jobject thiz, jstring path)
+{
+    Q_UNUSED(thiz);
+    emit BackEnd::getQmlInstance()->sendBackImage(env->GetStringUTFChars(path, nullptr));
+}
+
 //Register special Java callback functions immediately once the app loads because they must be executed if the app is started via external Android intents
 //Also because this is the only way to register natives into a Java class that extends QtActivity
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
@@ -93,7 +99,8 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
             (void *)shareTextToQML // function pointer
         },
         {"javaCheckNotificationsOnResume", "()V", (void *)checkNotificationsOnResume},
-        {"javaShareImageToQML", "(Ljava/lang/String;)V", (void *)shareImageToQML}
+        {"javaShareImageToQML", "(Ljava/lang/String;)V", (void *)shareImageToQML},
+        {"javaSendBackImage", "(Ljava/lang/String;)V", (void *)sendBackImage}
     };
 
     JNINativeMethod BackendMethods[] = {

@@ -219,6 +219,12 @@ Item {
                     cursorShape: Qt.PointingHandCursor
                     onClicked:
                     {
+                        if (imageToUpload.visible)
+                        {
+                            removeImage()
+                            return
+                        }
+
                         if (Qt.platform.os == "android")
                         {
                             commentsPageBackend.androidRequestStoragePermission()
@@ -227,9 +233,11 @@ Item {
                                 globalBackend.makeNotification("", "You must grant storage permission to upload images")
                                 return
                             }
-                        }
 
-                        fileDialog.open()
+                            globalBackend.androidOpenFileDialog()
+                        }
+                        else
+                            fileDialog.open()
                     }
                 }
 
@@ -354,6 +362,14 @@ Item {
             sendButton.color = globalTextColor
             myBusyIndicator.visible = false
             globalBackend.makeNotification("Comment failed", "Failed to submit comment. Maybe you are commenting too quickly")
+        }
+    }
+
+    Connections {
+        target: focusWindow
+        function onAndroidSendImage(path)
+        {
+            setImage("file:/" + path)
         }
     }
 

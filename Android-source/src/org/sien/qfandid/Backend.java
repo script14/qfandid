@@ -288,4 +288,12 @@ public class Backend
         else
             context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
     }
+
+    public static void androidOpenFileDialog(Activity activity)
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), 200);
+    }
 }

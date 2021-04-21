@@ -58,6 +58,11 @@ void BackEnd::cancelActiveNotification(int roomOrCommentId)
         activeNotifications.remove(roomOrCommentId);
     }
 }
+
+void BackEnd::androidOpenFileDialog()
+{
+    QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "androidOpenFileDialog", "(Landroid/app/Activity;)V", QtAndroid::androidActivity().object());
+}
 #endif
 
 QString BackEnd::getUserToken()
