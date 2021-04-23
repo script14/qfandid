@@ -632,15 +632,7 @@ void BackEnd::createComment(QString content, int postId, int parentId, QString u
 
 bool BackEnd::prepareImage(QUrl path)
 {
-    #ifdef Q_OS_ANDROID
-
-    QFile *file = new QFile(QQmlFile::urlToLocalFileOrQrc(path));
-
-    #else
-
     QFile *file = new QFile(path.toLocalFile());
-
-    #endif
 
     file->open(QIODevice::ReadOnly);
     QByteArray image = file->readAll();
@@ -670,6 +662,10 @@ void BackEnd::makeNotification(QString title, QString message)
     QAndroidJniObject javaMessage = QAndroidJniObject::fromString(message);
     QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "makeToastMessage", "(Landroid/content/Context;Ljava/lang/String;)V", QtAndroid::androidContext().object(), javaMessage.object<jstring>());
 
+    #elif defined Q_OS_IOS
+
+    //Make iOS message
+
     #else
 
     QSystemTrayIcon notificationTrayIcon;
@@ -698,6 +694,10 @@ void BackEnd::makeDmNotification(int roomId, int yourId, int postId, QString las
                                               "(Landroid/content/Context;IIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
                                               QtAndroid::androidContext().object(), roomId, yourId, postId, javaLastMsg.object<jstring>(), javaOneVn.object<jstring>(), javaOneColor.object<jstring>(),
                                               javaOneAvatar.object<jstring>(), javaTwoVn.object<jstring>(), javaTwoColor.object<jstring>(), javaTwoAvatar.object<jstring>());
+
+    #elif defined Q_OS_IOS
+
+    //Make iOS dm notification
 
     #else
 
@@ -787,6 +787,10 @@ void BackEnd::saveImage(QString name)
 
         QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "updateStorage", "(Landroid/content/Context;Ljava/lang/String;)V", QtAndroid::androidContext().object(), javaPath.object<jstring>());
 
+        #elif defined Q_OS_IOS
+
+        //make iOS saved image notification
+
         #endif
     }
     else
@@ -806,7 +810,7 @@ void BackEnd::deletePostOrComment(int type, int postId, int commentId, QString u
     connect(manager, &QNetworkAccessManager::finished, this, &BackEnd::postOrCommentRemoved);
     manager->get(request);
 
-    #if defined Q_OS_ANDROID || defined Q_OS_IOS
+    #ifdef PLATFORM_IS_MOBILE
     makeNotification("Deleted", type == 0 ? "Post deleted" : "Comment deleted");
     #endif
 }
@@ -819,6 +823,10 @@ void BackEnd::sharePostOrComment(QString text)
 
     QAndroidJniObject javaText = QAndroidJniObject::fromString(unescapedText);
     QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "sharePostOrComment", "(Landroid/content/Context;Ljava/lang/String;)V", QtAndroid::androidContext().object(), javaText.object<jstring>());
+
+    #elif defined Q_OS_IOS
+
+    //share text on iOS
 
     #else
 
@@ -841,6 +849,10 @@ void BackEnd::openImageExternally(QString path)
 
     QAndroidJniObject javaPath = QAndroidJniObject::fromString(path);
     QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "openImageExternally", "(Landroid/content/Context;Ljava/lang/String;)V", QtAndroid::androidContext().object(), javaPath.object<jstring>());
+
+    #elif defined Q_OS_IOS
+
+    //open image externally on iOS
 
     #else
 
@@ -1034,7 +1046,7 @@ void BackEnd::finishedCheckingCommentsBackground(QNetworkReply *reply)
         {
             comments++;
 
-        #ifdef Q_OS_ANDROID
+            #ifdef Q_OS_ANDROID
 
             QAndroidJniObject javaCommentVn = QAndroidJniObject::fromString(obj["commentVn"].toString());
             QAndroidJniObject javaPostContent = QAndroidJniObject::fromString(obj["postContent"].toString());
@@ -1042,11 +1054,15 @@ void BackEnd::finishedCheckingCommentsBackground(QNetworkReply *reply)
                 "(Landroid/content/Context;IILjava/lang/String;ZLjava/lang/String;)V", QtAndroid::androidContext().object(),
                 obj["postId"].toInt(), obj["id"].toInt(), javaCommentVn.object<jstring>(), obj["own"].toBool(), javaPostContent.object<jstring>());
 
-        #else
+            #elif defined Q_OS_IOS
+
+            //make iOS new comment notification
+
+            #else
 
             makeNotification(obj["commentVn"].toString() + " commented on " + (obj["own"].toBool() ? "your post" : "the post"), obj["postContent"].toString());
 
-        #endif
+            #endif
 
         }
     }
@@ -1172,7 +1188,7 @@ void BackEnd::modAction(QString action, int type, int id, QString userToken)
     connect(manager, &QNetworkAccessManager::finished, this, &BackEnd::postOrCommentRemoved);
     manager->get(request);
 
-    #if defined Q_OS_ANDROID || defined Q_OS_IOS
+    #ifdef PLATFORM_IS_MOBILE
     makeNotification("Removed", (type == 0 ? "Post " : "Comment ") + action);
     #endif
 }
@@ -1232,7 +1248,7 @@ void BackEnd::restartProgram()
 {
     qApp->quit();
 
-    #if defined Q_OS_WINDOWS || defined Q_OS_MACOS || defined Q_OS_LINUX
+    #ifdef PLATFORM_IS_DESKTOP
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
     #endif
 }
@@ -1258,7 +1274,7 @@ void BackEnd::receivedUpdateCheck(QNetworkReply *reply)
 
     #ifdef Q_OS_WINDOWS
     QString message = "Update from settings";
-    #elif defined Q_OS_LINUX
+    #elif defined Q_OS_LINUX && !defined Q_OS_ANDROID
     QString message = "Update from your package manager or rebuild from source";
     #else
     QString message = "Get it from https://fandid.app";
@@ -1276,6 +1292,10 @@ void BackEnd::makeMessageNotification(QString title, QString message)
     QAndroidJniObject javaMessage = QAndroidJniObject::fromString(message);
     QAndroidJniObject::callStaticMethod<void>("org/sien/qfandid/Backend", "makeMessageNotification", "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V",
                                               QtAndroid::androidContext().object(), javaTitle.object<jstring>(), javaMessage.object<jstring>());
+
+    #elif defined Q_OS_IOS
+
+    //make iOS message notification, usually for updates
 
     #else
 
@@ -1342,7 +1362,7 @@ void BackEnd::copyTextToClipboard(QString text)
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(unescapeText(text));
 
-    #if defined Q_OS_ANDROID || defined Q_OS_IOS
+    #ifdef PLATFORM_IS_MOBILE
     makeNotification("", "Copied to clipboard");
     #endif
 }
@@ -1363,7 +1383,7 @@ void BackEnd::launchMaintenanceTool()
 }
 #endif
 
-#if defined Q_OS_WINDOWS || defined Q_OS_MACOS || defined Q_OS_LINUX
+#ifdef PLATFORM_IS_DESKTOP
 void BackEnd::saveWindowProperties(int windowWidth, int windowHeight)
 {
     QSettings settings(QSettings::IniFormat, QSettings::UserScope, "qFandid", "qFandid");

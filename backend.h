@@ -22,6 +22,13 @@
 #include <QString>
 #include <qqml.h>
 
+//Custom definitions
+#if (defined Q_OS_WINDOWS || defined Q_OS_MACOS || defined Q_OS_LINUX) && !defined Q_OS_ANDROID
+#define PLATFORM_IS_DESKTOP
+#elif defined Q_OS_ANDROID || defined Q_OS_IOS
+#define PLATFORM_IS_MOBILE
+#endif
+
 //For debug messages
 #include<QDebug>
 
@@ -109,6 +116,9 @@
 //For registration through a web view
 #include <QtWebView>
 
+//For exposing C++ data to QML
+#include <QQmlContext>
+
 class BackEnd : public QObject
 {
     Q_OBJECT
@@ -136,10 +146,6 @@ public:
     Q_INVOKABLE void androidOpenFileDialog();
 
     QMultiMap<int, int>activeNotifications;
-
-    #elif defined Q_OS_WINDOWS
-
-    Q_INVOKABLE void launchMaintenanceTool();
 
     #endif
 
@@ -190,7 +196,11 @@ public:
     Q_INVOKABLE QString registerAccount(QString username, QString password, QString token, bool rememberMe);
     Q_INVOKABLE void copyTextToClipboard(QString text);
 
-    #if defined Q_OS_WINDOWS || defined Q_OS_MACOS || defined Q_OS_LINUX
+    #ifdef Q_OS_WINDOWS
+    Q_INVOKABLE void launchMaintenanceTool();
+    #endif
+
+    #ifdef PLATFORM_IS_DESKTOP
     Q_INVOKABLE void saveWindowProperties(int windowWidth, int windowHeight);
     #endif
 
@@ -356,7 +366,7 @@ private:
 
     //Locations
     const QString cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/";
-    #ifdef Q_OS_ANDROID
+    #ifdef PLATFORM_IS_MOBILE
     const QString downloadDir = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) + "/Fandid/";
     #else
     const QString downloadDir = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation) + "/";

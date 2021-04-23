@@ -147,9 +147,13 @@ int main(int argc, char *argv[])
 
     BackEnd::registerRequestTypeInQML();
 
-    #if !defined Q_OS_ANDROID && !defined Q_OS_IOS
+    #ifndef PLATFORM_IS_MOBILE
     app.setFont(QApplication::font());
     #endif
+
+    bool nsfwSwitchVisible = true;
+    QQmlContext* context = engine.rootContext();
+    context->setContextProperty("nsfwSwitchVisible", nsfwSwitchVisible);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
