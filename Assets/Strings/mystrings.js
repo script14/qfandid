@@ -1,4 +1,4 @@
-var appVersion = `0.8.2 open beta`
+var appVersion = `0.8.3 open beta`
 
 var aboutQt = `### About Qt\n
 This program uses Qt version 5.15.2.\n
