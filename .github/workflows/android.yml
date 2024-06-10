@@ -21,6 +21,6 @@ jobs:
         cache: gradle
 
     - name: Grant execute permission for gradlew
-      run: chmod +x qfandid/Android-source/gradlew
+      run: chmod +x Android-source/gradlew
     - name: Build with Gradle
-      run: ./qfandid/Android-source/gradlew build
+      run: ./Android-source/gradlew build
